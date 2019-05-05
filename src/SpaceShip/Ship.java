@@ -1,5 +1,7 @@
 package SpaceShip;
 
+import crew.*;
+
 public class Ship {
 	// Variables
 	private String name;
@@ -29,7 +31,7 @@ public class Ship {
 	// Action/s
 	public void repairShip(CrewMember person) {
 		int repairAmount = 10;
-		if (person.specialization == "Engineer") {
+		if (person.getSpecialization() == "Engineer") {
 			repairAmount *= 1.2;
 		}
 		this.health += repairAmount;
@@ -45,7 +47,7 @@ public class Ship {
 	}
 	
 	public void AsteroidField(CrewMember person, int damageAmount) {
-		if (person.specialization == "Pilot") {
+		if (person.getSpecialization() == "Pilot") {
 			damageAmount *= 0.8;
 		}
 		
