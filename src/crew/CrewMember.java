@@ -14,6 +14,7 @@ public class CrewMember {
 	private double tirednessDegradation = 1;
 	private boolean isAsleep = false;
 	private boolean isDiseased = false;
+	private int actionsPerformed = 0;
 	
 	
 	/* Constructor method for the CrewMember class */
@@ -122,6 +123,8 @@ public class CrewMember {
 			this.hunger = 0;
 		}
 		
+		actionsPerformed += 1;
+		
 	}
 	
 	public void useItem(MedicalItem name) {
@@ -134,6 +137,8 @@ public class CrewMember {
 		if (this.health > 100) {
 			this.health = 100;
 		}
+		
+		actionsPerformed += 1;
 	}
 	
 	public void sleep() {
