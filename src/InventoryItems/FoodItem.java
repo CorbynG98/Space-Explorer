@@ -11,7 +11,7 @@ public class FoodItem extends Item {
 		super(name, cost);
 		this.hungerValue = hungerValue;
 	}
-	
+
 	public FoodItem(String name, int hungerValue, int cost, int bonusStat) {
 		super(name, cost);
 		this.hungerValue = hungerValue;
