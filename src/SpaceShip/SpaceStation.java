@@ -1,4 +1,6 @@
 package SpaceShip;
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -9,15 +11,54 @@ import InventoryItems.*;
 
 public class SpaceStation extends JFrame implements ActionListener {
 	private ArrayList<Item> inventory = new ArrayList<Item>();
+	private int playersFunds;
 	
-	public SpaceStation() {
-		JFrame frame = new JFrame("Vendor!");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    frame.setSize(300,300);
-	    JButton button = new JButton("Press");
-	    frame.getContentPane().add(button); // Adds Button to content pane of frame
-	    button.addActionListener(this);
-	    frame.setVisible(true);
+	public SpaceStation(int funds) {
+		this.playersFunds = funds;
+		
+		// Intialize the shop frame
+		JFrame shopFrame = new JFrame("Vendor");
+		shopFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		shopFrame.setSize(750, 750);
+		shopFrame.setVisible(true);
+		
+		// Create the panel for the items that will go on the screen
+		JPanel panel = new JPanel();
+		panel.setVisible(true);
+		
+		// Vendor label
+		JLabel vendor = new JLabel("Welcome to the shop!");
+		
+		// Buy button
+		// JButton button = new JButton("Purchase");
+		// button.setSize(300, 300);
+		// button.addActionListener(this);
+		
+		// Available funds label
+		JLabel availMoney = new JLabel(Integer.toString(this.playersFunds));
+		
+		
+		createItemButtons(new Fries(), 100, 100, panel);
+		
+		shopFrame.add(panel);
+	}
+	
+	public void createItemButtons(Item item, int x, int y, JPanel panel) {
+		JPanel itemPanel = new JPanel();
+		itemPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		itemPanel.setSize((panel.getWidth() / 3) - 10, (panel.getHeight() / 3) - 10);
+		itemPanel.setBounds(x, y, (panel.getWidth() / 1) - 10, (panel.getHeight() / 1) - 10);
+		itemPanel.setVisible(true);
+		
+		JButton button = new JButton("Buy");
+		
+		itemPanel.add(button);
+		
+		panel.add(itemPanel);		
+	}
+	
+	public void updateTotal() {
+		
 	}
 
 	public ArrayList<Item> getInventory() {
@@ -26,10 +67,10 @@ public class SpaceStation extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		System.out.println(e.getActionCommand());
 	}
 	
 	public static void main(String[] args) {
-		SpaceStation test = new SpaceStation();
+		SpaceStation test = new SpaceStation(200);
 	}
 }
