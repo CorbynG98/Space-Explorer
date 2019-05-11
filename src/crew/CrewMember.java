@@ -1,5 +1,6 @@
 package crew;
-import InventoryItems.*;
+
+import items.*;
 
 public class CrewMember {
 	
@@ -33,8 +34,6 @@ public class CrewMember {
 	
 	/* Getter methods for the CrewMember variables */
 	
-
-
 
 	public String getName() {
 		return name;
@@ -78,6 +77,18 @@ public class CrewMember {
 	
 	public boolean checkDiseaseStatus() {
 		return isDiseased;
+	}
+
+	
+	public double[] getCrewMemberStatus() {
+		double statusArray[];
+		statusArray = new double[3];
+		
+		statusArray[0] = health;
+		statusArray[1] = hunger;
+		statusArray[2] = tiredness;
+		
+		return statusArray;
 	}
 	
 
