@@ -1,4 +1,4 @@
-package InventoryItems;
+package items;
 
 public class Item {
 	// Variables

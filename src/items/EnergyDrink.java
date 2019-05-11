@@ -1,4 +1,4 @@
-package InventoryItems;
+package items;
 
 public class EnergyDrink extends FoodItem {
 	public EnergyDrink() {

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import crew.*;
 import spaceship.*;
 
-public class CrewActions {
+public class CrewActions extends GameEnvironment {
+	
+	/* TODO Constructor */
 	
 	
 	
@@ -15,7 +17,7 @@ public class CrewActions {
 		statusArray = name.getCrewMemberStatus();
 		
 		/* TODO
-		 *  - Display with GUI
+		 * - Display with GUI
 		 */
 	}
 	
@@ -33,22 +35,23 @@ public class CrewActions {
 		crewName.getMedicalInventory();
 		
 		/* TODO
-		 *  - Display with GUI
+		 * - Display with GUI
 		 */
 	}
 	
 	public void repairShip(CrewMember name) {
-		shipName.repairShip(name);
+		currentName.repairShip(name);
 		
 	}
 	
-	public
+	public void searchPlanet(CrewMember name) { 
+		
+		/* TODO
+		 *  - Select random item */
+	}
+	
+	
 	/* TODO
-	 *  - View status of crew member
-	 *  - View status of ship
-	 *  - Use item
-	 *  - Repair ship
-	 *  - Visit space station
 	 *  - Visit and search planet
 	 */
 }

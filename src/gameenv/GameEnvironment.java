@@ -2,12 +2,17 @@ package gameenv;
 
 import crew.*;
 import spaceship.*;
+import planet.*;
 
 public class GameEnvironment {
 	
 	private int daysCompleted = 0;
 	private Crew currentCrew;
 	private Ship currentShip;
+	private Planet currentPlanet;
+	
+	
+	private boolean transporterPartFound = false;
 	
 	public GameEnvironment() {
 		currentCrew = new Crew();
@@ -22,7 +27,7 @@ public class GameEnvironment {
 		/* Reset actions for crew */
 		/* Chance of random events */
 		/* New planet */
-		/* New Space Station */
+		/* New Space Station/refresh shop */
 		
 	}
 	
