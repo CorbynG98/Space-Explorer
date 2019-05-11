@@ -2,7 +2,7 @@ package crew;
 
 import java.util.ArrayList;
 
-import InventoryItems.*;
+import items.*;
 
 
 public class Crew {
@@ -81,5 +81,6 @@ public class Crew {
 	public void removeMoney(int amount) {
 		money -= amount;
 	}
+	
 
 }

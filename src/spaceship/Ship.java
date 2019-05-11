@@ -1,8 +1,11 @@
-package SpaceShip;
+package spaceship;
 
+import java.util.ArrayList;
 import crew.*;
 
+
 public class Ship {
+	
 	// Variables
 	private String name;
 	private int health = 100;
@@ -27,6 +30,7 @@ public class Ship {
 	public int getHealth() {
 		return health;
 	}
+	
 	
 	// Action/s
 	public void repairShip(CrewMember person) {

@@ -1,11 +1,13 @@
-package SpaceShip;
+package spaceship;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
-import InventoryItems.*;
+import crew.*;
+import items.*;
 
 public class SpaceStation extends JFrame implements ActionListener {
 	private ArrayList<Item> inventory = new ArrayList<Item>();
