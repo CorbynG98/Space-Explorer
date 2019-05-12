@@ -15,8 +15,7 @@ public class GameEnvironment {
 	private boolean transporterPartFound = false;
 	
 	public GameEnvironment() {
-		currentCrew = new Crew();
-		currentShip = new Ship();
+		currentShip = new Enterprise();
 		
 	}
 	

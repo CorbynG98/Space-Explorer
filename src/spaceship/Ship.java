@@ -4,19 +4,22 @@ import java.util.ArrayList;
 import crew.*;
 
 
-public class Ship {
+public class Ship extends Crew {
 	
 	// Variables
 	private String name;
 	private int health = 100;
 	private int maxHealth = 100;
+	private Crew crew;
 	
 	// Constructor/s
 	public Ship(String name) {
-			this.name = name;
+		super();
+		this.name = name;
 	}
 	
 	public Ship(String name, int health) {
+		super();
 		this.name = name;
 		this.health = health;
 		this.maxHealth = health;
@@ -60,5 +63,9 @@ public class Ship {
 		if (health <= 0) {
 			// Game over do game over stuff here
 		}
+	}
+	
+	public Crew getCrew() {
+		return this.crew;
 	}
 }

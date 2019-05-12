@@ -7,17 +7,15 @@ import items.*;
 
 public class Crew {
 	
-	private String name;
 	private ArrayList<CrewMember> crewList;
 	private ArrayList<MedicalItem> medicalInventory;
 	private ArrayList<FoodItem> foodInventory;
-	private int money = 100;
+	private int money = 400;
 	
 	
 	/* Constructor for the Crew class */
 	
-	public Crew(String name) {
-		this.name = name;
+	public Crew() {
 		this.crewList = new ArrayList<CrewMember>();
 		this.medicalInventory = new ArrayList<MedicalItem>();
 		this.foodInventory = new ArrayList<FoodItem>();

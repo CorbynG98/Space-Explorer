@@ -1,78 +1,33 @@
 package spaceship;
 
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.swing.*;
 
 import crew.*;
 import items.*;
+import views.*;
 
-public class SpaceStation extends JFrame implements ActionListener {
-	private ArrayList<Item> inventory = new ArrayList<Item>();
-	private int playersFunds;
+@SuppressWarnings("unused")
+public class SpaceStation {
+	private ArrayList<Item> shopItems = new ArrayList<Item>();
 	
-	public SpaceStation(int funds) {
-		this.playersFunds = funds;
+	public SpaceStation(Ship spaceShip) {	
+		// Testing
+		this.shopItems.add(new FroCo());
+		this.shopItems.add(new Fries());
+		this.shopItems.add(new ApplePie());
+		this.shopItems.add(new MedKit());
+		this.shopItems.add(new Milo());
+		this.shopItems.add(new FirstAidKit());
 		
-		// Intialize the shop frame
-		JFrame shopFrame = new JFrame("Vendor");
-		shopFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		shopFrame.setSize(750, 750);
-		shopFrame.setVisible(true);
-		
-		// Create the panel for the items that will go on the screen
-		JPanel panel = new JPanel();
-		panel.setVisible(true);
-		
-		// Vendor label
-		JLabel vendor = new JLabel("Welcome to the shop!");
-		
-		// Buy button
-		// JButton button = new JButton("Purchase");
-		// button.setSize(300, 300);
-		// button.addActionListener(this);
-		
-		// Available funds label
-		JLabel availMoney = new JLabel(Integer.toString(this.playersFunds));
-		
-		
-		createItemButtons(new Fries(), 100, 100, panel);
-		
-		shopFrame.add(panel);
-	}
-	
-	public void createItemButtons(Item item, int x, int y, JPanel panel) {
-		JPanel itemPanel = new JPanel();
-		itemPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		itemPanel.setSize((panel.getWidth() / 3) - 10, (panel.getHeight() / 3) - 10);
-		itemPanel.setBounds(x, y, (panel.getWidth() / 1) - 10, (panel.getHeight() / 1) - 10);
-		itemPanel.setVisible(true);
-		
-		JButton button = new JButton("Buy");
-		
-		itemPanel.add(button);
-		
-		panel.add(itemPanel);		
-	}
-	
-	public void updateTotal() {
-		
-	}
-
-	public ArrayList<Item> getInventory() {
-		return inventory;
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		System.out.println(e.getActionCommand());
+		SpaceStationView stationView = new SpaceStationView(spaceShip, shopItems);
 	}
 	
 	public static void main(String[] args) {
-		SpaceStation test = new SpaceStation(200);
+		Ship testShip = new Enterprise();
+		testShip.addCrewMember(new Medic("Claire"));
+		testShip.addCrewMember(new Engineer("John"));
+		testShip.addCrewMember(new Pilot("Gordon"));
+		testShip.addCrewMember(new Soldier("Alara"));
+		SpaceStation station = new SpaceStation(testShip);
 	}
 }

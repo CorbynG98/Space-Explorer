@@ -1,38 +1,35 @@
 package views;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
+
+import spaceship.Ship;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+
 import items.*;
 
 public class SpaceStationView {
 
 	private JFrame frame;
-	private JLabel lblInfoName, lblInfoPrice;
+	private JLabel lblInfoName, lblInfoPrice, lblErrorMessage, lblMoney;
 	private ArrayList<Item> itemList;
+	private Item selectedItem = null;
+	private Ship ship;
+	private int playerFunds;
 	
-	public SpaceStationView(ArrayList<Item> itemList) {
+	public SpaceStationView(Ship ship, ArrayList<Item> itemList) {
 		this.itemList = itemList;
-		initialize();
-	}
-	
-	public SpaceStationView() {
-		this.itemList = new ArrayList<Item>();
-		this.itemList.add(new FroCo());
-		this.itemList.add(new Fries());
-		this.itemList.add(new ApplePie());
-		this.itemList.add(new MedKit());
-		this.itemList.add(new Milo());
-		this.itemList.add(new FirstAidKit());
+		this.ship = ship;
+		this.playerFunds = ship.getMoney();
 		initialize();
 	}
 
@@ -60,8 +57,12 @@ public class SpaceStationView {
 		JButton btnItem1 = new JButton(this.itemList.get(0).getName());
 		btnItem1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Item item = itemList.get(0);
-				updateInformation(item.getName(), item.getCost());
+				lblErrorMessage.setText("");
+				selectedItem = itemList.get(0);
+				if(playerFunds < selectedItem.getCost()) {
+					lblErrorMessage.setText("NOT ENOUGH FUNDS");
+				}
+				updateInformation(selectedItem.getName(), selectedItem.getCost());
 			}
 		});
 		btnItem1.setBounds(12, 70, 149, 66);
@@ -70,8 +71,12 @@ public class SpaceStationView {
 		JButton btnItem2 = new JButton(this.itemList.get(1).getName());
 		btnItem2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Item item = itemList.get(1);
-				updateInformation(item.getName(), item.getCost());
+				lblErrorMessage.setText("");
+				selectedItem = itemList.get(1);
+				if(playerFunds < selectedItem.getCost()) {
+					lblErrorMessage.setText("NOT ENOUGH FUNDS");
+				}
+				updateInformation(selectedItem.getName(), selectedItem.getCost());
 			}
 		});
 		btnItem2.setBounds(173, 70, 149, 66);
@@ -80,8 +85,12 @@ public class SpaceStationView {
 		JButton btnItem3 = new JButton(this.itemList.get(2).getName());
 		btnItem3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Item item = itemList.get(2);
-				updateInformation(item.getName(), item.getCost());
+				lblErrorMessage.setText("");
+				selectedItem = itemList.get(2);
+				if(playerFunds < selectedItem.getCost()) {
+					lblErrorMessage.setText("NOT ENOUGH FUNDS");
+				}
+				updateInformation(selectedItem.getName(), selectedItem.getCost());
 			}
 		});
 		btnItem3.setBounds(12, 148, 149, 66);
@@ -90,8 +99,12 @@ public class SpaceStationView {
 		JButton btnItem4 = new JButton(this.itemList.get(3).getName());
 		btnItem4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Item item = itemList.get(3);
-				updateInformation(item.getName(), item.getCost());
+				lblErrorMessage.setText("");
+				selectedItem = itemList.get(3);
+				if(playerFunds < selectedItem.getCost()) {
+					lblErrorMessage.setText("NOT ENOUGH FUNDS");
+				}
+				updateInformation(selectedItem.getName(), selectedItem.getCost());
 			}
 		});
 		btnItem4.setBounds(173, 148, 149, 66);
@@ -100,8 +113,12 @@ public class SpaceStationView {
 		JButton btnItem5 = new JButton(this.itemList.get(4).getName());
 		btnItem5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Item item = itemList.get(4);
-				updateInformation(item.getName(), item.getCost());
+				lblErrorMessage.setText("");
+				selectedItem = itemList.get(4);
+				if(playerFunds < selectedItem.getCost()) {
+					lblErrorMessage.setText("NOT ENOUGH FUNDS");
+				}
+				updateInformation(selectedItem.getName(), selectedItem.getCost());
 			}
 		});
 		btnItem5.setBounds(12, 226, 149, 66);
@@ -110,8 +127,12 @@ public class SpaceStationView {
 		JButton btnItem6 = new JButton(this.itemList.get(5).getName());
 		btnItem6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Item item = itemList.get(5);
-				updateInformation(item.getName(), item.getCost());
+				lblErrorMessage.setText("");
+				selectedItem = itemList.get(5);
+				if(playerFunds < selectedItem.getCost()) {
+					lblErrorMessage.setText("NOT ENOUGH FUNDS");
+				}
+				updateInformation(selectedItem.getName(), selectedItem.getCost());
 			}
 		});
 		btnItem6.setBounds(173, 226, 149, 66);
@@ -147,22 +168,68 @@ public class SpaceStationView {
 		lblPrice.setBounds(10, 86, 56, 28);
 		panel_1.add(lblPrice);
 		
-		JButton btnNewButton = new JButton("Purchase");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnBuy = new JButton("Purchase");
+		btnBuy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				// Code to attempt to purchase the item
+				if (selectedItem == null) {
+					lblErrorMessage.setText("Please select an item");
+					return;
+				}
+				if(playerFunds < selectedItem.getCost()) {
+					lblErrorMessage.setText("NOT ENOUGH FUNDS");
+					return;
+				}
+				if (selectedItem instanceof FoodItem) {
+					ship.addFoodItem((FoodItem)selectedItem);
+				}
+				if (selectedItem instanceof MedicalItem) {
+					lblErrorMessage.setText("Medical Item");
+					ship.addMedicalItem((MedicalItem)selectedItem);
+				}
+				
+				ship.removeMoney(selectedItem.getCost());
+				playerFunds = ship.getMoney();
+				
+				lblMoney.setText(Integer.toString(playerFunds));
 			}
 		});
-		btnNewButton.setBounds(538, 337, 176, 59);
-		panel.add(btnNewButton);
+		btnBuy.setBounds(538, 337, 176, 59);
+		panel.add(btnBuy);
 		
 		JButton btnLeaveShop = new JButton("Leave Shop");
+		btnLeaveShop.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Code to return the player to day map.
+			}
+		});
 		btnLeaveShop.setBounds(12, 337, 176, 59);
 		panel.add(btnLeaveShop);
+		
+		JLabel lblRemainingMoney = new JLabel("Remaining Money:");
+		lblRemainingMoney.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblRemainingMoney.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblRemainingMoney.setBounds(206, 337, 185, 27);
+		panel.add(lblRemainingMoney);
+		
+		lblMoney = new JLabel(Integer.toString(this.playerFunds));
+		lblMoney.setHorizontalAlignment(SwingConstants.LEFT);
+		lblMoney.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblMoney.setBounds(403, 337, 135, 27);
+		panel.add(lblMoney);
+		
+		lblErrorMessage = new JLabel("");
+		lblErrorMessage.setForeground(Color.RED);
+		lblErrorMessage.setHorizontalAlignment(SwingConstants.CENTER);
+		lblErrorMessage.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblErrorMessage.setBounds(206, 369, 314, 27);
+		panel.add(lblErrorMessage);
+		
+		frame.setVisible(true);
 	}
 	
 	public void updateInformation(String name, int price) {
 		lblInfoName.setText(name);
 		lblInfoPrice.setText(Integer.toString(price));
 	}
-
 }
