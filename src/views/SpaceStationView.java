@@ -224,8 +224,6 @@ public class SpaceStationView {
 		lblErrorMessage.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblErrorMessage.setBounds(206, 369, 314, 27);
 		panel.add(lblErrorMessage);
-		
-		frame.setVisible(true);
 	}
 	
 	public void updateInformation(String name, int price) {

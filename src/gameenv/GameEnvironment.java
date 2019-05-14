@@ -1,7 +1,11 @@
 package gameenv;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 import crew.*;
 import spaceship.*;
+import views.MainMenuView;
 import planet.*;
 
 public class GameEnvironment {
@@ -15,8 +19,21 @@ public class GameEnvironment {
 	private boolean transporterPartFound = false;
 	
 	public GameEnvironment() {
+		// Initialize ship
 		currentShip = new Enterprise();
 		
+		// Call main menu view to kick off program
+		mainMenu();
+	}
+	
+	public void mainMenu() {
+		MainMenuView mainView = new MainMenuView(currentShip);
+		
+		mainView.getStartButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				mainView.getFrame().dispose();
+			}
+		});
 	}
 	
 	public void goToNextDay() {
@@ -28,6 +45,10 @@ public class GameEnvironment {
 		/* New planet */
 		/* New Space Station/refresh shop */
 		
+	}
+	
+	public static void main(String[] args) {
+		GameEnvironment game = new GameEnvironment();
 	}
 	
 	

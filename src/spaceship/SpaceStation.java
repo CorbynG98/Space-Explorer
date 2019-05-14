@@ -2,6 +2,8 @@ package spaceship;
 
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 import crew.*;
 import items.*;
 import views.*;
