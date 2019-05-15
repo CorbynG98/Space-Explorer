@@ -25,6 +25,11 @@ public class Ship {
 		this.maxHealth = health;
 	}
 	
+	// Setter/s
+	public void setName(String newName) {
+		this.name = newName;
+	}
+	
 	// Getter/s
 	public String getName() {
 		return name;
@@ -32,6 +37,10 @@ public class Ship {
 	
 	public int getHealth() {
 		return health;
+	}
+	
+	public Crew getCrew() {
+		return this.crew;
 	}
 	
 	
@@ -63,9 +72,5 @@ public class Ship {
 		if (health <= 0) {
 			// Game over do game over stuff here
 		}
-	}
-	
-	public Crew getCrew() {
-		return this.crew;
 	}
 }

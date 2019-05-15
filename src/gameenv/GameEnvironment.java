@@ -14,6 +14,7 @@ import planet.*;
 public class GameEnvironment {
 	
 	private int daysCompleted = 0;
+	private int numDays;
 	private Crew currentCrew;
 	private Ship currentShip;
 	private Planet currentPlanet;
@@ -39,13 +40,36 @@ public class GameEnvironment {
 		mainView.getStartButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.getFrame().dispose();
-				visitShop();
+				setupScreen();
 			}
 		});
 	}
 	
 	public void setupScreen() {
-		SetupView setupGame = new SetupView();
+		InitialSetupView initialSetup = new InitialSetupView();
+		
+		initialSetup.getConfirm().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (initialSetup.getShipName().getText().length() < 3) {
+					initialSetup.getError().setText("Please enter a valid name!");
+					return;
+				}
+				currentShip.setName(initialSetup.getShipName().getText());
+				numDays = Integer.parseInt((String)initialSetup.getDays().getSelectedItem());
+				initialSetup.getFrame().dispose();
+				SetupView setupGame = new SetupView(currentShip);
+				setupGame.getStartGame().addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						if (currentShip.getCrew().getCrewList().size() < 2) {
+							setupGame.getError().setText("You need more than 2 crew member");
+							return;
+						}
+						setupGame.getFrame().dispose();
+						newDay();
+					}
+				});
+			}
+		});
 	}
 	
 	public void visitShop() {
@@ -89,6 +113,10 @@ public class GameEnvironment {
 				stationView.getFrame().dispose();
 			}
 		});
+	}
+	
+	public void newDay() {
+		DayView day = new DayView();
 	}
 	
 	public void goToNextDay() {

@@ -7,22 +7,28 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
+
+import crew.*;
+import spaceship.*;
+
 import java.awt.Color;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JList;
+import javax.swing.JTextPane;
 
 public class SetupView {
 
 	private JFrame frame;
-	private JTextField txtCrewMemberName;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField SoldierName, EngineerName, MedicName,  MerchantName, PilotName, ScientistName;
+	private JButton btnEnterTheVerse;
+	private JTextPane lblError;
+	private Ship currentShip;
 
 	/**
 	 * Launch the application.
@@ -31,7 +37,7 @@ public class SetupView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SetupView window = new SetupView();
+					SetupView window = new SetupView(new Enterprise());
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,146 +49,278 @@ public class SetupView {
 	/**
 	 * Create the application.
 	 */
-	public SetupView() {
+	public SetupView(Ship currentShip) {
+		this.currentShip = currentShip;
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("unchecked")
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 765, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setVisible(true);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(12, 12, 745, 750);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
+		DefaultListModel CrewListModel = new DefaultListModel();
+		
+		JPanel mainPanel = new JPanel();
+		mainPanel.setBounds(12, 12, 745, 750);
+		frame.getContentPane().add(mainPanel);
+		mainPanel.setLayout(null);
+		
+		lblError = new JTextPane();
+		lblError.setForeground(Color.RED);
+		lblError.setBackground(new Color(255, 255, 255, 0));
+		lblError.setBounds(496, 127, 220, 87);
+		mainPanel.add(lblError);
+		
+		JPanel panelCrew = new JPanel();
+		panelCrew.setBounds(12, 23, 230, 191);
+		mainPanel.add(panelCrew);
+		panelCrew.setLayout(null);
+		
+		JList crewList = new JList(CrewListModel);
+		crewList.setBounds(2, 12, 218, 167);
+		panelCrew.add(crewList);
+		
+		JPanel panelStats = new JPanel();
+		panelStats.setBounds(254, 23, 230, 191);
+		mainPanel.add(panelStats);
+		panelStats.setLayout(null);
 		
 		JLabel label = new JLabel("Create your crew");
 		label.setFont(new Font("Dialog", Font.BOLD, 16));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setBounds(0, 0, 743, 23);
-		panel.add(label);
+		mainPanel.add(label);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(12, 226, 230, 251);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
+		JPanel SoldierPanel = new JPanel();
+		SoldierPanel.setBounds(12, 226, 230, 251);
+		mainPanel.add(SoldierPanel);
+		SoldierPanel.setLayout(null);
 		
-		txtCrewMemberName = new JTextField();
-		txtCrewMemberName.setText("Name");
-		txtCrewMemberName.setBounds(0, 10, 220, 26);
-		panel_1.add(txtCrewMemberName);
-		txtCrewMemberName.setColumns(10);
+		SoldierName = new JTextField();
+		SoldierName.setText("Name");
+		SoldierName.setBounds(0, 10, 220, 26);
+		SoldierPanel.add(SoldierName);
+		SoldierName.setColumns(10);
 		
-		JButton btnAddToCrew = new JButton("Add To Crew");
-		btnAddToCrew.addActionListener(new ActionListener() {
+		JButton btnAddSoldierToCrew = new JButton("Add To Crew");
+		btnAddSoldierToCrew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if (limitReached()) {
+					lblError.setText("You have reached the crew limit!");
+					return;
+				}
+				if (SoldierName.getText() == "") {
+					lblError.setText("Please enter a name!");
+					return;
+				}
+				Soldier newCrewMember = new Soldier(SoldierName.getText());
+				currentShip.getCrew().addCrewMember(newCrewMember);
+				CrewListModel.add(currentShip.getCrew().getCrewList().size() - 1, newCrewMember.getName() + " | " + newCrewMember.getSpecialization());
 			}
 		});
-		btnAddToCrew.setBounds(0, 220, 220, 25);
-		panel_1.add(btnAddToCrew);
+		btnAddSoldierToCrew.setBounds(0, 220, 220, 25);
+		SoldierPanel.add(btnAddSoldierToCrew);
 		
-		JButton btnStats = new JButton("Stats");
-		btnStats.setBounds(0, 189, 220, 25);
-		panel_1.add(btnStats);
+		JButton btnSoldierStats = new JButton("Soldier Stats");
+		btnSoldierStats.setBounds(0, 189, 220, 25);
+		SoldierPanel.add(btnSoldierStats);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setLayout(null);
-		panel_2.setBounds(254, 226, 230, 251);
-		panel.add(panel_2);
+		JPanel EngineerPanel = new JPanel();
+		EngineerPanel.setLayout(null);
+		EngineerPanel.setBounds(254, 226, 230, 251);
+		mainPanel.add(EngineerPanel);
 		
-		textField = new JTextField();
-		textField.setText("Name");
-		textField.setColumns(10);
-		textField.setBounds(0, 10, 220, 26);
-		panel_2.add(textField);
+		EngineerName = new JTextField();
+		EngineerName.setText("Name");
+		EngineerName.setColumns(10);
+		EngineerName.setBounds(0, 10, 220, 26);
+		EngineerPanel.add(EngineerName);
 		
-		JButton button = new JButton("Add To Crew");
-		button.setBounds(0, 220, 220, 25);
-		panel_2.add(button);
+		JButton btnAddEngineerToCrew = new JButton("Add To Crew");
+		btnAddEngineerToCrew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (limitReached()) {
+					lblError.setText("You have reached the crew limit!");
+					return;
+				}
+				if (EngineerName.getText() == "") {
+					lblError.setText("Please enter a name!");
+					return;
+				}
+				Engineer newCrewMember = new Engineer(EngineerName.getText());
+				currentShip.getCrew().addCrewMember(newCrewMember);
+				CrewListModel.add(currentShip.getCrew().getCrewList().size() - 1, newCrewMember.getName() + " | " + newCrewMember.getSpecialization());
+			}
+		});
+		btnAddEngineerToCrew.setBounds(0, 220, 220, 25);
+		EngineerPanel.add(btnAddEngineerToCrew);
 		
-		JButton button_1 = new JButton("Stats");
-		button_1.setBounds(0, 189, 220, 25);
-		panel_2.add(button_1);
+		JButton btnEngineerStats = new JButton("Engineer Stats");
+		btnEngineerStats.setBounds(0, 189, 220, 25);
+		EngineerPanel.add(btnEngineerStats);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setLayout(null);
-		panel_3.setBounds(496, 226, 230, 251);
-		panel.add(panel_3);
+		JPanel MedicPanel = new JPanel();
+		MedicPanel.setLayout(null);
+		MedicPanel.setBounds(496, 226, 230, 251);
+		mainPanel.add(MedicPanel);
 		
-		textField_1 = new JTextField();
-		textField_1.setText("Name");
-		textField_1.setColumns(10);
-		textField_1.setBounds(0, 10, 220, 26);
-		panel_3.add(textField_1);
+		MedicName = new JTextField();
+		MedicName.setText("Name");
+		MedicName.setColumns(10);
+		MedicName.setBounds(0, 10, 220, 26);
+		MedicPanel.add(MedicName);
 		
-		JButton button_2 = new JButton("Add To Crew");
-		button_2.setBounds(0, 220, 220, 25);
-		panel_3.add(button_2);
+		JButton btnAddMedicToCrew = new JButton("Add To Crew");
+		btnAddMedicToCrew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (limitReached()) {
+					lblError.setText("You have reached the crew limit!");
+					return;
+				}
+				if (MedicName.getText() == "") {
+					lblError.setText("Please enter a name!");
+					return;
+				}
+				Medic newCrewMember = new Medic(MedicName.getText());
+				currentShip.getCrew().addCrewMember(newCrewMember);
+				CrewListModel.add(currentShip.getCrew().getCrewList().size() - 1, newCrewMember.getName() + " | " + newCrewMember.getSpecialization());
+			}
+		});
+		btnAddMedicToCrew.setBounds(0, 220, 220, 25);
+		MedicPanel.add(btnAddMedicToCrew);
 		
-		JButton button_3 = new JButton("Stats");
-		button_3.setBounds(0, 189, 220, 25);
-		panel_3.add(button_3);
+		JButton btnMedicStats = new JButton("Medic Stats");
+		btnMedicStats.setBounds(0, 189, 220, 25);
+		MedicPanel.add(btnMedicStats);
 		
-		JPanel panel_4 = new JPanel();
-		panel_4.setLayout(null);
-		panel_4.setBounds(254, 488, 230, 251);
-		panel.add(panel_4);
+		JPanel MerchantPanel = new JPanel();
+		MerchantPanel.setLayout(null);
+		MerchantPanel.setBounds(254, 488, 230, 251);
+		mainPanel.add(MerchantPanel);
 		
-		textField_2 = new JTextField();
-		textField_2.setText("Name");
-		textField_2.setColumns(10);
-		textField_2.setBounds(0, 10, 220, 26);
-		panel_4.add(textField_2);
+		MerchantName = new JTextField();
+		MerchantName.setText("Name");
+		MerchantName.setColumns(10);
+		MerchantName.setBounds(0, 10, 220, 26);
+		MerchantPanel.add(MerchantName);
 		
-		JButton button_4 = new JButton("Add To Crew");
-		button_4.setBounds(0, 220, 220, 25);
-		panel_4.add(button_4);
+		JButton btnAddMerchantToCrew = new JButton("Add To Crew");
+		btnAddMerchantToCrew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (limitReached()) {
+					lblError.setText("You have reached the crew limit!");
+					return;
+				}
+				if (MerchantName.getText() == "") {
+					lblError.setText("Please enter a name!");
+					return;
+				}
+				Merchant newCrewMember = new Merchant(MerchantName.getText());
+				currentShip.getCrew().addCrewMember(newCrewMember);
+				CrewListModel.add(currentShip.getCrew().getCrewList().size() - 1, newCrewMember.getName() + " | " + newCrewMember.getSpecialization());
+			}
+		});
+		btnAddMerchantToCrew.setBounds(0, 220, 220, 25);
+		MerchantPanel.add(btnAddMerchantToCrew);
 		
-		JButton button_5 = new JButton("Stats");
-		button_5.setBounds(0, 189, 220, 25);
-		panel_4.add(button_5);
+		JButton btnMerchantStats = new JButton("Merchant Stats");
+		btnMerchantStats.setBounds(0, 189, 220, 25);
+		MerchantPanel.add(btnMerchantStats);
 		
-		JPanel panel_5 = new JPanel();
-		panel_5.setLayout(null);
-		panel_5.setBounds(12, 489, 230, 251);
-		panel.add(panel_5);
+		JPanel PilotPanel = new JPanel();
+		PilotPanel.setLayout(null);
+		PilotPanel.setBounds(12, 489, 230, 251);
+		mainPanel.add(PilotPanel);
 		
-		textField_3 = new JTextField();
-		textField_3.setText("Name");
-		textField_3.setColumns(10);
-		textField_3.setBounds(0, 10, 220, 26);
-		panel_5.add(textField_3);
+		PilotName = new JTextField();
+		PilotName.setText("Name");
+		PilotName.setColumns(10);
+		PilotName.setBounds(0, 10, 220, 26);
+		PilotPanel.add(PilotName);
 		
-		JButton button_6 = new JButton("Add To Crew");
-		button_6.setBounds(0, 220, 220, 25);
-		panel_5.add(button_6);
+		JButton btnAddPilotToCrew = new JButton("Add To Crew");
+		btnAddPilotToCrew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (limitReached()) {
+					lblError.setText("You have reached the crew limit!");
+					return;
+				}
+				if (PilotName.getText() == "") {
+					lblError.setText("Please enter a name!");
+					return;
+				}
+				Pilot newCrewMember = new Pilot(PilotName.getText());
+				currentShip.getCrew().addCrewMember(newCrewMember);
+				CrewListModel.add(currentShip.getCrew().getCrewList().size() - 1, newCrewMember.getName() + " | " + newCrewMember.getSpecialization());
+			}
+		});
+		btnAddPilotToCrew.setBounds(0, 220, 220, 25);
+		PilotPanel.add(btnAddPilotToCrew);
 		
-		JButton button_7 = new JButton("Stats");
-		button_7.setBounds(0, 189, 220, 25);
-		panel_5.add(button_7);
+		JButton btnPilotStats = new JButton("Pilot Stats");
+		btnPilotStats.setBounds(0, 189, 220, 25);
+		PilotPanel.add(btnPilotStats);
 		
-		JPanel panel_6 = new JPanel();
-		panel_6.setLayout(null);
-		panel_6.setBounds(496, 488, 230, 251);
-		panel.add(panel_6);
+		JPanel ScientistPanel = new JPanel();
+		ScientistPanel.setLayout(null);
+		ScientistPanel.setBounds(496, 488, 230, 251);
+		mainPanel.add(ScientistPanel);
 		
-		textField_4 = new JTextField();
-		textField_4.setText("Name");
-		textField_4.setColumns(10);
-		textField_4.setBounds(0, 10, 220, 26);
-		panel_6.add(textField_4);
+		ScientistName = new JTextField();
+		ScientistName.setText("Name");
+		ScientistName.setColumns(10);
+		ScientistName.setBounds(0, 10, 220, 26);
+		ScientistPanel.add(ScientistName);
 		
-		JButton button_8 = new JButton("Add To Crew");
-		button_8.setBounds(0, 220, 220, 25);
-		panel_6.add(button_8);
+		JButton btnAddScientistToCrew = new JButton("Add To Crew");
+		btnAddScientistToCrew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (limitReached()) {
+					lblError.setText("You have reached the crew limit!");
+					return;
+				}
+				if (ScientistName.getText() == "") {
+					lblError.setText("Please enter a name!");
+					return;
+				}
+				Scientist newCrewMember = new Scientist(ScientistName.getText());
+				currentShip.getCrew().addCrewMember(newCrewMember);
+				CrewListModel.add(currentShip.getCrew().getCrewList().size() - 1, newCrewMember.getName() + " | " + newCrewMember.getSpecialization());
+			}
+		});
+		btnAddScientistToCrew.setBounds(0, 220, 220, 25);
+		ScientistPanel.add(btnAddScientistToCrew);
 		
-		JButton button_9 = new JButton("Stats");
-		button_9.setBounds(0, 189, 220, 25);
-		panel_6.add(button_9);
+		JButton btnCientistStats = new JButton("Scientist Stats");
+		btnCientistStats.setBounds(0, 189, 220, 25);
+		ScientistPanel.add(btnCientistStats);
+		
+		btnEnterTheVerse = new JButton("Enter the verse");
+		btnEnterTheVerse.setBounds(496, 90, 220, 25);
+		mainPanel.add(btnEnterTheVerse);
+	}
+	
+	public JButton getStartGame() {
+		return btnEnterTheVerse;
+	}
+	
+	public JFrame getFrame() {
+		return frame;
+	}
+	
+	public JTextPane getError() {
+		return lblError;
+	}
+	
+	private boolean limitReached() {
+		if (currentShip.getCrew().getCrewList().size() == 4) return true;
+		return false;
 	}
 }
