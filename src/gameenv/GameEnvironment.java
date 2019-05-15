@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 
 import crew.*;
 import spaceship.*;
-import views.MainMenuView;
+import views.*;
 import planet.*;
 
 public class GameEnvironment {
@@ -34,6 +34,10 @@ public class GameEnvironment {
 				mainView.getFrame().dispose();
 			}
 		});
+	}
+	
+	public void setupScreen() {
+		SetupView setupGame = new SetupView();
 	}
 	
 	public void goToNextDay() {
