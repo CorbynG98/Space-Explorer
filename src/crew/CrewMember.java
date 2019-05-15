@@ -78,6 +78,10 @@ public class CrewMember {
 	public boolean checkDiseaseStatus() {
 		return isDiseased;
 	}
+	
+	public int getActionsPerformed() {
+		return actionsPerformed;
+	}
 
 	
 	public double[] getCrewMemberStatus() {
@@ -112,6 +116,17 @@ public class CrewMember {
 		this.isAsleep = isAsleep;
 	}
 	
+	public void setDiseaseStatus(boolean isDiseased) {
+		this.isDiseased = isDiseased;
+	}
+	
+	public void addActionPerformed() {
+		actionsPerformed += 1;
+	}
+	
+	public void resetActionsPerformed() {
+		actionsPerformed = 0;
+	}
 	
 	
 	/* CrewMember action methods */
