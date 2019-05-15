@@ -21,6 +21,7 @@ public class SpaceStationView {
 
 	private JFrame frame;
 	private JLabel lblInfoName, lblInfoPrice, lblErrorMessage, lblMoney;
+	JButton btnLeaveShop;
 	private ArrayList<Item> itemList;
 	private Item selectedItem = null;
 	private Ship ship;
@@ -202,12 +203,7 @@ public class SpaceStationView {
 		btnBuy.setBounds(538, 337, 176, 59);
 		panel.add(btnBuy);
 		
-		JButton btnLeaveShop = new JButton("Leave Shop");
-		btnLeaveShop.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				// Code to return the player to day map.
-			}
-		});
+		btnLeaveShop = new JButton("Leave Shop");
 		btnLeaveShop.setBounds(12, 337, 176, 59);
 		panel.add(btnLeaveShop);
 		
@@ -231,6 +227,14 @@ public class SpaceStationView {
 		panel.add(lblErrorMessage);
 		
 		frame.setVisible(true);
+	}
+	
+	public JButton getLeaveButton() {
+		return btnLeaveShop;
+	}
+	
+	public JFrame getFrame() {
+		return frame;
 	}
 	
 	public void updateInformation(String name, int price) {
