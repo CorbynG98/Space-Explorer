@@ -61,12 +61,12 @@ public class GameEnvironment {
 		// Fill shop list with random items
 		while(shopItems.size() < 6) {
 			Random rand = new Random();
-			int n = rand.nextInt(20) + 1;
-			if (n < 15) {
+			int randomNum = rand.nextInt(20) + 1;
+			if (randomNum < 15) {
 				FoodItem newItem = diffFoods[rand.nextInt(diffFoods.length)];
 				if (newItem instanceof MincePieWithKetchup) {
-					int m = rand.nextInt(100);
-					if (m < 95) continue;
+					randomNum = rand.nextInt(100);
+					if (randomNum < 95) continue;
 				}
 				if (shopItems.contains(newItem)) continue;
 				shopItems.add(newItem);
@@ -74,8 +74,8 @@ public class GameEnvironment {
 			else {
 				MedicalItem newItem = diffMeds[rand.nextInt(diffMeds.length)];
 				if (newItem instanceof MedKit) {
-					int m = rand.nextInt(50);
-					if (m < 45) continue;
+					randomNum = rand.nextInt(50);
+					if (randomNum < 45) continue;
 				}
 				if (shopItems.contains(newItem)) continue;
 				shopItems.add(newItem);
