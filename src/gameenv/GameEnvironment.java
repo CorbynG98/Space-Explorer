@@ -17,8 +17,10 @@ public class GameEnvironment {
 	private Crew currentCrew;
 	private Ship currentShip;
 	private Planet currentPlanet;
+	
 	private FoodItem[] diffFoods = {new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup()};
 	private MedicalItem[] diffMeds = {new FirstAidKit(), new MedKit()};
+	
 	
 	// Here just for testing dont keep for final
 	private Ship testShip = new Enterprise();
@@ -29,6 +31,12 @@ public class GameEnvironment {
 	public GameEnvironment() {
 		// Initialize ship
 		currentShip = new Enterprise();
+		
+		// Initialize crew
+		currentCrew = new Crew();
+		
+		// Initialize first planet
+		currentPlanet = new Planet();
 		
 		// Call main menu view to kick off program
 		mainMenu();
@@ -62,6 +70,7 @@ public class GameEnvironment {
 		while(shopItems.size() < 6) {
 			Random rand = new Random();
 			int randomNum = rand.nextInt(20) + 1;
+			
 			if (randomNum < 15) {
 				FoodItem newItem = diffFoods[rand.nextInt(diffFoods.length)];
 				if (newItem instanceof MincePieWithKetchup) {
@@ -71,6 +80,7 @@ public class GameEnvironment {
 				if (shopItems.contains(newItem)) continue;
 				shopItems.add(newItem);
 			}
+			
 			else {
 				MedicalItem newItem = diffMeds[rand.nextInt(diffMeds.length)];
 				if (newItem instanceof MedKit) {
@@ -94,10 +104,24 @@ public class GameEnvironment {
 	public void goToNextDay() {
 		daysCompleted += 1;
 		
+		for (CrewMember crewMember: currentCrew.getCrewList()) {
+			crewMember.resetActionsPerformed();
+		}
+	
+		currentPlanet = new Planet();
+		
+		/* Determine if a random event occurs */
+		Random eventChance = new Random();
+		int eventType = eventChance.nextInt(10);
+		
+		if (eventType == 5) {
+			/* TODO 
+			 *  Pass crewList to spacePlague function (currentCrew is a local private variable)
+			 */
+			RandomEvents.spacePlague(currentCrew);
+		}
+		
 		/* TODO */
-		/* Reset actions for crew */
-		/* Chance of random events */
-		/* New planet */
 		/* New Space Station/refresh shop */
 		
 	}
