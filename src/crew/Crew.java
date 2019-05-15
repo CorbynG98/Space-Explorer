@@ -14,7 +14,6 @@ public class Crew {
 	
 	
 	/* Constructor for the Crew class */
-	
 	public Crew() {
 		this.crewList = new ArrayList<CrewMember>();
 		this.medicalInventory = new ArrayList<MedicalItem>();

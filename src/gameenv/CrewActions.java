@@ -5,10 +5,7 @@ import crew.*;
 import spaceship.*;
 
 public class CrewActions extends GameEnvironment {
-	
-	/* TODO Constructor */
-	
-	
+
 	
 	public void viewCrewStatus(CrewMember name) {
 		double[] statusArray;
@@ -40,7 +37,7 @@ public class CrewActions extends GameEnvironment {
 	}
 	
 	public void repairShip(CrewMember name) {
-		currentName.repairShip(name);
+		current.repairShip(name);
 		
 	}
 	

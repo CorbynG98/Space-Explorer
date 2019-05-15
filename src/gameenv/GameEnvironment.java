@@ -22,12 +22,14 @@ public class GameEnvironment {
 	private FoodItem[] diffFoods = {new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup()};
 	private MedicalItem[] diffMeds = {new FirstAidKit(), new MedKit()};
 	
+	private ArrayList<CrewMember> currentPilots = new ArrayList<CrewMember>();
 	
+	private boolean transporterPartFound = false;
 	// Here just for testing dont keep for final
 	private Ship testShip = new Enterprise();
 	
 	
-	private boolean transporterPartFound = false;
+	/* Initializes the main game objects */
 	
 	public GameEnvironment() {
 		// Initialize ship
@@ -43,6 +45,9 @@ public class GameEnvironment {
 		mainMenu();
 	}
 	
+	
+	/* Initializes the title screen when the game is run */ 
+	
 	public void mainMenu() {
 		MainMenuView mainView = new MainMenuView(currentShip);
 		mainView.getStartButton().addActionListener(new ActionListener() {
@@ -53,6 +58,9 @@ public class GameEnvironment {
 		});
 	}
 	
+	
+	/* Initializes the window to begin creating a ship and crew */
+	
 	public void setupScreen() {
 		InitialSetupView initialSetup = new InitialSetupView();
 		
@@ -62,8 +70,10 @@ public class GameEnvironment {
 					initialSetup.getError().setText("Please enter a valid name!");
 					return;
 				}
+				
 				currentShip.setName(initialSetup.getShipName().getText());
 				numDays = Integer.parseInt((String)initialSetup.getDays().getSelectedItem());
+				
 				initialSetup.getFrame().dispose();
 				SetupView setupGame = new SetupView(currentShip);
 				setupGame.getStartGame().addActionListener(new ActionListener() {
@@ -79,6 +89,9 @@ public class GameEnvironment {
 			}
 		});
 	}
+	
+	
+	/* Actions when a player enters the shop with a crew member */
 	
 	public void visitShop() {
 		// Test ship
@@ -130,27 +143,59 @@ public class GameEnvironment {
 	}
 	
 	public void goToNextDay() {
+		
 		daysCompleted += 1;
 		
 		for (CrewMember crewMember: currentCrew.getCrewList()) {
 			crewMember.resetActionsPerformed();
+			
+			if (crewMember.getSleepStatus()) {
+				crewMember.setSleepStatus(false);
+				crewMember.setTiredness(0);
+			}
+			
+			if (crewMember.getDiseaseStatus()) {
+				crewMember.setHealth(crewMember.getHealth() - 25);
+			}
 		}
 	
 		currentPlanet = new Planet();
+		
 		
 		/* Determine if a random event occurs */
 		Random eventChance = new Random();
 		int eventType = eventChance.nextInt(10);
 		
+		/* Space plague occurs */
 		if (eventType == 5) {
-			/* TODO 
-			 *  Pass crewList to spacePlague function (currentCrew is a local private variable)
-			 */
-			RandomEvents.spacePlague(currentCrew);
+				
+			RandomEvents.spacePlague(currentCrew.getCrewList());
 		}
+		
+		/* Asteroid belt occurs */
+		else if (eventType == 6) {
+			boolean shipAlive = currentShip.AsteroidField(currentPilots.get(1), currentPilots.get(2));
+			
+			if (!shipAlive) {
+				gameOver();
+			}
+		}
+		
+		/* Alien pirates occurs */
+		else if (eventType == 7) { 
+			RandomEvents.alienPirates(currentCrew);
+		}
+		
 		
 		/* TODO */
 		/* New Space Station/refresh shop */
+		
+	}
+	
+	
+	/* Game over method, creates game over screen and resets variables */
+	
+	public void gameOver() {
 		
 	}
 	

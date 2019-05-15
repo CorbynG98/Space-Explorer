@@ -1,6 +1,7 @@
 package planet;
 
 import java.util.Random;
+import crew.*;
 
 public class Planet {
 	
@@ -15,6 +16,10 @@ public class Planet {
 		Random r = new Random();
 		String planetName = planetNames[r.nextInt(26) + 1];
 		name = planetName;
+		
+	}
+	
+	public Object searchPlanet(CrewMember crewSearcher) {
 		
 	}
 

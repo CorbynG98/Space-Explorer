@@ -62,15 +62,20 @@ public class Ship {
 		}
 	}
 	
-	public void AsteroidField(CrewMember person, int damageAmount) {
-		if (person.getSpecialization() == "Pilot") {
-			damageAmount *= 0.8;
+	public boolean AsteroidField(CrewMember pilot1, CrewMember pilot2) {
+		int damageAmount = 10;
+		
+		if (pilot1.getSpecialization() == "Pilot" || pilot2.getSpecialization() == "Pilot" ) {
+			damageAmount += (this.health / 5);
+		}
+		else {
+			damageAmount += (this.health / 4);
 		}
 		
-		this.health -= damageAmount;
-		
-		if (health <= 0) {
-			// Game over do game over stuff here
+		if (this.health <= 0) {
+			return false;
 		}
+		
+		return true;
 	}
 }

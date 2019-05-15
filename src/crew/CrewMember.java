@@ -71,11 +71,11 @@ public class CrewMember {
 		return tirednessDegradation;
 	}
 	
-	public boolean checkSleepStatus() {
+	public boolean getSleepStatus() {
 		return isAsleep;
 	}
 	
-	public boolean checkDiseaseStatus() {
+	public boolean getDiseaseStatus() {
 		return isDiseased;
 	}
 	
