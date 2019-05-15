@@ -59,7 +59,6 @@ public class SpaceStationView {
 		/*
 		 *  Create shop item buttons
 		 */
-		
 		JButton btnItem1 = new JButton(this.itemList.get(0).getName());
 		btnItem1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
