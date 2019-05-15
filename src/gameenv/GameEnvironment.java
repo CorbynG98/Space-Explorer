@@ -32,6 +32,7 @@ public class GameEnvironment {
 		mainView.getStartButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.getFrame().dispose();
+				
 			}
 		});
 	}

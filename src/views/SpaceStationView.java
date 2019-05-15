@@ -54,6 +54,11 @@ public class SpaceStationView {
 		lblWelcomeToThe.setBounds(12, 12, 702, 27);
 		panel.add(lblWelcomeToThe);
 		
+		
+		/*
+		 *  Create shop item buttons
+		 */
+		
 		JButton btnItem1 = new JButton(this.itemList.get(0).getName());
 		btnItem1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -224,6 +229,8 @@ public class SpaceStationView {
 		lblErrorMessage.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblErrorMessage.setBounds(206, 369, 314, 27);
 		panel.add(lblErrorMessage);
+		
+		frame.setVisible(true);
 	}
 	
 	public void updateInformation(String name, int price) {
