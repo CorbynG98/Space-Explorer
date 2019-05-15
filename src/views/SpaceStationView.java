@@ -30,7 +30,7 @@ public class SpaceStationView {
 	public SpaceStationView(Ship ship, ArrayList<Item> itemList) {
 		this.itemList = itemList;
 		this.ship = ship;
-		this.playerFunds = ship.getMoney();
+		this.playerFunds = ship.getCrew().getMoney();
 		initialize();
 	}
 
@@ -187,15 +187,15 @@ public class SpaceStationView {
 					return;
 				}
 				if (selectedItem instanceof FoodItem) {
-					ship.addFoodItem((FoodItem)selectedItem);
+					ship.getCrew().addFoodItem((FoodItem)selectedItem);
 				}
 				if (selectedItem instanceof MedicalItem) {
 					lblErrorMessage.setText("Medical Item");
-					ship.addMedicalItem((MedicalItem)selectedItem);
+					ship.getCrew().addMedicalItem((MedicalItem)selectedItem);
 				}
 				
-				ship.removeMoney(selectedItem.getCost());
-				playerFunds = ship.getMoney();
+				ship.getCrew().removeMoney(selectedItem.getCost());
+				playerFunds = ship.getCrew().getMoney();
 				
 				lblMoney.setText(Integer.toString(playerFunds));
 			}

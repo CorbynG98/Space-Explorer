@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import crew.*;
 
 
-public class Ship extends Crew {
+public class Ship {
 	
 	// Variables
 	private String name;
 	private int health = 100;
 	private int maxHealth = 100;
-	private Crew crew;
+	private Crew crew = new Crew();
 	
 	// Constructor/s
 	public Ship(String name) {

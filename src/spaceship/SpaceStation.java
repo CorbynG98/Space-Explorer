@@ -26,10 +26,10 @@ public class SpaceStation {
 	
 	public static void main(String[] args) {
 		Ship testShip = new Enterprise();
-		testShip.addCrewMember(new Medic("Claire"));
-		testShip.addCrewMember(new Engineer("John"));
-		testShip.addCrewMember(new Pilot("Gordon"));
-		testShip.addCrewMember(new Soldier("Alara"));
+		testShip.getCrew().addCrewMember(new Medic("Claire"));
+		testShip.getCrew().addCrewMember(new Engineer("John"));
+		testShip.getCrew().addCrewMember(new Pilot("Gordon"));
+		testShip.getCrew().addCrewMember(new Soldier("Alara"));
 		SpaceStation station = new SpaceStation(testShip);
 	}
 }

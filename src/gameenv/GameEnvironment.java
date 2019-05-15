@@ -50,10 +50,10 @@ public class GameEnvironment {
 	
 	public void visitShop() {
 		// Test ship
-		testShip.addCrewMember(new Medic("Claire"));
-		testShip.addCrewMember(new Engineer("John"));
-		testShip.addCrewMember(new Pilot("Gordon"));
-		testShip.addCrewMember(new Soldier("Alara"));
+		testShip.getCrew().addCrewMember(new Medic("Claire"));
+		testShip.getCrew().addCrewMember(new Engineer("John"));
+		testShip.getCrew().addCrewMember(new Pilot("Gordon"));
+		testShip.getCrew().addCrewMember(new Soldier("Alara"));
 		
 		// List of shop items
 		ArrayList<Item> shopItems = new ArrayList<Item>();
