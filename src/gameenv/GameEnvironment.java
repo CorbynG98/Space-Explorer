@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.util.Random;
 
+import javax.swing.JFrame;
+
 import crew.*;
 import items.*;
 import spaceship.*;
@@ -15,9 +17,11 @@ public class GameEnvironment {
 	
 	private int daysCompleted = 0;
 	private int numDays;
-	private Crew currentCrew;
 	private Ship currentShip;
 	private Planet currentPlanet;
+	private int totalParts;
+	private int partsFound = 0;
+	private JFrame dayView;
 	
 	private FoodItem[] diffFoods = {new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup()};
 	private MedicalItem[] diffMeds = {new FirstAidKit(), new MedKit()};
@@ -29,14 +33,12 @@ public class GameEnvironment {
 	private Ship testShip = new Enterprise();
 	
 	
+	
 	/* Initializes the main game objects */
 	
 	public GameEnvironment() {
 		// Initialize ship
 		currentShip = new Enterprise();
-		
-		// Initialize crew
-		currentCrew = new Crew();
 		
 		// Initialize first planet
 		currentPlanet = new Planet();
@@ -73,6 +75,7 @@ public class GameEnvironment {
 				
 				currentShip.setName(initialSetup.getShipName().getText());
 				numDays = Integer.parseInt((String)initialSetup.getDays().getSelectedItem());
+				totalParts = numDays * (2/3);
 				
 				initialSetup.getFrame().dispose();
 				SetupView setupGame = new SetupView(currentShip);
@@ -93,13 +96,7 @@ public class GameEnvironment {
 	
 	/* Actions when a player enters the shop with a crew member */
 	
-	public void visitShop() {
-		// Test ship
-		testShip.getCrew().addCrewMember(new Medic("Claire"));
-		testShip.getCrew().addCrewMember(new Engineer("John"));
-		testShip.getCrew().addCrewMember(new Pilot("Gordon"));
-		testShip.getCrew().addCrewMember(new Soldier("Alara"));
-		
+	public void visitShop() {		
 		// List of shop items
 		ArrayList<Item> shopItems = new ArrayList<Item>();
 		
@@ -134,19 +131,27 @@ public class GameEnvironment {
 		stationView.getLeaveButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				stationView.getFrame().dispose();
+				dayView.setVisible(true);
 			}
 		});
 	}
 	
 	public void newDay() {
-		DayView day = new DayView();
+		DayView day = new DayView(currentShip, daysCompleted);
+		dayView = day.getFrame();
+		day.getStationButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dayView.setVisible(false);
+				visitShop();
+			}
+		});
 	}
 	
 	public void goToNextDay() {
 		
 		daysCompleted += 1;
 		
-		for (CrewMember crewMember: currentCrew.getCrewList()) {
+		for (CrewMember crewMember: currentShip.getCrew().getCrewList()) {
 			crewMember.resetActionsPerformed();
 			
 			if (crewMember.getSleepStatus()) {
@@ -169,7 +174,7 @@ public class GameEnvironment {
 		/* Space plague occurs */
 		if (eventType == 5) {
 				
-			RandomEvents.spacePlague(currentCrew.getCrewList());
+			RandomEvents.spacePlague(currentShip.getCrew().getCrewList());
 		}
 		
 		/* Asteroid belt occurs */
@@ -183,12 +188,8 @@ public class GameEnvironment {
 		
 		/* Alien pirates occurs */
 		else if (eventType == 7) { 
-			RandomEvents.alienPirates(currentCrew);
+			RandomEvents.alienPirates(currentShip.getCrew());
 		}
-		
-		
-		/* TODO */
-		/* New Space Station/refresh shop */
 		
 	}
 	

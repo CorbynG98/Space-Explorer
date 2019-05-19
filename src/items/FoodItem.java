@@ -12,7 +12,7 @@ public class FoodItem extends Item {
 	private int healthValue = 0;
 	private ArrayList<FoodItem> foodArray = new ArrayList<FoodItem>();
 	
-	private List<FoodItem> foodList = Arrays.asList(new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup());
+	// private List<FoodItem> foodList = Arrays.asList(new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup());
 	
 	
 	
@@ -44,12 +44,12 @@ public class FoodItem extends Item {
 		return healthValue;
 	}
 	
-	public FoodItem selectRandomItem() {
-		Random foodSelect = new Random();
-		
-		foodArray.addAll(foodList);
-		int foodIndex = foodSelect.nextInt(foodArray.size() + 1);
-				
-		return foodArray.get(foodIndex);
-	}
+//	public FoodItem selectRandomItem() {
+//		Random foodSelect = new Random();
+//		
+//		foodArray.addAll(foodList);
+//		int foodIndex = foodSelect.nextInt(foodArray.size() + 1);
+//				
+//		return foodArray.get(foodIndex);
+//	}
 }
