@@ -24,12 +24,14 @@ public class DayView {
 	private int currentDay;
 	private JButton btnSpaceStation, btnNextDay;
 	private CrewMember selectedPerson;
-	private JLabel lblSelectedImage, lblSpecialty, lblCrewMemberName, lblCurrentDay, lblAliveCount;
+	private JLabel lblSelectedImage, lblSpecialty, lblCrewMemberName, lblDayCount, lblAliveCount;
 	private JComboBox comboInventoryItems;
 	private JLabel lblPersonHealth1,lblPersonHealth2,lblPersonHealth3,lblPersonHealth4;
 	private JLabel lblPersonHunger1,lblPersonHunger2,lblPersonHunger3,lblPersonHunger4;
 	private JLabel lblPersonEnergy1,lblPersonEnergy2,lblPersonEnergy3,lblPersonEnergy4;
 	private JLabel lblPersonActions1,lblPersonActions2,lblPersonActions3,lblPersonActions4;
+	private JButton btnViewShipStatus;
+	private JButton btnPersonSleep;
 	/**
 	 * Launch the application.
 	 */
@@ -70,12 +72,12 @@ public class DayView {
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
 		
-		lblCurrentDay = new JLabel("Current Day:");
+		JLabel lblCurrentDay = new JLabel("Current Day:");
 		lblCurrentDay.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblCurrentDay.setBounds(12, 12, 130, 15);
 		frame.getContentPane().add(lblCurrentDay);
 		
-		JLabel lblDayCount = new JLabel(Integer.toString(currentDay));
+		lblDayCount = new JLabel(Integer.toString(currentDay));
 		lblDayCount.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblDayCount.setBounds(141, 13, 66, 15);
 		frame.getContentPane().add(lblDayCount);
@@ -322,6 +324,21 @@ public class DayView {
 		JButton btnConsumeItem = new JButton("Consume Item");
 		btnConsumeItem.setBounds(625, 117, 163, 25);
 		frame.getContentPane().add(btnConsumeItem);
+		
+		btnViewShipStatus = new JButton("Ship Status");
+		btnViewShipStatus.setBounds(12, 150, 163, 25);
+		frame.getContentPane().add(btnViewShipStatus);
+		
+		btnPersonSleep = new JButton("Sleep");
+		btnPersonSleep.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				selectedPerson.sleep();
+				updateGUI();
+			}
+		});
+		btnPersonSleep.setBounds(625, 190, 163, 25);
+		
+		frame.getContentPane().add(btnPersonSleep);
 		btnConsumeItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (selectedPerson == null) return;
@@ -370,6 +387,10 @@ public class DayView {
 		return btnNextDay;
 	}
 	
+	public JButton getSleep() {
+		return btnPersonSleep;
+	}
+	
 //	private JLabel lblPersonHealth1,lblPersonHealth2,lblPersonHealth3,lblPersonHealth4;
 //	private JLabel lblPersonHunger1,lblPersonHunger2,lblPersonHunger3,lblPersonHunger4;
 //	private JLabel lblPersonEnergy1,lblPersonEnergy2,lblPersonEnergy3,lblPersonEnergy4;
@@ -401,6 +422,6 @@ public class DayView {
 			lblPersonActions4.setText(Integer.toString(2 - ship.getCrew().getCrewList().get(3).getActionsPerformed()));
 		}
 		lblAliveCount.setText(Integer.toString(ship.getCrew().getCrewList().size()));
-		lblCurrentDay.setText(Integer.toString(currentDay));
+		lblDayCount.setText(Integer.toString(currentDay));
 	}
 }

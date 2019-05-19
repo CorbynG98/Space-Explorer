@@ -71,10 +71,6 @@ public class CrewMember {
 		return tirednessDegradation;
 	}
 	
-	public boolean getSleepStatus() {
-		return isAsleep;
-	}
-	
 	public boolean getDiseaseStatus() {
 		return isDiseased;
 	}
@@ -105,15 +101,20 @@ public class CrewMember {
 	}
 	
 	public void setHunger(int hunger) {
+		if (hunger >= 100) {
+			hunger = 100;
+			// He dead run code to kill
+			// ( remove from crew list / eject )
+		}
 		this.hunger = hunger;
 	}
 	
 	public void setTiredness(int tiredness) {
+		if (tiredness >= 100) { 
+			tiredness = 75;
+			this.actionsPerformed = 2;
+		}
 		this.tiredness = tiredness;
-	}
-	
-	public void setSleepStatus(boolean isAsleep) {
-		this.isAsleep = isAsleep;
 	}
 	
 	public void setDiseaseStatus(boolean isDiseased) {
@@ -168,7 +169,7 @@ public class CrewMember {
 	}
 	
 	public void sleep() {
-		this.isAsleep = true;
+		this.actionsPerformed = 2;
 		this.tiredness = 0;
 	}
 }

@@ -23,6 +23,8 @@ public class GameEnvironment {
 	private int partsFound = 0;
 	private JFrame dayView;
 	private DayView day;
+	private int hungerDecrease = 15;
+	private int energyDecrease = 15;
 	
 	private FoodItem[] diffFoods = {new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup()};
 	private MedicalItem[] diffMeds = {new FirstAidKit(), new MedKit()};
@@ -158,19 +160,18 @@ public class GameEnvironment {
 		// Goes to the next day on the same planet.
 		daysCompleted += 1;
 		
+		// Calculate new values, not resetting here, only when going to a new planet.
 		for (CrewMember crewMember: currentShip.getCrew().getCrewList()) {
 			crewMember.resetActionsPerformed();
 			
-			if (crewMember.getSleepStatus()) {
-				crewMember.setSleepStatus(false);
-				crewMember.setTiredness(0);
-			}
-			
-			if (crewMember.getDiseaseStatus()) {
-				crewMember.setHealth(crewMember.getHealth() - 25);
-			}
+			crewMember.setHunger((int)(crewMember.getHunger() + (hungerDecrease * crewMember.getHungerDegradation())));
+			crewMember.setTiredness((int)(crewMember.getTiredness() + (hungerDecrease * crewMember.getTirednessDegradation())));
 		}
+		
+		/* Random events will go here */
 	
+		
+		// Create new planet for the frame.
 		currentPlanet = new Planet();	
 	}
 	
@@ -181,15 +182,6 @@ public class GameEnvironment {
 		
 		for (CrewMember crewMember: currentShip.getCrew().getCrewList()) {
 			crewMember.resetActionsPerformed();
-			
-			if (crewMember.getSleepStatus()) {
-				crewMember.setSleepStatus(false);
-				crewMember.setTiredness(0);
-			}
-			
-			if (crewMember.getDiseaseStatus()) {
-				crewMember.setHealth(crewMember.getHealth() - 25);
-			}
 		}
 	
 		currentPlanet = new Planet();

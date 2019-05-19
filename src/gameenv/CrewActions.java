@@ -37,7 +37,7 @@ public class CrewActions extends GameEnvironment {
 	}
 	
 	public void repairShip(CrewMember name) {
-		current.repairShip(name);
+		//current.repairShip(name);
 		
 	}
 	
