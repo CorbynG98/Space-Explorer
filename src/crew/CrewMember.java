@@ -7,8 +7,8 @@ public class CrewMember {
 	private String name;
 	private String specialization;
 	private double health = 100;
-	private int hunger = 0;
-	private int tiredness = 0;
+	private int hunger = 50;
+	private int tiredness = 50;
 	private int damage = 0;
 	private double healthDegradation = 1;
 	private double hungerDegradation = 1;

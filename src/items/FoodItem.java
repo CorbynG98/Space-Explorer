@@ -44,6 +44,10 @@ public class FoodItem extends Item {
 		return healthValue;
 	}
 	
+	public String toString() {
+		return this.getName();
+	}
+	
 //	public FoodItem selectRandomItem() {
 //		Random foodSelect = new Random();
 //		

@@ -11,6 +11,7 @@ public class Ship {
 	private int health = 100;
 	private int maxHealth = 100;
 	private Crew crew = new Crew();
+	private ArrayList<CrewMember> currentPilots = new ArrayList<CrewMember>();
 	
 	// Constructor/s
 	public Ship(String name) {
@@ -43,6 +44,10 @@ public class Ship {
 		return this.crew;
 	}
 	
+	public ArrayList<CrewMember> getPilots() {
+		return currentPilots;
+	}
+	
 	
 	// Action/s
 	public void repairShip(CrewMember person) {
@@ -62,10 +67,10 @@ public class Ship {
 		}
 	}
 	
-	public boolean AsteroidField(CrewMember pilot1, CrewMember pilot2) {
+	public boolean AsteroidField() {
 		int damageAmount = 10;
 		
-		if (pilot1.getSpecialization() == "Pilot" || pilot2.getSpecialization() == "Pilot" ) {
+		if (currentPilots.get(0).getSpecialization() == "Pilot" || currentPilots.get(1).getSpecialization() == "Pilot" ) {
 			damageAmount += (this.health / 5);
 		}
 		else {
@@ -77,5 +82,9 @@ public class Ship {
 		}
 		
 		return true;
+	}
+	
+	public void addPilot(CrewMember newPilot) {
+		
 	}
 }

@@ -22,6 +22,7 @@ public class GameEnvironment {
 	private int totalParts;
 	private int partsFound = 0;
 	private JFrame dayView;
+	private DayView day;
 	
 	private FoodItem[] diffFoods = {new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup()};
 	private MedicalItem[] diffMeds = {new FirstAidKit(), new MedKit()};
@@ -29,8 +30,6 @@ public class GameEnvironment {
 	private ArrayList<CrewMember> currentPilots = new ArrayList<CrewMember>();
 	
 	private boolean transporterPartFound = false;
-	// Here just for testing dont keep for final
-	private Ship testShip = new Enterprise();
 	
 	
 	
@@ -85,6 +84,7 @@ public class GameEnvironment {
 							setupGame.getError().setText("You need more than 2 crew member");
 							return;
 						}
+						
 						setupGame.getFrame().dispose();
 						newDay();
 					}
@@ -126,28 +126,56 @@ public class GameEnvironment {
 			}
 		}
 		
-		SpaceStationView stationView = new SpaceStationView(testShip, shopItems);
+		SpaceStationView stationView = new SpaceStationView(currentShip, shopItems);
 		
 		stationView.getLeaveButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				day.setInventoryList();
 				stationView.getFrame().dispose();
-				dayView.setVisible(true);
+				day.getFrame().setVisible(true);
 			}
 		});
 	}
 	
 	public void newDay() {
-		DayView day = new DayView(currentShip, daysCompleted);
-		dayView = day.getFrame();
+		day = new DayView(currentShip, daysCompleted);
 		day.getStationButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				dayView.setVisible(false);
+				day.getFrame().setVisible(false);
 				visitShop();
+			}
+		});
+		day.getNextDay().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				goToNextDay();
+				day.setCurrentDay(daysCompleted);
+				day.updateGUI();
 			}
 		});
 	}
 	
 	public void goToNextDay() {
+		// Goes to the next day on the same planet.
+		daysCompleted += 1;
+		
+		for (CrewMember crewMember: currentShip.getCrew().getCrewList()) {
+			crewMember.resetActionsPerformed();
+			
+			if (crewMember.getSleepStatus()) {
+				crewMember.setSleepStatus(false);
+				crewMember.setTiredness(0);
+			}
+			
+			if (crewMember.getDiseaseStatus()) {
+				crewMember.setHealth(crewMember.getHealth() - 25);
+			}
+		}
+	
+		currentPlanet = new Planet();	
+	}
+	
+	// Goes to a new planet, consumes 1 day.
+	public void goToNewPlanet() {
 		
 		daysCompleted += 1;
 		
@@ -166,7 +194,6 @@ public class GameEnvironment {
 	
 		currentPlanet = new Planet();
 		
-		
 		/* Determine if a random event occurs */
 		Random eventChance = new Random();
 		int eventType = eventChance.nextInt(10);
@@ -179,7 +206,7 @@ public class GameEnvironment {
 		
 		/* Asteroid belt occurs */
 		else if (eventType == 6) {
-			boolean shipAlive = currentShip.AsteroidField(currentPilots.get(1), currentPilots.get(2));
+			boolean shipAlive = currentShip.AsteroidField();
 			
 			if (!shipAlive) {
 				gameOver();
@@ -190,7 +217,6 @@ public class GameEnvironment {
 		else if (eventType == 7) { 
 			RandomEvents.alienPirates(currentShip.getCrew());
 		}
-		
 	}
 	
 	

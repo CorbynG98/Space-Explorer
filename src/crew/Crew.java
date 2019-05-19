@@ -65,6 +65,15 @@ public class Crew {
 		return foodInventory;
 	}
 	
+	/* General inventory */
+	public ArrayList<Item> fullInventory() {
+		ArrayList<Item> fullInv = new ArrayList<Item>();
+		fullInv.addAll(foodInventory);
+		fullInv.addAll(medicalInventory);
+		return fullInv;
+		
+	}
+	
 	/* Money */
 	
 	public int getMoney() {
