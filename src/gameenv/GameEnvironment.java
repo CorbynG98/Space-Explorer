@@ -1,9 +1,8 @@
 package gameenv;
 
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
-import java.util.Random;
+import java.util.*;
 
 import javax.swing.JFrame;
 
@@ -25,13 +24,14 @@ public class GameEnvironment {
 	private DayView day;
 	private int hungerDecrease = 15;
 	private int energyDecrease = 15;
+	private int transporterPartsFound = 0;
 	
-	private FoodItem[] diffFoods = {new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup()};
-	private MedicalItem[] diffMeds = {new FirstAidKit(), new MedKit()};
+	private List<FoodItem> foodItems = Arrays.asList(new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup());
+	private List<MedicalItem> medicalItems = Arrays.asList(new FirstAidKit(), new MedKit());
 	
-	private ArrayList<CrewMember> currentPilots = new ArrayList<CrewMember>();
+
 	
-	private boolean transporterPartFound = false;
+	
 	
 	
 	
@@ -139,6 +139,11 @@ public class GameEnvironment {
 		});
 	}
 	
+	public void crewActions() {
+		
+	}
+	
+	
 	public void newDay() {
 		day = new DayView(currentShip, daysCompleted);
 		day.getStationButton().addActionListener(new ActionListener() {
@@ -183,7 +188,7 @@ public class GameEnvironment {
 		for (CrewMember crewMember: currentShip.getCrew().getCrewList()) {
 			crewMember.resetActionsPerformed();
 		}
-	
+		
 		currentPlanet = new Planet();
 		
 		/* Determine if a random event occurs */
