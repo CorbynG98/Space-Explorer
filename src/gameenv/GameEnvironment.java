@@ -86,6 +86,11 @@ public class GameEnvironment {
 							setupGame.getError().setText("You need more than 2 crew member");
 							return;
 						}
+						for (CrewMember person : currentShip.getCrew().getCrewList()) {
+							if (person instanceof Medic) {
+								currentShip.getCrew().addMedicalItem(new MedKit());
+							}
+						}
 						
 						setupGame.getFrame().dispose();
 						newDay();
@@ -159,22 +164,43 @@ public class GameEnvironment {
 				day.updateGUI();
 			}
 		});
+		day.getState().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				day.getFrame().setVisible(false);
+				viewShipState();
+			}
+		});
+	}
+	
+	public void viewShipState() {
+		ShipStatusView shipState = new ShipStatusView(currentShip);
+		
+		shipState.getLeave().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				day.getFrame().setVisible(true);
+				shipState.getFrame().dispose();
+			}
+		});
+	}
+	
+	public void searchPlanet() {
+		
 	}
 	
 	public void goToNextDay() {
 		// Goes to the next day on the same planet.
 		daysCompleted += 1;
 		
-		if (daysCompleted == numDays) {
-			// Game is over end
+		if (daysCompleted >= numDays) {
+			// Game is over, end
 		}
 		
 		// Calculate new values, not resetting here, only when going to a new planet.
 		for (CrewMember crewMember: currentShip.getCrew().getCrewList()) {
 			crewMember.resetActionsPerformed();
 			
-			crewMember.setHunger((int)(crewMember.getHunger() + (hungerDecrease * crewMember.getHungerDegradation())));
-			crewMember.setTiredness((int)(crewMember.getTiredness() + (hungerDecrease * crewMember.getTirednessDegradation())));
+			crewMember.setHunger((int)(crewMember.getHunger() - (hungerDecrease * crewMember.getHungerDegradation())));
+			crewMember.setTiredness((int)(crewMember.getTiredness() - (hungerDecrease * crewMember.getTirednessDegradation())));
 		}
 		
 		/* Random events will go here */

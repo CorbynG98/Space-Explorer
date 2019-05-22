@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -27,14 +28,11 @@ public class DayView {
 	private CrewMember selectedPerson;
 	private JLabel lblSelectedImage, lblSpecialty, lblCrewMemberName, lblDayCount, lblAliveCount;
 	private JComboBox comboInventoryItems;
-	private JLabel lblPersonHealth2,lblPersonHealth4;
-	private JLabel lblPersonHunger2,lblPersonHunger4;
-	private JLabel lblPersonEnergy2,lblPersonEnergy4;
 	private JButton btnViewShipStatus;
 	private JButton btnPersonSleep;
-	private JLabel lblHealth;
 	private JLabel lblHunger;
 	private JLabel lblEnergy;
+	private JLabel lblHealth;
 	private JProgressBar personHealth1, personHealth2, personHealth3, personHealth4;
 	private JProgressBar personEnergy1, personEnergy2, personEnergy3, personEnergy4;
 	private JProgressBar personHunger1, personHunger2, personHunger3, personHunger4;
@@ -139,18 +137,24 @@ public class DayView {
 			frame.getContentPane().add(lblPersonType1);
 			
 			personHealth1 = new JProgressBar();
-			personHealth1.setValue(0);
+			personHealth1.setValue((int)ship.getCrew().getCrewList().get(0).getHealth());
 			personHealth1.setBounds(22, 507, 153, 14);
+			personHealth1.setBackground(Color.RED);
+			personHealth1.setForeground(Color.GREEN);
 			frame.getContentPane().add(personHealth1);
 			
 			personHunger1 = new JProgressBar();
-			personHunger1.setValue(0);
+			personHunger1.setValue((int)ship.getCrew().getCrewList().get(0).getHunger());
 			personHunger1.setBounds(22, 524, 153, 14);
+			personHunger1.setBackground(Color.RED);
+			personHunger1.setForeground(Color.GREEN);
 			frame.getContentPane().add(personHunger1);
 			
 			personEnergy1 = new JProgressBar();
-			personEnergy1.setValue(0);
+			personEnergy1.setValue((int)ship.getCrew().getCrewList().get(0).getTiredness());
 			personEnergy1.setBounds(22, 541, 153, 14);
+			personEnergy1.setBackground(Color.RED);
+			personEnergy1.setForeground(Color.GREEN);
 			frame.getContentPane().add(personEnergy1);
 			
 			lblAction1 = new JLabel("Actions: ");
@@ -203,16 +207,22 @@ public class DayView {
 			personHealth2 = new JProgressBar();
 			personHealth2.setValue((int)ship.getCrew().getCrewList().get(1).getHealth());
 			personHealth2.setBounds(187, 507, 153, 14);
+			personHealth2.setBackground(Color.RED);
+			personHealth2.setForeground(Color.GREEN);
 			frame.getContentPane().add(personHealth2);
 			
 			personHunger2 = new JProgressBar();
 			personHunger2.setValue((int)ship.getCrew().getCrewList().get(1).getHunger());
 			personHunger2.setBounds(187, 524, 153, 14);
+			personHunger2.setBackground(Color.RED);
+			personHunger2.setForeground(Color.GREEN);
 			frame.getContentPane().add(personHunger2);
 			
 			personEnergy2 = new JProgressBar();
 			personEnergy2.setValue((int)ship.getCrew().getCrewList().get(1).getTiredness());
 			personEnergy2.setBounds(187, 541, 153, 14);
+			personEnergy2.setBackground(Color.RED);
+			personEnergy2.setForeground(Color.GREEN);
 			frame.getContentPane().add(personEnergy2);
 			
 			lblActions2 = new JLabel("Actions: ");
@@ -260,16 +270,22 @@ public class DayView {
 			personHealth4 = new JProgressBar();
 			personHealth4.setValue((int)ship.getCrew().getCrewList().get(3).getHealth());
 			personHealth4.setBounds(635, 507, 153, 14);
+			personHealth4.setBackground(Color.RED);
+			personHealth4.setForeground(Color.GREEN);
 			frame.getContentPane().add(personHealth4);
 			
 			personHunger4 = new JProgressBar();
 			personHunger4.setValue((int)ship.getCrew().getCrewList().get(3).getHunger());
 			personHunger4.setBounds(635, 524, 153, 14);
+			personHunger4.setBackground(Color.RED);
+			personHunger4.setForeground(Color.GREEN);
 			frame.getContentPane().add(personHunger4);
 			
 			personEnergy4 = new JProgressBar();
 			personEnergy4.setValue((int)ship.getCrew().getCrewList().get(3).getTiredness());
 			personEnergy4.setBounds(635, 541, 153, 14);
+			personEnergy4.setBackground(Color.RED);
+			personEnergy4.setForeground(Color.GREEN);
 			frame.getContentPane().add(personEnergy4);
 			
 			lblActions3 = new JLabel("Actions: ");
@@ -316,14 +332,23 @@ public class DayView {
 			
 			personHealth3 = new JProgressBar();
 			personHealth3.setBounds(460, 507, 153, 14);
+			personHealth3.setValue((int)ship.getCrew().getCrewList().get(2).getHealth());
+			personHealth3.setBackground(Color.RED);
+			personHealth3.setForeground(Color.GREEN);
 			frame.getContentPane().add(personHealth3);
 			
 			personHunger3 = new JProgressBar();
 			personHunger3.setBounds(460, 524, 153, 14);
+			personHunger3.setValue((int)ship.getCrew().getCrewList().get(2).getHunger());
+			personHunger3.setBackground(Color.RED);
+			personHunger3.setForeground(Color.GREEN);
 			frame.getContentPane().add(personHunger3);
 			
 			personEnergy3 = new JProgressBar();
 			personEnergy3.setBounds(460, 541, 153, 14);
+			personEnergy3.setValue((int)ship.getCrew().getCrewList().get(2).getTiredness());
+			personEnergy3.setBackground(Color.RED);
+			personEnergy3.setForeground(Color.GREEN);
 			frame.getContentPane().add(personEnergy3);
 			
 			lblActions = new JLabel("Actions: ");
@@ -382,20 +407,20 @@ public class DayView {
 		
 		frame.getContentPane().add(btnPersonSleep);
 		
-		lblHealth = new JLabel("Health");
-		lblHealth.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHealth.setBounds(361, 524, 66, 15);
-		frame.getContentPane().add(lblHealth);
-		
 		lblHunger = new JLabel("Hunger");
 		lblHunger.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHunger.setBounds(361, 541, 66, 15);
+		lblHunger.setBounds(361, 524, 66, 15);
 		frame.getContentPane().add(lblHunger);
 		
 		lblEnergy = new JLabel("Energy");
 		lblEnergy.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEnergy.setBounds(361, 507, 66, 15);
+		lblEnergy.setBounds(361, 541, 66, 15);
 		frame.getContentPane().add(lblEnergy);
+		
+		lblHealth = new JLabel("Health");
+		lblHealth.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHealth.setBounds(361, 507, 66, 15);
+		frame.getContentPane().add(lblHealth);
 		btnConsumeItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (selectedPerson == null) return;
@@ -425,6 +450,10 @@ public class DayView {
 	
 	public JFrame getFrame() {
 		return this.frame;
+	}
+	
+	public JButton getState() {
+		return btnViewShipStatus;
 	}
 	
 	public JButton getStationButton() {
