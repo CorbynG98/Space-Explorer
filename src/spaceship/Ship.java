@@ -70,6 +70,7 @@ public class Ship {
 	public boolean AsteroidField() {
 		int damageAmount = 10;
 		
+		// Ship will take less damage if being piloted by a Pilot crew member
 		if (currentPilots.get(0).getSpecialization() == "Pilot" || currentPilots.get(1).getSpecialization() == "Pilot" ) {
 			damageAmount += (this.health / 5);
 		}
@@ -84,7 +85,15 @@ public class Ship {
 		return true;
 	}
 	
-	public void addPilot(CrewMember newPilot) {
+	public boolean addPilot(CrewMember newPilot) {
+		// Check if there are two pilots
+		if (currentPilots.size() == 2) {
+			return false;
+		}
 		
+		else {
+			currentPilots.add(newPilot);
+			return true;
+		}
 	}
 }

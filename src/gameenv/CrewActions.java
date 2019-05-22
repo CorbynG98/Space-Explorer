@@ -1,11 +1,22 @@
 package gameenv;
 
-import java.util.ArrayList;
+import java.util.*;
 import crew.*;
 import spaceship.*;
+import items.*;
+import planet.*;
 
-public class CrewActions extends GameEnvironment {
 
+
+public class CrewActions {
+
+	private List<FoodItem> foodList;
+	private List<MedicalItem> medicalList;
+	
+	public CrewActions(List<FoodItem> foodList, List<MedicalItem> medicalList) {
+		this.foodList = foodList;
+		this.medicalList = medicalList;
+	}
 	
 	public void viewCrewStatus(CrewMember name) {
 		double[] statusArray;
@@ -36,19 +47,21 @@ public class CrewActions extends GameEnvironment {
 		 */
 	}
 	
-	public void repairShip(CrewMember name) {
-		//current.repairShip(name);
-		
+	public void pilotShip(CrewMember name, Ship shipName) {
+		name.addActionPerformed();
+		shipName.addPilot(name);
 	}
 	
-	public void searchPlanet(CrewMember name) { 
-		
-		/* TODO
-		 *  - Select random item */
+	public void repairShip(CrewMember name, Ship shipName) {
+		name.addActionPerformed();
+		shipName.repairShip(name);
 	}
 	
-	
-	/* TODO
-	 *  - Visit and search planet
-	 */
+	public Object searchPlanet(CrewMember name, Planet planetName) { 
+		name.addActionPerformed();
+		Object foundItem = planetName.searchPlanet(name, foodList, medicalList);
+		
+		return foundItem;
+		
+	}
 }

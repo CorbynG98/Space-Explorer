@@ -1,9 +1,8 @@
 package gameenv;
 
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
-import java.util.Random;
+import java.util.*;
 
 import javax.swing.JFrame;
 
@@ -25,13 +24,14 @@ public class GameEnvironment {
 	private DayView day;
 	private int hungerDecrease = 15;
 	private int energyDecrease = 15;
+	private int transporterPartsFound = 0;
 	
-	private FoodItem[] diffFoods = {new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup()};
-	private MedicalItem[] diffMeds = {new FirstAidKit(), new MedKit()};
+	private List<FoodItem> foodItems = Arrays.asList(new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup());
+	private List<MedicalItem> medicalItems = Arrays.asList(new FirstAidKit(), new MedKit());
 	
-	private ArrayList<CrewMember> currentPilots = new ArrayList<CrewMember>();
+
 	
-	private boolean transporterPartFound = false;
+	
 	
 	
 	
@@ -108,7 +108,7 @@ public class GameEnvironment {
 			int randomNum = rand.nextInt(20) + 1;
 			
 			if (randomNum < 15) {
-				FoodItem newItem = diffFoods[rand.nextInt(diffFoods.length)];
+				FoodItem newItem = foodItems.get(rand.nextInt(foodItems.size()));
 				if (newItem instanceof MincePieWithKetchup) {
 					randomNum = rand.nextInt(100);
 					if (randomNum < 95) continue;
@@ -118,7 +118,7 @@ public class GameEnvironment {
 			}
 			
 			else {
-				MedicalItem newItem = diffMeds[rand.nextInt(diffMeds.length)];
+				MedicalItem newItem = medicalItems.get(rand.nextInt(medicalItems.size()));
 				if (newItem instanceof MedKit) {
 					randomNum = rand.nextInt(50);
 					if (randomNum < 45) continue;
@@ -138,6 +138,11 @@ public class GameEnvironment {
 			}
 		});
 	}
+	
+	public void crewActions() {
+		
+	}
+	
 	
 	public void newDay() {
 		day = new DayView(currentShip, daysCompleted);
@@ -187,7 +192,7 @@ public class GameEnvironment {
 		for (CrewMember crewMember: currentShip.getCrew().getCrewList()) {
 			crewMember.resetActionsPerformed();
 		}
-	
+		
 		currentPlanet = new Planet();
 		
 		/* Determine if a random event occurs */
