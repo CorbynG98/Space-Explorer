@@ -160,6 +160,10 @@ public class GameEnvironment {
 		// Goes to the next day on the same planet.
 		daysCompleted += 1;
 		
+		if (daysCompleted == numDays) {
+			// Game is over end
+		}
+		
 		// Calculate new values, not resetting here, only when going to a new planet.
 		for (CrewMember crewMember: currentShip.getCrew().getCrewList()) {
 			crewMember.resetActionsPerformed();
