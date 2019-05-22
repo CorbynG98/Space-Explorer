@@ -4,8 +4,8 @@ import java.util.Random;
 import java.util.ArrayList;
 
 import crew.*;
-import spaceship.*;
 import items.*;
+import views.*;
 
 public class RandomEvents {
 
@@ -32,13 +32,13 @@ public class RandomEvents {
 				}
 			}
 		}
+		String spacePlague = "The crew was exposed to the space plague! Make sure to cure any survivors with a space plague cure.";
+		RandomEventDialogs dialog = new RandomEventDialogs(spacePlague);
 	}
 
 	
-	/* Logic for the alien pirates random event */
-	
-	/*TODO
-	 * Create popup windows when the pirates steal an item or when a soldier protects the crew
+	/*
+	 *  Logic for the alien pirates random event 
 	 */
 	public static void alienPirates(Crew currentCrew) {
 		Random pirateChances = new Random();
@@ -60,6 +60,7 @@ public class RandomEvents {
 			}
 		}
 		
+		
 		if (!soldierProtectsShip) {
 			int itemTypeStolen = pirateChances.nextInt(2);
 			
@@ -70,6 +71,10 @@ public class RandomEvents {
 				
 				FoodItem foodStolen = currentCrew.getFoodInventory().get(itemStolen);
 				currentCrew.getFoodInventory().remove(itemStolen);
+				
+				
+				String alienStoleItem = "Alien pirates have board the ship and stole one " + foodStolen.toString() + ".";
+				RandomEventDialogs dialog = new RandomEventDialogs(alienStoleItem);
 			}
 			else {
 				int sizeOfInventory = currentCrew.getMedicalInventory().size();
@@ -78,8 +83,18 @@ public class RandomEvents {
 				
 				MedicalItem medicalStolen = currentCrew.getMedicalInventory().get(itemStolen);
 				currentCrew.getMedicalInventory().remove(itemStolen);
+				
+				// Generate dialog with the results of the Alien pirate boarding
+				String alienStoleItem = "Alien pirates have board the ship and stole one " + medicalStolen.toString() + ".";
+				RandomEventDialogs dialog = new RandomEventDialogs(alienStoleItem);
 			}
 		}
+		
+		else {
+			String soldierSavesShip = "The ship was protected from Alien pirates by our brave soldiers";
+			RandomEventDialogs dialog = new RandomEventDialogs(soldierSavesShip);
+		}
+		
 	}
 }
 

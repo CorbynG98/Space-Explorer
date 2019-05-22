@@ -3,9 +3,9 @@ package planet;
 import java.util.*;
 import crew.*;
 import items.*;
+import views.*;
 
 public class Planet {
-	
 	
 	private String name;
 	private String[] planetNames = {"Tatooine", "Yavin IV", "Charon", "Pluto II", "Wotan", "Alpha-B32", "Terra", "Talara", "Athena", "Jupiter", "Beshan", "Calypso", "Nibiru", "Omicron Delta", "Risa", "Andoria", "Alderaan",
@@ -14,11 +14,13 @@ public class Planet {
 	
 	
 	public Planet() {
-		
 		Random name = new Random();
-		String planetName = planetNames[name.nextInt(26) + 1];
+		String planetName = planetNames[name.nextInt(26)];
 		this.name = planetName;
-		
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 	
 	public Object searchPlanet(CrewMember crewSearcher, List<FoodItem> foodItems, List<MedicalItem> medicalItems) {
@@ -61,6 +63,11 @@ public class Planet {
 	
 		else if (itemType == 3) {
 			foundItem = new TransporterPart();
+		}
+		
+		if (foundItem != null) {
+			String itemFound = crewSearcher.getName() + " searched " + this.name + " and found a " + foundItem.toString() + ".";
+			RandomEventDialogs dialog = new RandomEventDialogs(itemFound);
 		}
 		
 		return foundItem;

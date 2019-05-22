@@ -2,7 +2,13 @@ package items;
 
 public class TransporterPart {
 	
-	public void TransporterPart() {
-		
+	private String name = "Transporter Part";
+	
+	public TransporterPart() {
+	
+	}
+	
+	public String toString() {
+		return name;
 	}
 }
