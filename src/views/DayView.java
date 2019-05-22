@@ -16,6 +16,7 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.JProgressBar;
 
 public class DayView {
 
@@ -26,12 +27,26 @@ public class DayView {
 	private CrewMember selectedPerson;
 	private JLabel lblSelectedImage, lblSpecialty, lblCrewMemberName, lblDayCount, lblAliveCount;
 	private JComboBox comboInventoryItems;
-	private JLabel lblPersonHealth1,lblPersonHealth2,lblPersonHealth3,lblPersonHealth4;
-	private JLabel lblPersonHunger1,lblPersonHunger2,lblPersonHunger3,lblPersonHunger4;
-	private JLabel lblPersonEnergy1,lblPersonEnergy2,lblPersonEnergy3,lblPersonEnergy4;
-	private JLabel lblPersonActions1,lblPersonActions2,lblPersonActions3,lblPersonActions4;
+	private JLabel lblPersonHealth2,lblPersonHealth4;
+	private JLabel lblPersonHunger2,lblPersonHunger4;
+	private JLabel lblPersonEnergy2,lblPersonEnergy4;
 	private JButton btnViewShipStatus;
 	private JButton btnPersonSleep;
+	private JLabel lblHealth;
+	private JLabel lblHunger;
+	private JLabel lblEnergy;
+	private JProgressBar personHealth1, personHealth2, personHealth3, personHealth4;
+	private JProgressBar personEnergy1, personEnergy2, personEnergy3, personEnergy4;
+	private JProgressBar personHunger1, personHunger2, personHunger3, personHunger4;
+	private JLabel lblActions;
+	private JLabel lblAction1;
+	private JLabel lblActions2;
+	private JLabel lblActions3;
+	private JLabel lblActions4;
+	private JLabel lblPersonActions1;
+	private JLabel lblPersonActions2;
+	private JLabel lblPersonActions3;
+	private JLabel lblPersonActions4;
 	/**
 	 * Launch the application.
 	 */
@@ -123,20 +138,30 @@ public class DayView {
 			lblPersonType1.setBounds(12, 485, 163, 15);
 			frame.getContentPane().add(lblPersonType1);
 			
-			lblPersonHealth1 = new JLabel(Double.toString(ship.getCrew().getCrewList().get(0).getHealth()));
-			lblPersonHealth1.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPersonHealth1.setBounds(12, 506, 163, 15);
-			frame.getContentPane().add(lblPersonHealth1);
+			personHealth1 = new JProgressBar();
+			personHealth1.setValue(0);
+			personHealth1.setBounds(22, 507, 153, 14);
+			frame.getContentPane().add(personHealth1);
 			
-			lblPersonEnergy1 = new JLabel(Double.toString(ship.getCrew().getCrewList().get(0).getTiredness()));
-			lblPersonEnergy1.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPersonEnergy1.setBounds(12, 521, 163, 15);
-			frame.getContentPane().add(lblPersonEnergy1);
+			personHunger1 = new JProgressBar();
+			personHunger1.setValue(0);
+			personHunger1.setBounds(22, 524, 153, 14);
+			frame.getContentPane().add(personHunger1);
 			
-			lblPersonHunger1 = new JLabel(Double.toString(ship.getCrew().getCrewList().get(0).getHunger()));
-			lblPersonHunger1.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPersonHunger1.setBounds(12, 535, 163, 15);
-			frame.getContentPane().add(lblPersonHunger1);
+			personEnergy1 = new JProgressBar();
+			personEnergy1.setValue(0);
+			personEnergy1.setBounds(22, 541, 153, 14);
+			frame.getContentPane().add(personEnergy1);
+			
+			lblAction1 = new JLabel("Actions: ");
+			lblAction1.setHorizontalAlignment(SwingConstants.LEFT);
+			lblAction1.setBounds(12, 234, 75, 15);
+			frame.getContentPane().add(lblAction1);
+			
+			lblPersonActions1 = new JLabel("2");
+			lblPersonActions1.setHorizontalAlignment(SwingConstants.CENTER);
+			lblPersonActions1.setBounds(99, 234, 76, 15);
+			frame.getContentPane().add(lblPersonActions1);
 			
 			JButton btnSelectPerson1 = new JButton("Select");
 			btnSelectPerson1.setBounds(12, 250, 163, 25);
@@ -147,11 +172,6 @@ public class DayView {
 					updateSelectedDetails();
 				}
 			});
-			
-			lblPersonActions1 = new JLabel(Integer.toString(2 - ship.getCrew().getCrewList().get(0).getActionsPerformed()));
-			lblPersonActions1.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPersonActions1.setBounds(12, 550, 163, 15);
-			frame.getContentPane().add(lblPersonActions1);
 		}
 		
 		if (ship.getCrew().getCrewList().size() >= 2) {
@@ -180,24 +200,29 @@ public class DayView {
 			lblPersonType2.setBounds(187, 485, 163, 15);
 			frame.getContentPane().add(lblPersonType2);
 			
-			lblPersonHealth2 = new JLabel(Double.toString(ship.getCrew().getCrewList().get(1).getHealth()));
-			lblPersonHealth2.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPersonHealth2.setBounds(187, 506, 163, 15);
-			frame.getContentPane().add(lblPersonHealth2);
+			personHealth2 = new JProgressBar();
+			personHealth2.setValue((int)ship.getCrew().getCrewList().get(1).getHealth());
+			personHealth2.setBounds(187, 507, 153, 14);
+			frame.getContentPane().add(personHealth2);
 			
-			lblPersonHunger2 = new JLabel(Double.toString(ship.getCrew().getCrewList().get(1).getHunger()));
-			lblPersonHunger2.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPersonHunger2.setBounds(187, 535, 163, 15);
-			frame.getContentPane().add(lblPersonHunger2);
+			personHunger2 = new JProgressBar();
+			personHunger2.setValue((int)ship.getCrew().getCrewList().get(1).getHunger());
+			personHunger2.setBounds(187, 524, 153, 14);
+			frame.getContentPane().add(personHunger2);
 			
-			lblPersonEnergy2 = new JLabel(Double.toString(ship.getCrew().getCrewList().get(1).getTiredness()));
-			lblPersonEnergy2.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPersonEnergy2.setBounds(187, 521, 163, 15);
-			frame.getContentPane().add(lblPersonEnergy2);
+			personEnergy2 = new JProgressBar();
+			personEnergy2.setValue((int)ship.getCrew().getCrewList().get(1).getTiredness());
+			personEnergy2.setBounds(187, 541, 153, 14);
+			frame.getContentPane().add(personEnergy2);
+			
+			lblActions2 = new JLabel("Actions: ");
+			lblActions2.setHorizontalAlignment(SwingConstants.LEFT);
+			lblActions2.setBounds(187, 234, 75, 15);
+			frame.getContentPane().add(lblActions2);
 			
 			lblPersonActions2 = new JLabel(Integer.toString(2 - ship.getCrew().getCrewList().get(1).getActionsPerformed()));
 			lblPersonActions2.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPersonActions2.setBounds(187, 550, 163, 15);
+			lblPersonActions2.setBounds(274, 234, 76, 15);
 			frame.getContentPane().add(lblPersonActions2);
 		}
 		
@@ -227,25 +252,40 @@ public class DayView {
 			lblPersonType4.setBounds(625, 485, 163, 15);
 			frame.getContentPane().add(lblPersonType4);
 			
-			lblPersonHealth4 = new JLabel(Double.toString(ship.getCrew().getCrewList().get(3).getHealth()));
-			lblPersonHealth4.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPersonHealth4.setBounds(625, 506, 163, 15);
-			frame.getContentPane().add(lblPersonHealth4);
+			personEnergy4 = new JProgressBar();
+			personEnergy4.setValue((int)ship.getCrew().getCrewList().get(3).getTiredness());
+			personEnergy4.setBounds(625, 541, 153, 14);
+			frame.getContentPane().add(personEnergy2);
 			
-			lblPersonHunger4 = new JLabel(Double.toString(ship.getCrew().getCrewList().get(3).getHunger()));
-			lblPersonHunger4.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPersonHunger4.setBounds(625, 535, 163, 15);
-			frame.getContentPane().add(lblPersonHunger4);
+			personHealth4 = new JProgressBar();
+			personHealth4.setValue((int)ship.getCrew().getCrewList().get(3).getHealth());
+			personHealth4.setBounds(635, 507, 153, 14);
+			frame.getContentPane().add(personHealth4);
 			
-			lblPersonEnergy4 = new JLabel(Double.toString(ship.getCrew().getCrewList().get(3).getTiredness()));
-			lblPersonEnergy4.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPersonEnergy4.setBounds(625, 521, 163, 15);
-			frame.getContentPane().add(lblPersonEnergy4);
+			personHunger4 = new JProgressBar();
+			personHunger4.setValue((int)ship.getCrew().getCrewList().get(3).getHunger());
+			personHunger4.setBounds(635, 524, 153, 14);
+			frame.getContentPane().add(personHunger4);
+			
+			personEnergy4 = new JProgressBar();
+			personEnergy4.setValue((int)ship.getCrew().getCrewList().get(3).getTiredness());
+			personEnergy4.setBounds(635, 541, 153, 14);
+			frame.getContentPane().add(personEnergy4);
+			
+			lblActions3 = new JLabel("Actions: ");
+			lblActions3.setHorizontalAlignment(SwingConstants.LEFT);
+			lblActions3.setBounds(450, 234, 75, 15);
+			frame.getContentPane().add(lblActions3);
 			
 			lblPersonActions4 = new JLabel(Integer.toString(2 - ship.getCrew().getCrewList().get(3).getActionsPerformed()));
 			lblPersonActions4.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPersonActions4.setBounds(625, 550, 163, 15);
+			lblPersonActions4.setBounds(712, 234, 76, 15);
 			frame.getContentPane().add(lblPersonActions4);
+			
+			lblActions4 = new JLabel("Actions: ");
+			lblActions4.setHorizontalAlignment(SwingConstants.LEFT);
+			lblActions4.setBounds(625, 234, 75, 15);
+			frame.getContentPane().add(lblActions4);
 		}
 		
 		if (ship.getCrew().getCrewList().size() >= 3) {
@@ -274,24 +314,26 @@ public class DayView {
 			lblPersonType3.setBounds(450, 485, 163, 15);
 			frame.getContentPane().add(lblPersonType3);
 			
-			lblPersonHealth3 = new JLabel(Double.toString(ship.getCrew().getCrewList().get(2).getHealth()));
-			lblPersonHealth3.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPersonHealth3.setBounds(450, 506, 163, 15);
-			frame.getContentPane().add(lblPersonHealth3);
+			personHealth3 = new JProgressBar();
+			personHealth3.setBounds(460, 507, 153, 14);
+			frame.getContentPane().add(personHealth3);
 			
-			lblPersonHunger3 = new JLabel(Double.toString(ship.getCrew().getCrewList().get(2).getHunger()));
-			lblPersonHunger3.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPersonHunger3.setBounds(450, 535, 163, 15);
-			frame.getContentPane().add(lblPersonHunger3);
+			personHunger3 = new JProgressBar();
+			personHunger3.setBounds(460, 524, 153, 14);
+			frame.getContentPane().add(personHunger3);
 			
-			lblPersonEnergy3 = new JLabel(Double.toString(ship.getCrew().getCrewList().get(2).getTiredness()));
-			lblPersonEnergy3.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPersonEnergy3.setBounds(450, 521, 163, 15);
-			frame.getContentPane().add(lblPersonEnergy3);
+			personEnergy3 = new JProgressBar();
+			personEnergy3.setBounds(460, 541, 153, 14);
+			frame.getContentPane().add(personEnergy3);
+			
+			lblActions = new JLabel("Actions: ");
+			lblActions.setHorizontalAlignment(SwingConstants.LEFT);
+			lblActions.setBounds(450, 234, 75, 15);
+			frame.getContentPane().add(lblActions);
 			
 			lblPersonActions3 = new JLabel(Integer.toString(2 - ship.getCrew().getCrewList().get(2).getActionsPerformed()));
 			lblPersonActions3.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPersonActions3.setBounds(450, 550, 163, 15);
+			lblPersonActions3.setBounds(537, 234, 76, 15);
 			frame.getContentPane().add(lblPersonActions3);
 		}
 		
@@ -339,6 +381,21 @@ public class DayView {
 		btnPersonSleep.setBounds(625, 190, 163, 25);
 		
 		frame.getContentPane().add(btnPersonSleep);
+		
+		lblHealth = new JLabel("Health");
+		lblHealth.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHealth.setBounds(361, 524, 66, 15);
+		frame.getContentPane().add(lblHealth);
+		
+		lblHunger = new JLabel("Hunger");
+		lblHunger.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHunger.setBounds(361, 541, 66, 15);
+		frame.getContentPane().add(lblHunger);
+		
+		lblEnergy = new JLabel("Energy");
+		lblEnergy.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEnergy.setBounds(361, 507, 66, 15);
+		frame.getContentPane().add(lblEnergy);
 		btnConsumeItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (selectedPerson == null) return;
@@ -398,27 +455,27 @@ public class DayView {
 	
 	public void updateGUI() {
 		if (ship.getCrew().getCrewList().size() >= 1) {
-			lblPersonHealth1.setText(Double.toString(ship.getCrew().getCrewList().get(0).getHealth()));
-			lblPersonHunger1.setText(Double.toString(ship.getCrew().getCrewList().get(0).getHunger()));
-			lblPersonEnergy1.setText(Double.toString(ship.getCrew().getCrewList().get(0).getTiredness()));
+			personHealth1.setValue((int)(ship.getCrew().getCrewList().get(0).getHealth()));
+			personHunger1.setValue((int)(ship.getCrew().getCrewList().get(0).getHunger()));
+			personEnergy1.setValue((int)(ship.getCrew().getCrewList().get(0).getTiredness()));
 			lblPersonActions1.setText(Integer.toString(2 - ship.getCrew().getCrewList().get(0).getActionsPerformed()));
 		}
 		if (ship.getCrew().getCrewList().size() >= 2) {
-			lblPersonHealth2.setText(Double.toString(ship.getCrew().getCrewList().get(1).getHealth()));
-			lblPersonHunger2.setText(Double.toString(ship.getCrew().getCrewList().get(1).getHunger()));
-			lblPersonEnergy2.setText(Double.toString(ship.getCrew().getCrewList().get(1).getTiredness()));
+			personHealth2.setValue((int)(ship.getCrew().getCrewList().get(1).getHealth()));
+			personHunger2.setValue((int)(ship.getCrew().getCrewList().get(1).getHunger()));
+			personEnergy2.setValue((int)(ship.getCrew().getCrewList().get(1).getTiredness()));
 			lblPersonActions2.setText(Integer.toString(2 - ship.getCrew().getCrewList().get(1).getActionsPerformed()));
 		}
 		if (ship.getCrew().getCrewList().size() >= 3) {
-			lblPersonHealth3.setText(Double.toString(ship.getCrew().getCrewList().get(2).getHealth()));
-			lblPersonHunger3.setText(Double.toString(ship.getCrew().getCrewList().get(2).getHunger()));
-			lblPersonEnergy3.setText(Double.toString(ship.getCrew().getCrewList().get(2).getTiredness()));
+			personHealth3.setValue((int)(ship.getCrew().getCrewList().get(2).getHealth()));
+			personHunger3.setValue((int)(ship.getCrew().getCrewList().get(2).getHunger()));
+			personEnergy3.setValue((int)(ship.getCrew().getCrewList().get(2).getTiredness()));
 			lblPersonActions3.setText(Integer.toString(2 - ship.getCrew().getCrewList().get(2).getActionsPerformed()));
 		}
 		if (ship.getCrew().getCrewList().size() >= 4) {
-			lblPersonHealth4.setText(Double.toString(ship.getCrew().getCrewList().get(3).getHealth()));
-			lblPersonHunger4.setText(Double.toString(ship.getCrew().getCrewList().get(3).getHunger()));
-			lblPersonEnergy4.setText(Double.toString(ship.getCrew().getCrewList().get(3).getTiredness()));
+			personHealth4.setValue((int)(ship.getCrew().getCrewList().get(3).getHealth()));
+			personHunger4.setValue((int)(ship.getCrew().getCrewList().get(3).getHunger()));
+			personEnergy4.setValue((int)(ship.getCrew().getCrewList().get(3).getTiredness()));
 			lblPersonActions4.setText(Integer.toString(2 - ship.getCrew().getCrewList().get(3).getActionsPerformed()));
 		}
 		lblAliveCount.setText(Integer.toString(ship.getCrew().getCrewList().size()));

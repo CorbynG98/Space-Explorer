@@ -12,7 +12,7 @@ public class FoodItem extends Item {
 	private int healthValue = 0;
 	//private ArrayList<FoodItem> foodArray = new ArrayList<FoodItem>();
 	
-	private List<FoodItem> foodList = Arrays.asList(new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup());
+	// private List<FoodItem> foodList = Arrays.asList(new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup());
 	
 	
 	
@@ -20,7 +20,7 @@ public class FoodItem extends Item {
 	public FoodItem(String name, int hungerValue, int cost) {
 		super(name, cost);
 		this.hungerValue = hungerValue;
-		this.foodList = null;
+		// this.foodList = null;
 	}
 
 	public FoodItem(String name, int hungerValue, int cost, int bonusStat) {
