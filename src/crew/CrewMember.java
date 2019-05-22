@@ -7,14 +7,15 @@ public class CrewMember {
 	private String name;
 	private String specialization;
 	private double health = 100;
-	private int hunger = 50;
-	private int tiredness = 50;
+	private int hunger = 100;
+	private int tiredness = 100;
 	private int damage = 0;
 	private double healthDegradation = 1;
 	private double hungerDegradation = 1;
 	private double tirednessDegradation = 1;
 	private boolean isAsleep = false;
 	private boolean isDiseased = false;
+	private boolean isDead = false;
 	private int actionsPerformed = 0;
 	
 	
@@ -101,17 +102,18 @@ public class CrewMember {
 	}
 	
 	public void setHunger(int hunger) {
-		if (hunger >= 100) {
-			hunger = 100;
+		if (hunger <= 0) {
+			hunger = 0;
 			// He dead run code to kill
 			// ( remove from crew list / eject )
+			this.isDead = true;
 		}
 		this.hunger = hunger;
 	}
 	
 	public void setTiredness(int tiredness) {
-		if (tiredness >= 100) { 
-			tiredness = 75;
+		if (tiredness <= 0) { 
+			tiredness = 25;
 			this.actionsPerformed = 2;
 		}
 		this.tiredness = tiredness;
@@ -126,6 +128,9 @@ public class CrewMember {
 	}
 	
 	public void resetActionsPerformed() {
+		if (isDead == true) {
+			//Don't reset the actions of a dead guy/gal
+		}
 		actionsPerformed = 0;
 	}
 	
@@ -135,8 +140,8 @@ public class CrewMember {
 	
 	public void useItem(FoodItem name) {
 		this.health += name.getHealthValue();
-		this.tiredness -= name.getEnergyValue();
-		this.hunger -= name.getHungerValue();
+		this.tiredness += name.getEnergyValue();
+		this.hunger += name.getHungerValue();
 		
 		if (this.health > 100) {
 			this.health = 100;
