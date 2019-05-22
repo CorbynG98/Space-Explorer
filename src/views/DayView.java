@@ -29,6 +29,7 @@ public class DayView {
 	private JLabel lblSelectedImage, lblSpecialty, lblCrewMemberName, lblDayCount, lblAliveCount;
 	private JComboBox comboInventoryItems;
 	private JButton btnViewShipStatus;
+	private JButton btnSearchPlanet;
 	private JButton btnPersonSleep;
 	private JLabel lblHunger;
 	private JLabel lblEnergy;
@@ -366,7 +367,7 @@ public class DayView {
 		btnSpaceStation.setBounds(12, 39, 163, 25);
 		frame.getContentPane().add(btnSpaceStation);
 		
-		JButton btnSearchPlanet = new JButton("Search Planet");
+		btnSearchPlanet = new JButton("Search Planet");
 		btnSearchPlanet.setBounds(625, 39, 163, 25);
 		frame.getContentPane().add(btnSearchPlanet);
 		
@@ -475,6 +476,10 @@ public class DayView {
 	
 	public JButton getSleep() {
 		return btnPersonSleep;
+	}
+	
+	public JButton getSearchButton() {
+		return btnSearchPlanet;
 	}
 	
 //	private JLabel lblPersonHealth1,lblPersonHealth2,lblPersonHealth3,lblPersonHealth4;

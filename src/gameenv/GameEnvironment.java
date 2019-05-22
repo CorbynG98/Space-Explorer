@@ -170,6 +170,12 @@ public class GameEnvironment {
 				viewShipState();
 			}
 		});
+		day.getSearchButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				day.getFrame().setVisible(false);
+				searchPlanet();
+			}
+		});
 	}
 	
 	public void viewShipState() {
@@ -184,7 +190,7 @@ public class GameEnvironment {
 	}
 	
 	public void searchPlanet() {
-		
+		// do stuff here
 	}
 	
 	public void goToNextDay() {
