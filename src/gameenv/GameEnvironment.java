@@ -190,7 +190,16 @@ public class GameEnvironment {
 	}
 	
 	public void searchPlanet() {
-		// do stuff here
+		
+		Object foundItem = currentPlanet.searchPlanet(/*Get crew member*/, foodItems, medicalItems);
+		if (foundItem != null) {
+			String foundItemText = crewMember.getName() + " found one " + foundItem.toString() + " while searching " + currentPlanet.toString() ". It has been added to the Ships inventory.";
+			RandomEventDialogs dialog = new RandomEventDialogs(foundItemText);
+		}
+		else {
+			String foundNothing = crewMember.getName() + " searched " currentPlanet.toString() + " but found nothing.";
+			RandomEventDialogs dialog = new RandomEventDialogs(foundNothing);
+		}
 	}
 	
 	public void goToNextDay() {
