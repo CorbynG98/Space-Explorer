@@ -1,6 +1,7 @@
 package planet;
 
 import java.util.*;
+
 import crew.*;
 import items.*;
 import views.*;
@@ -32,53 +33,78 @@ public class Planet {
 		
 		// Check if a transporter part has already been found on this planet
 		if (!transporterPartFound) {
-			itemType = searchSelect.nextInt(1);
+			
+			// Search bonus if scientist in the crew
+			if (crewSearcher instanceof Scientist) {
+				int searchBonus = searchSelect.nextInt(8);
+				
+				if (searchBonus >= 4) {
+					itemType = 4;
+				}
+				
+				else {
+					itemType = searchBonus;
+				}
+			}
+			itemType = searchSelect.nextInt(5);
 		}
 		else {
 			itemType = searchSelect.nextInt(3);
 		}
 
-		// Select the found item
+		// Food found
 		if (itemType == 0) {
 			
-			// Search bonus for Scientist crew members
-			if (crewSearcher.getSpecialization() == "Scientist") {
-				int getPieWithKetchup = searchSelect.nextInt(4);
-				if (getPieWithKetchup == 3) {
-					foundItem = new MincePieWithKetchup();
-				}
-				
-				else {
-					foundItem = foodItems.get(searchSelect.nextInt(foodItems.size()));
-				}
-			}
+			foundItem = foodItems.get(searchSelect.nextInt(foodItems.size()));
 			
-			else {
-				foundItem = foodItems.get(searchSelect.nextInt(foodItems.size()));
-			}
 		}
 		
+		// Medical item found
 		else if (itemType == 1) {
 			foundItem = medicalItems.get(searchSelect.nextInt(medicalItems.size()));
 		}
 		
+		// Money found
 		else if (itemType == 2) {
+			
+			foundItem = searchSelect.nextInt(500);
 			return foundItem;
 		}
-	
+		
+		// Nothing found
 		else if (itemType == 3) {
+			return foundItem;
+		}
+		
+		// Transporter part found
+		else if (itemType == 4) {
 			foundItem = new TransporterPart();
 			transporterPartFound = true;
 		}
 		
+		
+		// Dialogs for the object found
 		if (foundItem != null) {
-			String foundItemText = crewSearcher.getName() + " found one " + foundItem.toString() + " while searching " + this.name + ". It has been added to the ship's inventory.";
-			RandomEventDialogs dialog = new RandomEventDialogs(foundItemText);
-			dialog.setVisible(true);
+			
+			if (foundItem instanceof Integer) {
+				// Crew member found money on planet
+				String foundItemText = crewSearcher.getName() + " found " + Integer.toString((Integer) foundItem) + " credits while searching " + this.name + ". It has been added to the crew's bank.";
+				EventDialogs dialog = new EventDialogs(foundItemText);
+				dialog.setVisible(true);
+			}
+			
+			else {
+				// Crew member found item on planet
+				String foundItemText = crewSearcher.getName() + " found one " + foundItem.toString() + " while searching " + this.name + ". It has been added to the ship's inventory.";
+				EventDialogs dialog = new EventDialogs(foundItemText);
+				dialog.setVisible(true);
+			}
 		}
+		
 		else {
+			// Crew member found nothing on planet
 			String foundNothing = crewSearcher.getName() + " searched " + this.name + " but found nothing.";
-			RandomEventDialogs dialog = new RandomEventDialogs(foundNothing);
+			EventDialogs dialog = new EventDialogs(foundNothing);
 			dialog.setVisible(true);
 		}
 		

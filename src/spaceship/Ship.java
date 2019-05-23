@@ -57,14 +57,18 @@ public class Ship {
 
 	
 	// Action/s
-	public void repairShip(CrewMember person) {
+	public int repairShip(CrewMember person) {
 		int repairAmount = 10;
+		
 		if (person.getSpecialization() == "Engineer") {
-			repairAmount *= 1.2;
+			repairAmount *= 1.5;
 		}
+		
 		this.health += repairAmount;
 		if (health >= maxHealth) this.health=maxHealth;
 		person.addActionPerformed();
+		
+		return repairAmount;
 	}
 	
 	public void ShipToShipFight(int damageAmount, GameEnvironment currentGame) {
@@ -85,6 +89,8 @@ public class Ship {
 		else {
 			damageAmount += (this.health / 4);
 		}
+		
+		this.health -= damageAmount;
 		
 		if (this.health <= 0) {
 			return false;

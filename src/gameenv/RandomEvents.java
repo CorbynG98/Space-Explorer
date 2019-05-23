@@ -34,7 +34,7 @@ public class RandomEvents {
 			}
 		}
 		String spacePlague = "The crew was exposed to the space plague! Make sure to cure any survivors with a space plague cure.";
-		RandomEventDialogs dialog = new RandomEventDialogs(spacePlague);
+		EventDialogs dialog = new EventDialogs(spacePlague);
 		dialog.setVisible(true);
 	}
 
@@ -76,7 +76,7 @@ public class RandomEvents {
 				
 				
 				String alienStoleItem = "Alien pirates boarded the ship and stole one " + foodStolen.toString() + "!";
-				RandomEventDialogs dialog = new RandomEventDialogs(alienStoleItem);
+				EventDialogs dialog = new EventDialogs(alienStoleItem);
 				dialog.setVisible(true);
 			}
 			else {
@@ -89,7 +89,7 @@ public class RandomEvents {
 				
 				// Generate dialog with the results of the Alien pirate boarding
 				String alienStoleItem = "Alien pirates boarded the ship and stole one " + medicalStolen.toString() + "!";
-				RandomEventDialogs dialog = new RandomEventDialogs(alienStoleItem);
+				EventDialogs dialog = new EventDialogs(alienStoleItem);
 				dialog.setVisible(true);
 			}
 		}
@@ -98,7 +98,7 @@ public class RandomEvents {
 			String soldierSavesShip = "The ship was protected from Alien pirates by our brave soldiers! However, the ship's shield took some damage in the fight.";
 			
 			currentShip.takeDamage(10, currentGame);
-			RandomEventDialogs dialog = new RandomEventDialogs(soldierSavesShip);
+			EventDialogs dialog = new EventDialogs(soldierSavesShip);
 			dialog.setVisible(true);
 		}
 		

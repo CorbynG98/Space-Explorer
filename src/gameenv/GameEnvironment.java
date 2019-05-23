@@ -174,7 +174,6 @@ public class GameEnvironment {
 			public void actionPerformed(ActionEvent arg0) {
 				CrewMember selected = day.getSelectedCrewMember();
 				if (selected == null) return;
-				if (selected.getActionsPerformed() >= 2) return;
 				currentShip.repairShip(selected);
 				day.updateGUI();
 			}
@@ -193,13 +192,26 @@ public class GameEnvironment {
 	}
 	
 	public void repairShip() {
+		CrewMember activeCrewMember = day.getSelectedCrewMember();
 		
+		if (activeCrewMember.getActionsPerformed() >= 2) {
+			EventDialogs noActionsLeft = new EventDialogs("This crew member has no actions left today.");
+			noActionsLeft.setVisible(true);
+			return;
+		}
+		
+		int amountRepaired = currentShip.repairShip(activeCrewMember);
+		String shipRepairText = activeCrewMember.getName() + " has repaired the ship and added " + Integer.toString(amountRepaired) + " points to the shields.";
+		EventDialogs shipRepair = new EventDialogs(shipRepairText);
+		shipRepair.setVisible(true);
 	}
 	
 	public void searchPlanet() {
 		CrewMember activeCrewMember = day.getSelectedCrewMember();
 		
 		if (activeCrewMember.getActionsPerformed() >= 2) {
+			EventDialogs noActionsLeft = new EventDialogs("This crew member has no actions left today.");
+			noActionsLeft.setVisible(true);
 			return;
 		}
 		
@@ -212,6 +224,10 @@ public class GameEnvironment {
 			}
 			else if (foundItem instanceof MedicalItem) {
 				currentShip.getCrew().addMedicalItem((MedicalItem) foundItem);
+			}
+			
+			else if (foundItem instanceof Integer) {
+				currentShip.getCrew().addMoney((int) foundItem);
 			}
 			else if (foundItem instanceof TransporterPart) {
 				transporterPartsFound += 1;
