@@ -13,8 +13,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
 
-public class RandomEventDialogs extends JDialog {
+public class EventDialogs extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 
 	/**
@@ -22,7 +26,7 @@ public class RandomEventDialogs extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			RandomEventDialogs dialog = new RandomEventDialogs("check out how much text this label can display");
+			EventDialogs dialog = new EventDialogs("check out how much text this label can display");
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -33,8 +37,8 @@ public class RandomEventDialogs extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public RandomEventDialogs(String eventResults) {
-		setBounds(100, 100, 450, 300);
+	public EventDialogs(String eventResults) {
+		setBounds(100, 100, 325, 154);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -43,7 +47,7 @@ public class RandomEventDialogs extends JDialog {
 		JTextPane textPane = new JTextPane();
 		textPane.setText(eventResults);
 		textPane.setEditable(false);
-		textPane.setBounds(12, 48, 426, 144);
+		textPane.setBounds(12, 12, 284, 79);
 		contentPanel.add(textPane);
 		{
 			JPanel buttonPane = new JPanel();

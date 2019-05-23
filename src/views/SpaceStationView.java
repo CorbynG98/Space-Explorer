@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 import items.*;
+import crew.*;
 
 public class SpaceStationView {
 
@@ -24,6 +25,7 @@ public class SpaceStationView {
 	JButton btnLeaveShop;
 	private ArrayList<Item> itemList;
 	private Item selectedItem = null;
+	private boolean merchantInCrew = false;
 	private Ship ship;
 	private int playerFunds;
 	
@@ -31,6 +33,12 @@ public class SpaceStationView {
 		this.itemList = itemList;
 		this.ship = ship;
 		this.playerFunds = ship.getCrew().getMoney();
+		
+		for (CrewMember crewMember: ship.getCrew().getCrewList()) {
+			if (crewMember instanceof Merchant) {
+				merchantInCrew = true;
+			}
+		}
 		initialize();
 	}
 
@@ -240,6 +248,13 @@ public class SpaceStationView {
 	
 	public void updateInformation(String name, int price) {
 		lblInfoName.setText(name);
-		lblInfoPrice.setText(Integer.toString(price));
+		
+		// Give 30 percent discount if there is a merchant in the crew
+		if (merchantInCrew) {
+			lblInfoPrice.setText(Double.toString(price * 0.7));
+		}
+		else {
+			lblInfoPrice.setText(Integer.toString(price));
+		}
 	}
 }
