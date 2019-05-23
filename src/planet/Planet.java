@@ -31,12 +31,13 @@ public class Planet {
 		int itemType;
 		
 		Object foundItem = null;
-		
+		String planetBattleString = "";
 		// Chance of alien encounter on the planet
-		int alienAppears = searchSelect.nextInt(10);
-		if (alienAppears == 9) {
-			RandomEvents.planetBattle(crewSearcher, currentCrew, this);
+		int alienAppears = searchSelect.nextInt(6);
+		if (alienAppears == 5) {
+			planetBattleString = RandomEvents.planetBattle(crewSearcher, currentCrew, this);
 		}
+		
 		// Check if a transporter part has already been found on this planet
 		if (!transporterPartFound) {
 			
@@ -74,7 +75,7 @@ public class Planet {
 		
 		// Money found
 		else if (itemType == 2) {
-			foundItem = searchSelect.nextInt(500);
+			foundItem = searchSelect.nextInt(300);
 		}
 		
 		// Nothing found
@@ -95,7 +96,8 @@ public class Planet {
 			// Crew member found money on planet
 			if (foundItem instanceof Integer) {
 				
-				String foundItemText = crewSearcher.getName() + " found " + Integer.toString((Integer) foundItem) + " credits while searching " + this.name + ". It has been added to the crew's bank.";
+				String foundItemText = crewSearcher.getName() + " found " + Integer.toString((Integer) foundItem) + " credits while searching " + this.name + ". It has been added "
+						+ "to the crew's bank. " + planetBattleString;
 				EventDialogs dialog = new EventDialogs(foundItemText);
 				dialog.setVisible(true);
 			}
@@ -103,7 +105,8 @@ public class Planet {
 			// Crew member found item on planet
 			else {
 			
-				String foundItemText = crewSearcher.getName() + " found one " + foundItem.toString() + " while searching " + this.name + ". It has been added to the ship's inventory.";
+				String foundItemText = crewSearcher.getName() + " found one " + foundItem.toString() + " while searching " + this.name + ". It has been added to the ship's inventory. "
+						+ planetBattleString;
 				EventDialogs dialog = new EventDialogs(foundItemText);
 				dialog.setVisible(true);
 			}
@@ -111,7 +114,7 @@ public class Planet {
 		
 		else {
 			// Crew member found nothing on planet
-			String foundNothing = crewSearcher.getName() + " searched " + this.name + " but found nothing.";
+			String foundNothing = crewSearcher.getName() + " searched " + this.name + " but found nothing. " + planetBattleString;
 			EventDialogs dialog = new EventDialogs(foundNothing);
 			dialog.setVisible(true);
 		}

@@ -99,6 +99,10 @@ public class RandomEvents {
 			String soldierSavesShip = "The ship was protected from Alien pirates by our brave soldiers! However, the ship's shield took some damage in the fight.";
 			
 			currentShip.takeDamage(10, currentGame);
+			if (currentShip.getHealth() <= 0) {
+				currentGame.gameOver(currentShip.getGameOverText());
+			}
+			
 			EventDialogs dialog = new EventDialogs(soldierSavesShip);
 			dialog.setVisible(true);
 		}
@@ -110,11 +114,13 @@ public class RandomEvents {
 	 * damage equal to the generated number. If the crew member's damage is higher they sustain no damage. If no crew members sustain damage, the crew gains
 	 * a new MedKit.
 	 */
-	public static void spaceBattle(Crew currentCrew, Ship currentShip) {
+	public static void spaceBattle(Crew currentCrew, Ship currentShip, GameEnvironment currentGame) {
 		Random battleChances = new Random();
 		
+		int damageToShip = 0;
 		boolean crewMembersHurt = false;
 		String battleResult;
+		
 		
 		for (CrewMember crewMember: currentCrew.getCrewList()) {
 			int alienDamage = battleChances.nextInt(20) + 1;
@@ -123,17 +129,26 @@ public class RandomEvents {
 				crewMember.takeDamage(alienDamage);
 				crewMembersHurt = true;
 			}
+			
+			else {
+				damageToShip += 10;
+			}
 		}
 		
 		if (crewMembersHurt) {
-			battleResult = "Aliens boarded the ship and attacked the crew! Some crew members were hurt in the battle.";
+			battleResult = "Aliens boarded the ship and attacked the crew! Some crew members were hurt in the battle. The ship took some damage.";
 			
 		}
 		
 		else {
 			battleResult = "Aliens boarded the ship and attacked the crew! Our brave crew members fought and repelled them without sustaining damage. "
-					+ "The aliens left an item behind in their hasty retreat"; 
+					+ "The aliens left an item behind in their hasty retreat. The ship took some damage."; 
 			currentCrew.addMedicalItem(new MedKit());
+		}
+		
+		currentShip.takeDamage(damageToShip, currentGame);
+		if (currentShip.getHealth() <= 0) {
+			currentGame.gameOver(currentShip.getGameOverText());
 		}
 		
 		EventDialogs dialog = new EventDialogs(battleResult);
@@ -141,10 +156,11 @@ public class RandomEvents {
 	}
 	
 	/*
-	 * A battle that may occur when a crew member searches a planet. A number is generate between 1 and 20. If the crew member's damage is less than
-	 * the generated number they sustain damage equal to the number. If the crew member's damage is greater then they may find an extra item on the planet (not a Transporter Part).
+	 * A battle that may occur when a crew member searches a planet. A number is generate between 1 and 20. If the crew member's damage is greater than
+	 * the generated number they will sustain damage equal to the generated number. If the crew member's damage is greater then they may find an extra 
+	 * item on the planet (not a Transporter Part). If the crew member's damage is less than the generated number the crew member will sustain damage between
 	 */
-	public static void planetBattle(CrewMember crewSearcher, Crew currentCrew, Planet planet) {
+	public static String planetBattle(CrewMember crewSearcher, Crew currentCrew, Planet planet) {
 		Random battleChances = new Random();
 		
 		String battleResult;
@@ -152,19 +168,24 @@ public class RandomEvents {
 		int alienDamage = battleChances.nextInt(20) + 1;
 		
 		if (crewSearcher.getDamage() >= alienDamage) {
-			battleResult = crewSearcher.getName() + " encountered an aggresive alien on the surface of " + planet.getName() + ". The were able to overcome "
+			battleResult = crewSearcher.getName() + " encountered an aggressive alien on the surface of " + planet.getName() + ". The were able to overcome "
 					+ "it and found an extra item it was carrying.";
 			currentCrew.addMedicalItem(new FirstAidKit());
-			crewSearcher.takeDamage(alienDamage);
+			
+			int damageTaken = battleChances.nextInt(20) + 21;
+			crewSearcher.takeDamage(damageTaken);
 		}
 		
 		else {
-			battleResult = crewSearcher.getName() + " encountered an aggresive alien on the surface of " + planet.getName() + ". They were hurt badly in the battle.";
+			battleResult = crewSearcher.getName() + " encountered an aggressive alien on the surface of " + planet.getName() + ". They were hurt badly in the battle.";
 			crewSearcher.takeDamage(alienDamage);
 		}
 		
-		EventDialogs battleDialog = new EventDialogs(battleResult);
-		battleDialog.setVisible(true);
+		if (crewSearcher.getHealth() <= 0) {
+			String crewMemberDied = crewSearcher.getName() + " died after encountering an aggressive searching the planet. They died for a good cause.";
+			battleResult = crewMemberDied;
+		}
+		return battleResult;
 	}
 }
 

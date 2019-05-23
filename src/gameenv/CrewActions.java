@@ -13,38 +13,18 @@ public class CrewActions {
 	private List<FoodItem> foodList;
 	private List<MedicalItem> medicalList;
 	
+	/*
+	 * Constructor method for CrewActions instances.
+	 */
 	public CrewActions(List<FoodItem> foodList, List<MedicalItem> medicalList) {
 		this.foodList = foodList;
 		this.medicalList = medicalList;
 	}
 	
-	public void viewCrewStatus(CrewMember name) {
-		double[] statusArray;
-		statusArray = new double[3];
-		
-		statusArray = name.getCrewMemberStatus();
-		
-		/* TODO
-		 * - Display with GUI
-		 */
-	}
-	
-	public void viewShipStatus(Ship shipName) {
-		int shipHealth = shipName.getHealth();
-		
-		/* TODO
-		 * - Display with GUI
-		 */
-	}
-	
-	
 	public void viewInventory(Crew crewName) {
 		crewName.getFoodInventory();
 		crewName.getMedicalInventory();
 		
-		/* TODO
-		 * - Display with GUI
-		 */
 	}
 	
 	public void pilotShip(CrewMember name, Ship shipName) {
@@ -57,9 +37,9 @@ public class CrewActions {
 		shipName.repairShip(name);
 	}
 	
-	public Object searchPlanet(CrewMember name, Planet planetName) { 
+	public Object searchPlanet(CrewMember name, Planet planetName, Crew currentCrew) { 
 		name.addActionPerformed();
-		Object foundItem = planetName.searchPlanet(name, foodList, medicalList);
+		Object foundItem = planetName.searchPlanet(name, foodList, medicalList, currentCrew);
 		
 		return foundItem;
 		

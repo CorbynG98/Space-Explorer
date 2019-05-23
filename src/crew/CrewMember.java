@@ -4,6 +4,7 @@ import items.*;
 
 public class CrewMember {
 	
+	//Name variable for the CrewMember class
 	private String name;
 	private String specialization;
 	private double health = 100;
@@ -18,6 +19,7 @@ public class CrewMember {
 	private boolean isDead = false;
 	private int actionsPerformed = 0;
 	private String imagePath;
+	
 	
 	
 	/* Constructor method for the CrewMember class */
@@ -105,9 +107,14 @@ public class CrewMember {
 	
 
 	
-	/* Setter methods for relevant CrewMember variables */
+	/* 
+	 * Setter methods for relevant CrewMember variables 
+	 */
 	
 	
+	/*
+	 * Setter method for health variable of a CrewMember instance. If the crew member has 0 health the will die and be removed from the crew.
+	 */
 	public void setHealth(double health) {
 		this.health = health;
 	}
@@ -122,6 +129,9 @@ public class CrewMember {
 		this.hunger = hunger;
 	}
 	
+	/*
+	 * Setter for the tiredness variable of a CrewMember instance. If the crew member has 0 tiredness they will lose their actions for the day.
+	 */
 	public void setTiredness(int tiredness) {
 		if (tiredness <= 0) { 
 			tiredness = 25;
@@ -130,18 +140,32 @@ public class CrewMember {
 		this.tiredness = tiredness;
 	}
 	
+	/*
+	 * Setter for the disease status variable of a CrewMember instance.
+	 */
 	public void setDiseaseStatus(boolean isDiseased) {
 		this.isDiseased = isDiseased;
 	}
 	
+	/*
+	 * Method to decrease the crew member's health given by the passed integer value.
+	 */
 	public void takeDamage(int damageTaken) {
 		this.health -= damageTaken;
 	}
 	
+	/*
+	 * Method to increment a crew member's actionsPerformed variable.
+	 */
 	public void addActionPerformed() {
-		actionsPerformed += 1;
+		if (actionsPerformed < 2) {
+			actionsPerformed += 1;
+		}
 	}
 	
+	/*
+	 * Method to reset the actions of a crew member at the end of each day.
+	 */
 	public void resetActionsPerformed() {
 		if (isDead == true) {
 			//Don't reset the actions of a dead guy/gal
@@ -150,9 +174,15 @@ public class CrewMember {
 	}
 	
 	
-	/* CrewMember action methods */
 	
+	/* 
+	 * CrewMember action methods 
+	 */
 	
+	/*
+	 * Method to use a food item on a crew member.
+	 * @param name: takes a FoodItem to be used on the crew member.
+	 */
 	public void useItem(FoodItem name) {
 		this.health += name.getHealthValue();
 		this.tiredness += name.getEnergyValue();
@@ -174,6 +204,10 @@ public class CrewMember {
 		
 	}
 	
+	/*
+	 * Method to use a medical item on a crew member.
+	 * @param name: takes a MedicalItem to be used on the crew member.
+	 */
 	public void useItem(MedicalItem name) {
 		this.health += name.getHealthValue();
 		
@@ -188,6 +222,9 @@ public class CrewMember {
 		actionsPerformed += 1;
 	}
 	
+	/*
+	 * Method to put a crew member to sleep. Resets the actions performed for the given crew member.
+	 */
 	public void sleep() {
 		this.actionsPerformed = 2;
 		this.tiredness = 100;

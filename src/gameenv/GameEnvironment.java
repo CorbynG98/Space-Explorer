@@ -39,16 +39,13 @@ public class GameEnvironment {
 	 *  Initializes the main game objects 
 	 */
 	public GameEnvironment() {
-		// Initialize ship
 		currentShip = new Enterprise();
-		
-		// Initialize first planet
 		currentPlanet = new Planet();
-		
-		// Call main menu view to kick off program
-		mainMenu();
 	}
 	
+	public void newGame() {
+		mainMenu();
+	}
 	
 	/* 
 	 * Initializes the title screen when the game is run 
@@ -79,7 +76,7 @@ public class GameEnvironment {
 				
 				currentShip.setName(initialSetup.getShipName().getText());
 				numDays = Integer.parseInt((String)initialSetup.getDays().getSelectedItem());
-				totalParts = numDays * (2/3);
+				totalParts = (int) (numDays * (2/3));
 				
 				initialSetup.getFrame().dispose();
 				
@@ -203,7 +200,7 @@ public class GameEnvironment {
 		// Add the currently selected crew member as a pilot
 		day.getPilotButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO Add label in dayView for pilot count
+				
 				CrewMember selectedCrewMember = day.getSelectedCrewMember();
 				if (selectedCrewMember.getActionsPerformed() >= 2) {
 					return;
@@ -216,6 +213,14 @@ public class GameEnvironment {
 					}
 				}
 				
+			}
+		});
+		
+		day.getFlyButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (currentShip.getPilots().size() == 2) {
+					goToNewPlanet();
+				}
 			}
 		});
 	
@@ -277,9 +282,6 @@ public class GameEnvironment {
 			return;
 		}
 		
-		EventDialogs test = new EventDialogs("Test");
-		test.setVisible(true);
-		
 		activeCrewMember.addActionPerformed();
 		
 		Object foundItem = currentPlanet.searchPlanet(activeCrewMember, foodItems, medicalItems, currentShip.getCrew());
@@ -328,18 +330,18 @@ public class GameEnvironment {
 		
 		/* Random events will go here */
 		Random eventChance = new Random();
-		int eventType = eventChance.nextInt(9);
+		int eventType = eventChance.nextInt(6);
 		
-		if (eventType == 6) {
+		if (eventType == 3) {
 			RandomEvents.spacePlague(currentShip.getCrew().getCrewList());
 		}
 		
-		else if (eventType == 7) {
+		else if (eventType == 4) {
 			RandomEvents.alienPirates(currentShip.getCrew(), currentShip, this);
 		}
 		
-		else if (eventType == 8) {
-			RandomEvents.spaceBattle(currentShip.getCrew(), currentShip);
+		else if (eventType == 5) {
+			RandomEvents.spaceBattle(currentShip.getCrew(), currentShip, this);
 		}
 		
 	}
@@ -361,24 +363,29 @@ public class GameEnvironment {
 		Random eventChance = new Random();
 		int eventType = eventChance.nextInt(10);
 		
-		/* Space plague occurs */
+		// Space plague event occurs
 		if (eventType == 5) {
 				
 			RandomEvents.spacePlague(currentShip.getCrew().getCrewList());
 		}
 		
-		/* Asteroid belt occurs */
+		// Asteroid belt event occurs
 		else if (eventType == 6) {
 			boolean shipAlive = currentShip.AsteroidField();
 			
 			if (!shipAlive) {
-				gameOver();
+				gameOver(currentShip.getGameOverText());
 			}
 		}
 		
-		/* Alien pirates occurs */
+		// Alien pirate event occurs
 		else if (eventType == 7) { 
 			RandomEvents.alienPirates(currentShip.getCrew(), currentShip, this);
+		}
+		
+		// Space battle occurs.
+		else if (eventType == 8) {
+			RandomEvents.spaceBattle(currentShip.getCrew(), currentShip, this);
 		}
 	}
 	
@@ -386,12 +393,13 @@ public class GameEnvironment {
 	/* 
 	 * Game over method, creates game over screen and resets variables 
 	 */
-	public void gameOver() {
-		
+	public void gameOver(String gameOverText) {
+		GameOverView gameOverWindow = new GameOverView(gameOverText);
 	}
 	
 	public static void main(String[] args) {
 		GameEnvironment game = new GameEnvironment();
+		game.newGame();
 	}
 	
 	
