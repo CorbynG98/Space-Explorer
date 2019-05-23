@@ -37,7 +37,7 @@ public class EventDialogs extends JDialog {
 	 * Create the dialog.
 	 */
 	public EventDialogs(String eventResults) {
-		setBounds(100, 100, 325, 154);
+		setBounds(100, 100, 325, 198);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -58,7 +58,7 @@ public class EventDialogs extends JDialog {
 		JTextPane textPane = new JTextPane();
 		textPane.setText(eventResults);
 		textPane.setEditable(false);
-		textPane.setBounds(12, 12, 284, 79);
+		textPane.setBounds(12, 12, 284, 111);
 		contentPanel.add(textPane);
 		{
 			JPanel buttonPane = new JPanel();

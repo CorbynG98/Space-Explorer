@@ -14,28 +14,14 @@ public class GameWonView {
 
 	private JFrame frame;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GameWonView window = new GameWonView();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	
 	/**
 	 * Create the application.
 	 */
-	public GameWonView() {
-		
+	public GameWonView(DayView currentDayView) {
+		currentDayView.getFrame().dispose();
 		String gameWonText = "Congratulations, enough transporter parts were found, and the crew can now return home!";
 		initialize(gameWonText);
 		
@@ -50,6 +36,7 @@ public class GameWonView {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setVisible(true);
 		
 		JButton btnExit = new JButton("Exit");
 		btnExit.setBounds(12, 235, 114, 25);
