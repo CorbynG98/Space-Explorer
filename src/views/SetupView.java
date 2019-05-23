@@ -92,6 +92,36 @@ public class SetupView {
 		mainPanel.add(panelStats);
 		panelStats.setLayout(null);
 		
+		JLabel lblHealth = new JLabel("Health:");
+		lblHealth.setBounds(12, 12, 104, 15);
+		panelStats.add(lblHealth);
+		
+		JLabel lblPersonHealth = new JLabel("Health");
+		lblPersonHealth.setBounds(114, 12, 104, 15);
+		panelStats.add(lblPersonHealth);
+		
+		JLabel lblStrength = new JLabel("Strength:");
+		lblStrength.setBounds(12, 39, 104, 15);
+		panelStats.add(lblStrength);
+		
+		JLabel lblPersonStrength = new JLabel("Strength");
+		lblPersonStrength.setBounds(114, 39, 104, 15);
+		panelStats.add(lblPersonStrength);
+		
+		JLabel lblClass = new JLabel("Class:");
+		lblClass.setBounds(12, 66, 104, 15);
+		panelStats.add(lblClass);
+		
+		JLabel lblPersonClass = new JLabel("Type");
+		lblPersonClass.setBounds(114, 66, 104, 15);
+		panelStats.add(lblPersonClass);
+		
+		JTextPane txtpnPersonInfo = new JTextPane();
+		txtpnPersonInfo.setText("Information about the person's speciality");
+		txtpnPersonInfo.setEditable(false);
+		txtpnPersonInfo.setBounds(12, 93, 195, 86);
+		panelStats.add(txtpnPersonInfo);
+		
 		JLabel label = new JLabel("Create your crew");
 		label.setFont(new Font("Dialog", Font.BOLD, 16));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -129,6 +159,15 @@ public class SetupView {
 		SoldierPanel.add(btnAddSoldierToCrew);
 		
 		JButton btnSoldierStats = new JButton("Soldier Stats");
+		btnSoldierStats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Soldier crewMember = new Soldier(SoldierName.getText());
+				lblPersonHealth.setText(Double.toString(crewMember.getHealth()));
+				lblPersonStrength.setText(Double.toString(crewMember.getDamage()));
+				lblPersonClass.setText(crewMember.getSpecialization());
+				txtpnPersonInfo.setText(crewMember.getClassString());
+			}
+		});
 		btnSoldierStats.setBounds(0, 189, 220, 25);
 		SoldierPanel.add(btnSoldierStats);
 		
@@ -163,6 +202,15 @@ public class SetupView {
 		EngineerPanel.add(btnAddEngineerToCrew);
 		
 		JButton btnEngineerStats = new JButton("Engineer Stats");
+		btnEngineerStats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Engineer crewMember = new Engineer(EngineerName.getText());
+				lblPersonHealth.setText(Double.toString(crewMember.getHealth()));
+				lblPersonStrength.setText(Double.toString(crewMember.getDamage()));
+				lblPersonClass.setText(crewMember.getSpecialization());
+				txtpnPersonInfo.setText(crewMember.getClassString());
+			}
+		});
 		btnEngineerStats.setBounds(0, 189, 220, 25);
 		EngineerPanel.add(btnEngineerStats);
 		
@@ -197,6 +245,15 @@ public class SetupView {
 		MedicPanel.add(btnAddMedicToCrew);
 		
 		JButton btnMedicStats = new JButton("Medic Stats");
+		btnMedicStats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Medic crewMember = new Medic(MedicName.getText());
+				lblPersonHealth.setText(Double.toString(crewMember.getHealth()));
+				lblPersonStrength.setText(Double.toString(crewMember.getDamage()));
+				lblPersonClass.setText(crewMember.getSpecialization());
+				txtpnPersonInfo.setText(crewMember.getClassString());
+			}
+		});
 		btnMedicStats.setBounds(0, 189, 220, 25);
 		MedicPanel.add(btnMedicStats);
 		
@@ -231,6 +288,15 @@ public class SetupView {
 		MerchantPanel.add(btnAddMerchantToCrew);
 		
 		JButton btnMerchantStats = new JButton("Merchant Stats");
+		btnMerchantStats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Merchant crewMember = new Merchant(MerchantName.getText());
+				lblPersonHealth.setText(Double.toString(crewMember.getHealth()));
+				lblPersonStrength.setText(Double.toString(crewMember.getDamage()));
+				lblPersonClass.setText(crewMember.getSpecialization());
+				txtpnPersonInfo.setText(crewMember.getClassString());
+			}
+		});
 		btnMerchantStats.setBounds(0, 189, 220, 25);
 		MerchantPanel.add(btnMerchantStats);
 		
@@ -265,6 +331,15 @@ public class SetupView {
 		PilotPanel.add(btnAddPilotToCrew);
 		
 		JButton btnPilotStats = new JButton("Pilot Stats");
+		btnPilotStats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Pilot crewMember = new Pilot(PilotName.getText());
+				lblPersonHealth.setText(Double.toString(crewMember.getHealth()));
+				lblPersonStrength.setText(Double.toString(crewMember.getDamage()));
+				lblPersonClass.setText(crewMember.getSpecialization());
+				txtpnPersonInfo.setText(crewMember.getClassString());
+			}
+		});
 		btnPilotStats.setBounds(0, 189, 220, 25);
 		PilotPanel.add(btnPilotStats);
 		
@@ -298,9 +373,18 @@ public class SetupView {
 		btnAddScientistToCrew.setBounds(0, 220, 220, 25);
 		ScientistPanel.add(btnAddScientistToCrew);
 		
-		JButton btnCientistStats = new JButton("Scientist Stats");
-		btnCientistStats.setBounds(0, 189, 220, 25);
-		ScientistPanel.add(btnCientistStats);
+		JButton btnScientistStats = new JButton("Scientist Stats");
+		btnScientistStats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Scientist crewMember = new Scientist(ScientistName.getText());
+				lblPersonHealth.setText(Double.toString(crewMember.getHealth()));
+				lblPersonStrength.setText(Double.toString(crewMember.getDamage()));
+				lblPersonClass.setText(crewMember.getSpecialization());
+				txtpnPersonInfo.setText(crewMember.getClassString());
+			}
+		});
+		btnScientistStats.setBounds(0, 189, 220, 25);
+		ScientistPanel.add(btnScientistStats);
 		
 		btnEnterTheVerse = new JButton("Enter the verse");
 		btnEnterTheVerse.setBounds(496, 90, 220, 25);
