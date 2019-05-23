@@ -18,16 +18,15 @@ public class GameEnvironment {
 	private int numberOfGameDays;
 	private Ship currentShip;
 	private Planet currentPlanet;
-	
 	private JFrame dayView;
 	private DayView day;
 	private int hungerDecrease = 15;
-	private int energyDecrease = 15;
+	private int tirednessDecrease = 15;
 	private int partsRequired;
 	private int transporterPartsFound = 0;
 	
 	private List<FoodItem> foodItems = Arrays.asList(new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup());
-	private List<MedicalItem> medicalItems = Arrays.asList(new FirstAidKit(), new MedKit());
+	private List<MedicalItem> medicalItems = Arrays.asList(new FirstAidKit(), new MedKit(), new SpacePlagueCure());
 	
 
 	
@@ -218,6 +217,7 @@ public class GameEnvironment {
 		
 		day.getFlyButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				if (currentShip.getPilots().size() == 2) {
 					goToNewPlanet();
 				}
@@ -315,6 +315,7 @@ public class GameEnvironment {
 	public void goToNextDay(boolean flyingToNewPlanet) {
 		// Goes to the next day on the same planet.
 		daysCompleted += 1;
+		currentShip.getPilots().clear();
 		
 		if (daysCompleted == numberOfGameDays) {
 			if (transporterPartsFound == partsRequired) {
@@ -322,12 +323,24 @@ public class GameEnvironment {
 			}
 		}
 		
-		// Calculate new values, not resetting here, only when going to a new planet. May trigger a random event.
+		// Increment CrewMember variables, such as damage from space plague, and hunger and tiredness degradation. 
 		for (CrewMember crewMember: currentShip.getCrew().getCrewList()) {
 			crewMember.resetActionsPerformed();
 			
 			crewMember.setHunger((int)(crewMember.getHunger() - (hungerDecrease * crewMember.getHungerDegradation())));
-			crewMember.setTiredness((int)(crewMember.getTiredness() - (hungerDecrease * crewMember.getTirednessDegradation())));
+			crewMember.setTiredness((int)(crewMember.getTiredness() - (tirednessDecrease * crewMember.getTirednessDegradation())));
+			
+			if (crewMember.getDiseaseStatus()) {
+				Random spacePlagueDamage = new Random();
+				int plagueDamage = spacePlagueDamage.nextInt(6) + 10;
+				crewMember.takeDamage(plagueDamage);
+			}
+			
+			if (crewMember.isDead()) {
+				currentShip.getCrew().removeCrewMember(crewMember);
+				EventDialogs crewMemberDied = new EventDialogs(crewMember.getName() + " has died.");
+			}
+			
 		}
 		
 
@@ -376,7 +389,7 @@ public class GameEnvironment {
 	}
 	
 	public void gameWon() {
-		
+		GameWonView gameWonWindow = new GameWonView();
 	}
 	
 	public static void main(String[] args) {
