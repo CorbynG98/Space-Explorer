@@ -142,12 +142,7 @@ public class GameEnvironment {
 				day.getFrame().setVisible(true);
 			}
 		});
-	}
-	
-	public void crewActions() {
-		
-	}
-	
+	}	
 	
 	public void newDay() {
 		day = new DayView(currentShip, daysCompleted);
@@ -178,6 +173,8 @@ public class GameEnvironment {
 		day.getRepairButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CrewMember selected = day.getSelectedCrewMember();
+				if (selected == null) return;
+				if (selected.getActionsPerformed() >= 2) return;
 				currentShip.repairShip(selected);
 				day.updateGUI();
 			}
