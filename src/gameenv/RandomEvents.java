@@ -58,7 +58,7 @@ public class RandomEvents {
 		}
 		
 		if (soldierInCrew) {
-			int soldierProtects = pirateChances.nextInt(2);
+			int soldierProtects = pirateChances.nextInt(3);
 			if (soldierProtects == 1) {
 				soldierProtectsShip = true;
 			}
@@ -71,30 +71,41 @@ public class RandomEvents {
 			if (itemTypeStolen == 1) {
 				int sizeOfInventory = currentCrew.getFoodInventory().size();
 				
-				int itemStolen = pirateChances.nextInt(sizeOfInventory);
-				
-				FoodItem foodStolen = currentCrew.getFoodInventory().get(itemStolen);
-				currentCrew.getFoodInventory().remove(itemStolen);
-				
-				String alienStoleItem = "Alien pirates boarded the ship and stole one " + foodStolen.toString() + "!";
-				EventDialogs dialog = new EventDialogs(alienStoleItem);
-				dialog.setVisible(true);
+				if (sizeOfInventory <= 0) {
+					String alienStoleItem = "Alien pirates boarded the ship but there were no items to steal!";
+					EventDialogs dialog = new EventDialogs(alienStoleItem);
+					dialog.setVisible(true);
+				} else {
+					int itemStolen = pirateChances.nextInt(sizeOfInventory);
+						
+					FoodItem foodStolen = currentCrew.getFoodInventory().get(itemStolen);
+					currentCrew.getFoodInventory().remove(itemStolen);
+						
+					String alienStoleItem = "Alien pirates boarded the ship and stole one " + foodStolen.toString() + "!";
+					EventDialogs dialog = new EventDialogs(alienStoleItem);
+					dialog.setVisible(true);
+				}
 			}
 			
 			else {
 				int sizeOfInventory = currentCrew.getMedicalInventory().size();
 				
-				int itemStolen = pirateChances.nextInt(sizeOfInventory);
-				
-				MedicalItem medicalStolen = currentCrew.getMedicalInventory().get(itemStolen);
-				currentCrew.getMedicalInventory().remove(itemStolen);
-				
-				String alienStoleItem = "Alien pirates boarded the ship and stole one " + medicalStolen.toString() + "!";
-				EventDialogs dialog = new EventDialogs(alienStoleItem);
-				dialog.setVisible(true);
+				if (sizeOfInventory <= 0) {
+					String alienStoleItem = "Alien pirates boarded the ship but there were no items to steal!";
+					EventDialogs dialog = new EventDialogs(alienStoleItem);
+					dialog.setVisible(true);
+				} else {
+					int itemStolen = pirateChances.nextInt(sizeOfInventory);
+					
+					MedicalItem medicalStolen = currentCrew.getMedicalInventory().get(itemStolen);
+					currentCrew.getMedicalInventory().remove(itemStolen);
+					
+					String alienStoleItem = "Alien pirates boarded the ship and stole one " + medicalStolen.toString() + "!";
+					EventDialogs dialog = new EventDialogs(alienStoleItem);
+					dialog.setVisible(true);
+				}
 			}
 		}
-		
 		else {
 			String soldierSavesShip = "The ship was protected from Alien pirates by our brave soldiers! However, the ship's shield took some damage in the fight.";
 			
