@@ -27,7 +27,7 @@ public class GameEnvironment {
 	private int transporterPartsFound = 0;
 	
 	private List<FoodItem> foodItems = Arrays.asList(new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup());
-	private List<MedicalItem> medicalItems = Arrays.asList(new FirstAidKit(), new MedKit());
+	private List<MedicalItem> medicalItems = Arrays.asList(new FirstAidKit(), new MedKit(), new SpacePlagueCure());
 	
 
 	
@@ -48,7 +48,7 @@ public class GameEnvironment {
 	}
 	
 	/* 
-	 * Initializes the title screen when the game is run 
+	 * Initializes the title screen when the game is run erefull
 	 */ 
 	public void mainMenu() {
 		MainMenuView mainView = new MainMenuView(currentShip);
@@ -303,6 +303,7 @@ public class GameEnvironment {
 			
 			else if (foundItem instanceof TransporterPart) {
 				transporterPartsFound += 1;
+				day.updatePartsFound(transporterPartsFound);
 			}
 		}
 		
@@ -316,9 +317,11 @@ public class GameEnvironment {
 		// Goes to the next day on the same planet.
 		daysCompleted += 1;
 		
-		if (daysCompleted == numberOfGameDays) {
+		if (daysCompleted > numberOfGameDays) {
 			if (transporterPartsFound == partsRequired) {
 				gameWon();
+			} else {
+				gameOver("Got to last day without finding all the parts!");
 			}
 		}
 		

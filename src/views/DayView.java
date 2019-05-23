@@ -54,6 +54,9 @@ public class DayView {
 	private JLabel lblPersonActions3;
 	private JLabel lblPersonActions4;
 	private JLabel lblPilots;
+	private JLabel lblPartOnPlanetFound;
+	private JLabel lblParts;
+	private JLabel lblTotalPartsFound;
 	/**
 	 * Launch the application.
 	 */
@@ -81,6 +84,7 @@ public class DayView {
 	public DayView(Ship ship, int currentDay) {
 		this.ship = ship;
 		this.currentDay = currentDay;
+		this.selectedPerson = ship.getCrew().getCrewList().get(0);
 		initialize();
 	}
 
@@ -442,8 +446,23 @@ public class DayView {
 		
 		lblPilots = new JLabel("0/2");
 		lblPilots.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPilots.setBounds(580, 82, 49, 24);
+		lblPilots.setBounds(580, 80, 49, 24);
 		frame.getContentPane().add(lblPilots);
+		
+		lblPartOnPlanetFound = new JLabel("0/1");
+		lblPartOnPlanetFound.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPartOnPlanetFound.setBounds(580, 38, 49, 24);
+		frame.getContentPane().add(lblPartOnPlanetFound);
+		
+		lblParts = new JLabel("Parts:");
+		lblParts.setHorizontalAlignment(SwingConstants.CENTER);
+		lblParts.setBounds(545, 38, 49, 24);
+		frame.getContentPane().add(lblParts);
+		
+		lblTotalPartsFound = new JLabel("Parts Found: ");
+		lblTotalPartsFound.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTotalPartsFound.setBounds(181, 188, 448, 15);
+		frame.getContentPane().add(lblTotalPartsFound);
 		btnConsumeItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (selectedPerson == null) return;
@@ -555,5 +574,14 @@ public class DayView {
 		lblDayCount.setText(Integer.toString(currentDay));
 		setInventoryList();
 		lblPilots.setText(ship.getPilots().size() + "/2");
+	}
+	
+	public void updatePartsFound(int partsFound) {
+		lblPartOnPlanetFound.setText("1/1");
+		lblTotalPartsFound.setText("Parts Found: " + Integer.toString(partsFound));
+	}
+	
+	public void resetPlanetPartsFound() {
+		lblPartOnPlanetFound.setText("0/1");
 	}
 }
