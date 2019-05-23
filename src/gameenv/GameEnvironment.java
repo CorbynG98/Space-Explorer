@@ -15,15 +15,15 @@ import planet.*;
 public class GameEnvironment {
 	
 	private int daysCompleted = 0;
-	private int numDays;
+	private int numberOfGameDays;
 	private Ship currentShip;
 	private Planet currentPlanet;
-	private int totalParts;
-	private int partsFound = 0;
+	
 	private JFrame dayView;
 	private DayView day;
 	private int hungerDecrease = 15;
 	private int energyDecrease = 15;
+	private int partsRequired;
 	private int transporterPartsFound = 0;
 	
 	private List<FoodItem> foodItems = Arrays.asList(new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup());
@@ -75,8 +75,8 @@ public class GameEnvironment {
 				}
 				
 				currentShip.setName(initialSetup.getShipName().getText());
-				numDays = Integer.parseInt((String)initialSetup.getDays().getSelectedItem());
-				totalParts = (int) (numDays * (2/3));
+				numberOfGameDays = Integer.parseInt((String)initialSetup.getDays().getSelectedItem());
+				partsRequired = (int) (numberOfGameDays * (2/3));
 				
 				initialSetup.getFrame().dispose();
 				
@@ -166,7 +166,7 @@ public class GameEnvironment {
 		// Go to next day
 		day.getNextDay().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				goToNextDay();
+				goToNextDay(false);
 				day.setCurrentDay(daysCompleted);
 				day.updateGUI();
 			}
@@ -312,15 +312,17 @@ public class GameEnvironment {
 	/*
 	 * Advances the game by a day, which resets crew actions and iterates their health, tiredness, and hunger levels. Can trigger certain random events.
 	 */
-	public void goToNextDay() {
+	public void goToNextDay(boolean flyingToNewPlanet) {
 		// Goes to the next day on the same planet.
 		daysCompleted += 1;
 		
-		if (daysCompleted >= numDays) {
-			// Game is over, end
+		if (daysCompleted == numberOfGameDays) {
+			if (transporterPartsFound == partsRequired) {
+				gameWon();
+			}
 		}
 		
-		// Calculate new values, not resetting here, only when going to a new planet.
+		// Calculate new values, not resetting here, only when going to a new planet. May trigger a random event.
 		for (CrewMember crewMember: currentShip.getCrew().getCrewList()) {
 			crewMember.resetActionsPerformed();
 			
@@ -328,65 +330,41 @@ public class GameEnvironment {
 			crewMember.setTiredness((int)(crewMember.getTiredness() - (hungerDecrease * crewMember.getTirednessDegradation())));
 		}
 		
-		/* Random events will go here */
+
 		Random eventChance = new Random();
-		int eventType = eventChance.nextInt(6);
+		int eventType = eventChance.nextInt(9);
 		
-		if (eventType == 3) {
+		if (eventType == 5) {
 			RandomEvents.spacePlague(currentShip.getCrew().getCrewList());
 		}
 		
-		else if (eventType == 4) {
+		else if (eventType == 6) {
 			RandomEvents.alienPirates(currentShip.getCrew(), currentShip, this);
 		}
 		
-		else if (eventType == 5) {
+		else if (eventType == 7) {
 			RandomEvents.spaceBattle(currentShip.getCrew(), currentShip, this);
 		}
-		
-	}
-	
-	/*
-	 * Advances the game by a day and resets variables in the same fashion as the goToNextDay method. Also creates a new planet and may trigger a random event. 
-	 */
-	public void goToNewPlanet() {
-		
-		daysCompleted += 1;
-		
-		for (CrewMember crewMember: currentShip.getCrew().getCrewList()) {
-			crewMember.resetActionsPerformed();
-		}
-		
-		currentPlanet = new Planet();
-		
-		/* Determine if a random event occurs */
-		Random eventChance = new Random();
-		int eventType = eventChance.nextInt(10);
-		
-		// Space plague event occurs
-		if (eventType == 5) {
-				
-			RandomEvents.spacePlague(currentShip.getCrew().getCrewList());
-		}
-		
-		// Asteroid belt event occurs
-		else if (eventType == 6) {
+
+		else if (eventType == 8 && flyingToNewPlanet) {
 			boolean shipAlive = currentShip.AsteroidField();
 			
 			if (!shipAlive) {
 				gameOver(currentShip.getGameOverText());
 			}
 		}
+	}
+	
+	/*
+	 * Advances the game by a day and creates a new planet. May trigger a random event. 
+	 */
+	public void goToNewPlanet() {
 		
-		// Alien pirate event occurs
-		else if (eventType == 7) { 
-			RandomEvents.alienPirates(currentShip.getCrew(), currentShip, this);
-		}
+		daysCompleted += 1;
 		
-		// Space battle occurs.
-		else if (eventType == 8) {
-			RandomEvents.spaceBattle(currentShip.getCrew(), currentShip, this);
-		}
+		goToNextDay(true);
+		
+		currentPlanet = new Planet();
 	}
 	
 	
@@ -395,6 +373,10 @@ public class GameEnvironment {
 	 */
 	public void gameOver(String gameOverText) {
 		GameOverView gameOverWindow = new GameOverView(gameOverText);
+	}
+	
+	public void gameWon() {
+		
 	}
 	
 	public static void main(String[] args) {
