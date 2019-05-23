@@ -10,6 +10,7 @@ public class Planet {
 	private String name;
 	private String[] planetNames = {"Tatooine", "Yavin IV", "Charon", "Pluto II", "Wotan", "Alpha-B32", "Terra", "Talara", "Athena", "Jupiter", "Beshan", "Calypso", "Nibiru", "Omicron Delta", "Risa", "Andoria", "Alderaan",
 			"Yavin", "Kashyyyk", "Vendikar", "TRAPPIST-1", "Dagobah", "Hoth", "Janus IV", "Dakara", "Celestis"};
+	
 	private boolean transporterPartFound = false;
 	
 	
@@ -20,7 +21,7 @@ public class Planet {
 	}
 	
 	public String getName() {
-		return this.name;
+		return name;
 	}
 	
 	public Object searchPlanet(CrewMember crewSearcher, List<FoodItem> foodItems, List<MedicalItem> medicalItems) {
@@ -63,11 +64,18 @@ public class Planet {
 	
 		else if (itemType == 3) {
 			foundItem = new TransporterPart();
+			transporterPartFound = true;
 		}
 		
 		if (foundItem != null) {
-			String itemFound = crewSearcher.getName() + " searched " + this.name + " and found a " + foundItem.toString() + ".";
-			RandomEventDialogs dialog = new RandomEventDialogs(itemFound);
+			String foundItemText = crewSearcher.getName() + " found one " + foundItem.toString() + " while searching " + this.name + ". It has been added to the ship's inventory.";
+			RandomEventDialogs dialog = new RandomEventDialogs(foundItemText);
+			dialog.setVisible(true);
+		}
+		else {
+			String foundNothing = crewSearcher.getName() + " searched " + this.name + " but found nothing.";
+			RandomEventDialogs dialog = new RandomEventDialogs(foundNothing);
+			dialog.setVisible(true);
 		}
 		
 		return foundItem;
