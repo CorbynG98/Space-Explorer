@@ -175,7 +175,7 @@ public class SetupView {
 		
 		JLabel lblSoldierImage = new JLabel("");
 		lblSoldierImage.setIcon(new ImageIcon(new ImageIcon(SetupView.class.getResource("/images/soldier.jpg")).getImage().getScaledInstance(230, 251, Image.SCALE_DEFAULT)));
-		lblSoldierImage.setBounds(-10, 0, 240, 265);
+		lblSoldierImage.setBounds(-10, 10, 240, 229);
 		SoldierPanel.add(lblSoldierImage);
 		
 		JPanel EngineerPanel = new JPanel();
@@ -223,7 +223,7 @@ public class SetupView {
 		
 		JLabel lblEngineerImage = new JLabel("");
 		lblEngineerImage.setIcon(new ImageIcon(new ImageIcon(SetupView.class.getResource("/images/engineer.jpg")).getImage().getScaledInstance(230, 251, Image.SCALE_DEFAULT)));
-		lblEngineerImage.setBounds(-10, 0, 240, 265);
+		lblEngineerImage.setBounds(-10, 12, 240, 227);
 		EngineerPanel.add(lblEngineerImage);
 		
 		JPanel MedicPanel = new JPanel();
@@ -271,7 +271,7 @@ public class SetupView {
 		
 		JLabel lblMedicImage = new JLabel("");
 		lblMedicImage.setIcon(new ImageIcon(new ImageIcon(SetupView.class.getResource("/images/medic.jpg")).getImage().getScaledInstance(230, 251, Image.SCALE_DEFAULT)));
-		lblMedicImage.setBounds(-10, 0, 240, 265);
+		lblMedicImage.setBounds(-10, 10, 240, 229);
 		MedicPanel.add(lblMedicImage);
 		
 		JPanel MerchantPanel = new JPanel();
@@ -319,7 +319,7 @@ public class SetupView {
 		
 		JLabel lblMerchantImage = new JLabel("");
 		lblMerchantImage.setIcon(new ImageIcon(new ImageIcon(SetupView.class.getResource("/images/merchant.jpg")).getImage().getScaledInstance(230, 251, Image.SCALE_DEFAULT)));
-		lblMerchantImage.setBounds(-10, 0, 240, 265);
+		lblMerchantImage.setBounds(-10, 12, 240, 227);
 		MerchantPanel.add(lblMerchantImage);
 		
 		JPanel PilotPanel = new JPanel();
@@ -367,7 +367,7 @@ public class SetupView {
 		
 		JLabel lblPilotImage = new JLabel("");
 		lblPilotImage.setIcon(new ImageIcon(new ImageIcon(SetupView.class.getResource("/images/pilot.jpg")).getImage().getScaledInstance(230, 251, Image.SCALE_DEFAULT)));
-		lblPilotImage.setBounds(-10, 0, 240, 265);
+		lblPilotImage.setBounds(-10, 12, 240, 227);
 		PilotPanel.add(lblPilotImage);
 		
 		JPanel ScientistPanel = new JPanel();
@@ -415,7 +415,7 @@ public class SetupView {
 		
 		JLabel lblScientistImage = new JLabel("");
 		lblScientistImage.setIcon(new ImageIcon(new ImageIcon(SetupView.class.getResource("/images/scientist.jpg")).getImage().getScaledInstance(230, 251, Image.SCALE_DEFAULT)));
-		lblScientistImage.setBounds(-10, 0, 240, 265);
+		lblScientistImage.setBounds(-10, 12, 240, 227);
 		ScientistPanel.add(lblScientistImage);
 		
 		btnEnterTheVerse = new JButton("Enter the verse");

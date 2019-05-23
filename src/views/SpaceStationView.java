@@ -28,6 +28,7 @@ public class SpaceStationView {
 	private boolean merchantInCrew = false;
 	private Ship ship;
 	private int playerFunds;
+	private JLabel lblHealthGain, lblHungerGain, lblHealthHunger;
 	
 	public SpaceStationView(Ship ship, ArrayList<Item> itemList) {
 		this.itemList = itemList;
@@ -77,7 +78,7 @@ public class SpaceStationView {
 				if(playerFunds < selectedItem.getCost()) {
 					lblErrorMessage.setText("NOT ENOUGH FUNDS");
 				}
-				updateInformation(selectedItem.getName(), selectedItem.getCost());
+				updateInformation(selectedItem);
 			}
 		});
 		btnItem1.setBounds(12, 70, 149, 66);
@@ -91,7 +92,7 @@ public class SpaceStationView {
 				if(playerFunds < selectedItem.getCost()) {
 					lblErrorMessage.setText("NOT ENOUGH FUNDS");
 				}
-				updateInformation(selectedItem.getName(), selectedItem.getCost());
+				updateInformation(selectedItem);
 			}
 		});
 		btnItem2.setBounds(173, 70, 149, 66);
@@ -105,7 +106,7 @@ public class SpaceStationView {
 				if(playerFunds < selectedItem.getCost()) {
 					lblErrorMessage.setText("NOT ENOUGH FUNDS");
 				}
-				updateInformation(selectedItem.getName(), selectedItem.getCost());
+				updateInformation(selectedItem);
 			}
 		});
 		btnItem3.setBounds(12, 148, 149, 66);
@@ -119,7 +120,7 @@ public class SpaceStationView {
 				if(playerFunds < selectedItem.getCost()) {
 					lblErrorMessage.setText("NOT ENOUGH FUNDS");
 				}
-				updateInformation(selectedItem.getName(), selectedItem.getCost());
+				updateInformation(selectedItem);
 			}
 		});
 		btnItem4.setBounds(173, 148, 149, 66);
@@ -133,7 +134,7 @@ public class SpaceStationView {
 				if(playerFunds < selectedItem.getCost()) {
 					lblErrorMessage.setText("NOT ENOUGH FUNDS");
 				}
-				updateInformation(selectedItem.getName(), selectedItem.getCost());
+				updateInformation(selectedItem);
 			}
 		});
 		btnItem5.setBounds(12, 226, 149, 66);
@@ -147,7 +148,7 @@ public class SpaceStationView {
 				if(playerFunds < selectedItem.getCost()) {
 					lblErrorMessage.setText("NOT ENOUGH FUNDS");
 				}
-				updateInformation(selectedItem.getName(), selectedItem.getCost());
+				updateInformation(selectedItem);
 			}
 		});
 		btnItem6.setBounds(173, 226, 149, 66);
@@ -166,22 +167,40 @@ public class SpaceStationView {
 		panel_1.add(lblItemInformation);
 		
 		lblInfoName = new JLabel("");
-		lblInfoName.setBounds(78, 46, 302, 28);
+		lblInfoName.setBounds(105, 46, 275, 28);
 		panel_1.add(lblInfoName);
 		
 		JLabel lblName = new JLabel("Name:");
 		lblName.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblName.setBounds(10, 46, 56, 28);
+		lblName.setBounds(10, 46, 83, 28);
 		panel_1.add(lblName);
 		
 		lblInfoPrice = new JLabel("");
-		lblInfoPrice.setBounds(78, 86, 302, 28);
+		lblInfoPrice.setBounds(105, 86, 275, 28);
 		panel_1.add(lblInfoPrice);
 		
 		JLabel lblPrice = new JLabel("Price:");
 		lblPrice.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblPrice.setBounds(10, 86, 56, 28);
+		lblPrice.setBounds(10, 86, 83, 28);
 		panel_1.add(lblPrice);
+		
+		lblHealthHunger = new JLabel("Health:");
+		lblHealthHunger.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblHealthHunger.setBounds(10, 126, 83, 28);
+		panel_1.add(lblHealthHunger);
+		
+		JLabel lblEnergy = new JLabel("Energy: ");
+		lblEnergy.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblEnergy.setBounds(10, 166, 83, 28);
+		panel_1.add(lblEnergy);
+		
+		lblHealthGain = new JLabel("");
+		lblHealthGain.setBounds(105, 126, 275, 28);
+		panel_1.add(lblHealthGain);
+		
+		lblHungerGain = new JLabel("");
+		lblHungerGain.setBounds(105, 166, 275, 28);
+		panel_1.add(lblHungerGain);
 		
 		JButton btnBuy = new JButton("Purchase");
 		btnBuy.addActionListener(new ActionListener() {
@@ -202,8 +221,8 @@ public class SpaceStationView {
 					lblErrorMessage.setText("Medical Item");
 					ship.getCrew().addMedicalItem((MedicalItem)selectedItem);
 				}
-				
-				ship.getCrew().removeMoney(selectedItem.getCost());
+			
+				ship.getCrew().removeMoney(merchantInCrew ? (int)(selectedItem.getCost() * 0.7) : (int)(selectedItem.getCost()));
 				playerFunds = ship.getCrew().getMoney();
 				
 				lblMoney.setText(Integer.toString(playerFunds));
@@ -246,15 +265,28 @@ public class SpaceStationView {
 		return frame;
 	}
 	
-	public void updateInformation(String name, int price) {
-		lblInfoName.setText(name);
+	public void updateInformation(Item SelectedItem) {
+		lblInfoName.setText(selectedItem.getName());
+		
+		if (selectedItem instanceof MedicalItem) {
+			MedicalItem item = (MedicalItem)selectedItem;
+			lblHealthHunger.setText("Health: ");
+			lblHealthGain.setText(Integer.toString(item.getHealthValue()));
+			lblHungerGain.setText("None");
+		}
+		else {
+			FoodItem item = (FoodItem)selectedItem;
+			lblHealthHunger.setText("Hunger: ");
+			lblHealthGain.setText(Integer.toString(item.getHungerValue()));
+			lblHungerGain.setText(item.getEnergyValue() != 0 ? Integer.toString(item.getEnergyValue()) : "None");
+		}
 		
 		// Give 30 percent discount if there is a merchant in the crew
 		if (merchantInCrew) {
-			lblInfoPrice.setText(Double.toString(price * 0.7));
+			lblInfoPrice.setText(Double.toString(selectedItem.getCost() * 0.7));
 		}
 		else {
-			lblInfoPrice.setText(Integer.toString(price));
+			lblInfoPrice.setText(Integer.toString(selectedItem.getCost()));
 		}
 	}
 }
