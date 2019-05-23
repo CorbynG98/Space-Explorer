@@ -2,7 +2,7 @@ package spaceship;
 
 import java.util.ArrayList;
 import crew.*;
-
+import gameenv.*;
 
 public class Ship {
 	
@@ -31,6 +31,13 @@ public class Ship {
 		this.name = newName;
 	}
 	
+	public void takeDamage(int damageTaken, GameEnvironment currentGame) {
+		this.health -= damageTaken;
+		if (health <= 0) {
+			currentGame.gameOver();
+		}
+	}
+	
 	// Getter/s
 	public String getName() {
 		return name;
@@ -47,7 +54,7 @@ public class Ship {
 	public ArrayList<CrewMember> getPilots() {
 		return currentPilots;
 	}
-	
+
 	
 	// Action/s
 	public void repairShip(CrewMember person) {
@@ -60,11 +67,11 @@ public class Ship {
 		person.addActionPerformed();
 	}
 	
-	public void ShipToShipFight(int damageAmount) {
+	public void ShipToShipFight(int damageAmount, GameEnvironment currentGame) {
 		this.health -= damageAmount;
 		
 		if (health <= 0) {
-			// Game over do game over stuff here
+			currentGame.gameOver();
 		}
 	}
 	

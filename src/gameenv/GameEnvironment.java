@@ -201,6 +201,11 @@ public class GameEnvironment {
 	
 	public void searchPlanet() {
 		CrewMember activeCrewMember = day.getSelectedCrewMember();
+		
+		if (activeCrewMember.getActionsPerformed() >= 2) {
+			return;
+		}
+		
 		activeCrewMember.addActionPerformed();
 		
 		Object foundItem = currentPlanet.searchPlanet(activeCrewMember, foodItems, medicalItems);
@@ -274,7 +279,7 @@ public class GameEnvironment {
 		
 		/* Alien pirates occurs */
 		else if (eventType == 7) { 
-			RandomEvents.alienPirates(currentShip.getCrew(), currentShip);
+			RandomEvents.alienPirates(currentShip.getCrew(), currentShip, this);
 		}
 	}
 	

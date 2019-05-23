@@ -13,7 +13,7 @@ public class CrewMember {
 	private double healthDegradation = 1;
 	private double hungerDegradation = 1;
 	private double tirednessDegradation = 1;
-	private boolean isAsleep = false;
+	private String classString;
 	private boolean isDiseased = false;
 	private boolean isDead = false;
 	private int actionsPerformed = 0;
@@ -22,13 +22,14 @@ public class CrewMember {
 	/* Constructor method for the CrewMember class */
 	
 	
-	public CrewMember(String name, String type, int damage, double healthDegradation, double hungerDegradation, double tirednessDegradation) {
+	public CrewMember(String name, String type, int damage, double healthDegradation, double hungerDegradation, double tirednessDegradation, String classString) {
 		this.name = name;
 		this.specialization = type;
 		this.damage = damage;
 		this.healthDegradation = healthDegradation;
 		this.hungerDegradation = hungerDegradation;
 		this.tirednessDegradation = tirednessDegradation;
+		this.classString = classString;
 	}
 
 	
@@ -90,6 +91,10 @@ public class CrewMember {
 		statusArray[2] = tiredness;
 		
 		return statusArray;
+	}
+	
+	public String getClassString() {
+		return classString;
 	}
 	
 

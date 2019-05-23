@@ -7,6 +7,7 @@ import spaceship.*;
 import crew.*;
 import items.*;
 import views.*;
+import gameenv.*;
 
 public class RandomEvents {
 
@@ -41,7 +42,7 @@ public class RandomEvents {
 	/*
 	 *  Logic for the alien pirates random event 
 	 */
-	public static void alienPirates(Crew currentCrew, Ship currentShip) {
+	public static void alienPirates(Crew currentCrew, Ship currentShip, GameEnvironment currentGame) {
 		Random pirateChances = new Random();
 		
 		boolean soldierInCrew = false;
@@ -68,7 +69,7 @@ public class RandomEvents {
 			if (itemTypeStolen == 1) {
 				int sizeOfInventory = currentCrew.getFoodInventory().size();
 				
-				int itemStolen = pirateChances.nextInt(sizeOfInventory + 1);
+				int itemStolen = pirateChances.nextInt(sizeOfInventory);
 				
 				FoodItem foodStolen = currentCrew.getFoodInventory().get(itemStolen);
 				currentCrew.getFoodInventory().remove(itemStolen);
@@ -81,7 +82,7 @@ public class RandomEvents {
 			else {
 				int sizeOfInventory = currentCrew.getMedicalInventory().size();
 				
-				int itemStolen = pirateChances.nextInt(sizeOfInventory + 1);
+				int itemStolen = pirateChances.nextInt(sizeOfInventory);
 				
 				MedicalItem medicalStolen = currentCrew.getMedicalInventory().get(itemStolen);
 				currentCrew.getMedicalInventory().remove(itemStolen);
@@ -96,6 +97,7 @@ public class RandomEvents {
 		else {
 			String soldierSavesShip = "The ship was protected from Alien pirates by our brave soldiers! However, the ship's shield took some damage in the fight.";
 			
+			currentShip.takeDamage(10, currentGame);
 			RandomEventDialogs dialog = new RandomEventDialogs(soldierSavesShip);
 			dialog.setVisible(true);
 		}
