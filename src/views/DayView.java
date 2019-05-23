@@ -486,6 +486,10 @@ public class DayView {
 	public JButton getRepairButton() {
 		return btnRepairShip;
 	}
+
+	public CrewMember getSelectedCrewMember() {
+		return selectedPerson;
+	}
 //	private JLabel lblPersonHealth1,lblPersonHealth2,lblPersonHealth3,lblPersonHealth4;
 //	private JLabel lblPersonHunger1,lblPersonHunger2,lblPersonHunger3,lblPersonHunger4;
 //	private JLabel lblPersonEnergy1,lblPersonEnergy2,lblPersonEnergy3,lblPersonEnergy4;

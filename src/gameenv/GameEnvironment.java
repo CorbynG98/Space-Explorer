@@ -172,7 +172,6 @@ public class GameEnvironment {
 		});
 		day.getSearchButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				day.getFrame().setVisible(false);
 				searchPlanet();
 			}
 		});
@@ -201,16 +200,26 @@ public class GameEnvironment {
 	}
 	
 	public void searchPlanet() {
+		CrewMember activeCrewMember = day.getSelectedCrewMember();
+		activeCrewMember.addActionPerformed();
 		
-		Object foundItem = currentPlanet.searchPlanet(/*Get crew member*/, foodItems, medicalItems);
+		Object foundItem = currentPlanet.searchPlanet(activeCrewMember, foodItems, medicalItems);
 		if (foundItem != null) {
-			String foundItemText = crewMember.getName() + " found one " + foundItem.toString() + " while searching " + currentPlanet.toString() ". It has been added to the Ships inventory.";
-			RandomEventDialogs dialog = new RandomEventDialogs(foundItemText);
+			if (foundItem instanceof FoodItem) {
+				currentShip.getCrew().addFoodItem((FoodItem) foundItem);
+			}
+			else if (foundItem instanceof MedicalItem) {
+				currentShip.getCrew().addMedicalItem((MedicalItem) foundItem);
+			}
+			else if (foundItem instanceof TransporterPart) {
+				transporterPartsFound += 1;
+			}
 		}
 		else {
-			String foundNothing = crewMember.getName() + " searched " currentPlanet.toString() + " but found nothing.";
-			RandomEventDialogs dialog = new RandomEventDialogs(foundNothing);
+			
 		}
+		
+		day.updateGUI();
 	}
 	
 	public void goToNextDay() {
@@ -230,10 +239,7 @@ public class GameEnvironment {
 		}
 		
 		/* Random events will go here */
-	
 		
-		// Create new planet for the frame.
-		currentPlanet = new Planet();	
 	}
 	
 	// Goes to a new planet, consumes 1 day.
@@ -268,7 +274,7 @@ public class GameEnvironment {
 		
 		/* Alien pirates occurs */
 		else if (eventType == 7) { 
-			RandomEvents.alienPirates(currentShip.getCrew());
+			RandomEvents.alienPirates(currentShip.getCrew(), currentShip);
 		}
 	}
 	

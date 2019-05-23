@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import javax.swing.JTextPane;
 
 public class RandomEventDialogs extends JDialog {
 
@@ -20,7 +22,7 @@ public class RandomEventDialogs extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			RandomEventDialogs dialog = new RandomEventDialogs("Hello");
+			RandomEventDialogs dialog = new RandomEventDialogs("check out how much text this label can display");
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -38,9 +40,11 @@ public class RandomEventDialogs extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel(eventResults);
-		lblNewLabel.setBounds(197, 101, 66, 15);
-		contentPanel.add(lblNewLabel);
+		JTextPane textPane = new JTextPane();
+		textPane.setText(eventResults);
+		textPane.setEditable(false);
+		textPane.setBounds(12, 48, 426, 144);
+		contentPanel.add(textPane);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

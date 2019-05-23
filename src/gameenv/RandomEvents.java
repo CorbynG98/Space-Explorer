@@ -3,16 +3,16 @@ package gameenv;
 import java.util.Random;
 import java.util.ArrayList;
 
+import spaceship.*;
 import crew.*;
 import items.*;
 import views.*;
 
 public class RandomEvents {
 
-	/* Logic for the space plague random event */
 	
-	/*TODO
-	 * Create popup window for the crew members that contract the plague
+	/* 
+	 * Logic for the space plague random event 
 	 */
 	public static void spacePlague(ArrayList<CrewMember> crewList) {
 		Random plagueChance = new Random();
@@ -34,13 +34,14 @@ public class RandomEvents {
 		}
 		String spacePlague = "The crew was exposed to the space plague! Make sure to cure any survivors with a space plague cure.";
 		RandomEventDialogs dialog = new RandomEventDialogs(spacePlague);
+		dialog.setVisible(true);
 	}
 
 	
 	/*
 	 *  Logic for the alien pirates random event 
 	 */
-	public static void alienPirates(Crew currentCrew) {
+	public static void alienPirates(Crew currentCrew, Ship currentShip) {
 		Random pirateChances = new Random();
 		
 		boolean soldierInCrew = false;
@@ -73,8 +74,9 @@ public class RandomEvents {
 				currentCrew.getFoodInventory().remove(itemStolen);
 				
 				
-				String alienStoleItem = "Alien pirates have board the ship and stole one " + foodStolen.toString() + ".";
+				String alienStoleItem = "Alien pirates boarded the ship and stole one " + foodStolen.toString() + "!";
 				RandomEventDialogs dialog = new RandomEventDialogs(alienStoleItem);
+				dialog.setVisible(true);
 			}
 			else {
 				int sizeOfInventory = currentCrew.getMedicalInventory().size();
@@ -85,14 +87,17 @@ public class RandomEvents {
 				currentCrew.getMedicalInventory().remove(itemStolen);
 				
 				// Generate dialog with the results of the Alien pirate boarding
-				String alienStoleItem = "Alien pirates have board the ship and stole one " + medicalStolen.toString() + ".";
+				String alienStoleItem = "Alien pirates boarded the ship and stole one " + medicalStolen.toString() + "!";
 				RandomEventDialogs dialog = new RandomEventDialogs(alienStoleItem);
+				dialog.setVisible(true);
 			}
 		}
 		
 		else {
-			String soldierSavesShip = "The ship was protected from Alien pirates by our brave soldiers";
+			String soldierSavesShip = "The ship was protected from Alien pirates by our brave soldiers! However, the ship's shield took some damage in the fight.";
+			
 			RandomEventDialogs dialog = new RandomEventDialogs(soldierSavesShip);
+			dialog.setVisible(true);
 		}
 		
 	}
