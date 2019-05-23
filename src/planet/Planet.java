@@ -31,8 +31,8 @@ public class Planet {
 		Object foundItem = null;
 		
 		// Check if a transporter part has already been found on this planet
-		if (transporterPartFound) {
-			itemType = searchSelect.nextInt(4);
+		if (!transporterPartFound) {
+			itemType = searchSelect.nextInt(1);
 		}
 		else {
 			itemType = searchSelect.nextInt(3);
@@ -46,6 +46,10 @@ public class Planet {
 				int getPieWithKetchup = searchSelect.nextInt(4);
 				if (getPieWithKetchup == 3) {
 					foundItem = new MincePieWithKetchup();
+				}
+				
+				else {
+					foundItem = foodItems.get(searchSelect.nextInt(foodItems.size()));
 				}
 			}
 			
