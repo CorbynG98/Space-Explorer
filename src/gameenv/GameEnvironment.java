@@ -194,6 +194,12 @@ public class GameEnvironment {
 	public void repairShip() {
 		CrewMember activeCrewMember = day.getSelectedCrewMember();
 		
+		// Confirm that a crew member is selected
+		if (day.getSelectedCrewMember() == null) {
+			return;
+		}
+		
+		// Check that the crew member has actions left
 		if (activeCrewMember.getActionsPerformed() >= 2) {
 			EventDialogs noActionsLeft = new EventDialogs("This crew member has no actions left today.");
 			noActionsLeft.setVisible(true);
@@ -209,15 +215,25 @@ public class GameEnvironment {
 	public void searchPlanet() {
 		CrewMember activeCrewMember = day.getSelectedCrewMember();
 		
+		// Confirm that a crew member is selected
+		if (day.getSelectedCrewMember() == null) {
+			return;
+		}
+		
+		// Check that the crew member has actions left
 		if (activeCrewMember.getActionsPerformed() >= 2) {
 			EventDialogs noActionsLeft = new EventDialogs("This crew member has no actions left today.");
 			noActionsLeft.setVisible(true);
 			return;
 		}
 		
+		EventDialogs test = new EventDialogs("Test");
+		test.setVisible(true);
+		
 		activeCrewMember.addActionPerformed();
 		
 		Object foundItem = currentPlanet.searchPlanet(activeCrewMember, foodItems, medicalItems);
+		
 		if (foundItem != null) {
 			if (foundItem instanceof FoodItem) {
 				currentShip.getCrew().addFoodItem((FoodItem) foundItem);
