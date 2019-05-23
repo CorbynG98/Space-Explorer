@@ -220,6 +220,7 @@ public class GameEnvironment {
 				
 				if (currentShip.getPilots().size() == 2) {
 					goToNewPlanet();
+					day.updateGUI();
 				}
 			}
 		});
@@ -316,6 +317,7 @@ public class GameEnvironment {
 	public void goToNextDay(boolean flyingToNewPlanet) {
 		// Goes to the next day on the same planet.
 		daysCompleted += 1;
+		
 		currentShip.getPilots().clear();
 		
 		if (daysCompleted > numberOfGameDays) {
@@ -369,14 +371,14 @@ public class GameEnvironment {
 				gameOver(currentShip.getGameOverText());
 			}
 		}
+		
+		day.updateGUI();
 	}
 	
 	/*
 	 * Advances the game by a day and creates a new planet. May trigger a random event. 
 	 */
 	public void goToNewPlanet() {
-		
-		daysCompleted += 1;
 		
 		goToNextDay(true);
 		

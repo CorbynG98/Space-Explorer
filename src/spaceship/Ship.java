@@ -61,8 +61,6 @@ public class Ship {
 		return shipGameOverText;
 	}
 
-	
-	
 	public int repairShip(CrewMember person) {
 		int repairAmount = 10;
 		
@@ -88,14 +86,15 @@ public class Ship {
 	public boolean AsteroidField() {
 		int damageAmount = 30;
 		
-		// Ship will take less damage if being piloted by a Pilot crew member
-		if (currentPilots.get(0).getSpecialization() == "Pilot" || currentPilots.get(1).getSpecialization() == "Pilot" ) {
-			damageAmount += (this.health / 5);
-		}
-		else {
-			damageAmount += (this.health / 4);
-		}
+		damageAmount += (this.health / 4);
 		
+		// Ship will take less damage if being piloted by a Pilot crew member
+		for (CrewMember crewMember: currentPilots) {
+			if (crewMember instanceof Pilot) {
+				damageAmount += (this.health / 5);
+			}
+		}
+		 
 		this.health -= damageAmount;
 		
 		if (this.health <= 0) {
