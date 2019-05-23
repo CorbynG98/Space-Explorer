@@ -8,8 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
 
@@ -43,6 +42,18 @@ public class EventDialogs extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		
+		// Hide dialog box if focus is lost on the dialog box (i.e. the user clicks away or another dialog box is created).
+		this.addWindowFocusListener(new WindowFocusListener() {
+			
+			public void windowGainedFocus(WindowEvent e) {
+				//do nothing
+			}
+			
+			public void windowLostFocus(WindowEvent e) {
+				dispose();
+			}
+		});
 		
 		JTextPane textPane = new JTextPane();
 		textPane.setText(eventResults);

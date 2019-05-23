@@ -12,6 +12,8 @@ public class Ship {
 	private int maxHealth = 100;
 	private Crew crew = new Crew();
 	private ArrayList<CrewMember> currentPilots = new ArrayList<CrewMember>();
+	private String shipGameOverText = "The ship's shields have fallen to critical levels and the crew has been exposed to lethal doses of radiation. The"
+			+ " mission has failed.";
 	
 	// Constructor/s
 	public Ship(String name) {
@@ -34,7 +36,7 @@ public class Ship {
 	public void takeDamage(int damageTaken, GameEnvironment currentGame) {
 		this.health -= damageTaken;
 		if (health <= 0) {
-			currentGame.gameOver();
+			currentGame.gameOver(shipGameOverText);
 		}
 	}
 	
@@ -54,9 +56,13 @@ public class Ship {
 	public ArrayList<CrewMember> getPilots() {
 		return currentPilots;
 	}
+	
+	public String getGameOverText() {
+		return shipGameOverText;
+	}
 
 	
-	// Action/s
+	
 	public int repairShip(CrewMember person) {
 		int repairAmount = 10;
 		
@@ -75,7 +81,7 @@ public class Ship {
 		this.health -= damageAmount;
 		
 		if (health <= 0) {
-			currentGame.gameOver();
+			currentGame.gameOver(shipGameOverText);
 		}
 	}
 	
