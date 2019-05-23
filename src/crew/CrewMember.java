@@ -184,12 +184,12 @@ public class CrewMember {
 			this.health = 100;
 		}
 		
-		if (this.tiredness < 0) {
-			this.tiredness = 0;
+		if (this.tiredness > 100) {
+			this.tiredness = 100;
 		}
 		
-		if (this.hunger < 0) {
-			this.hunger = 0;
+		if (this.hunger > 100) {
+			this.hunger = 100;
 		}
 		
 		actionsPerformed += 1;

@@ -26,6 +26,9 @@ public class Crew {
 	/* Crew list */
 	
 	public void addCrewMember(CrewMember name) {
+		if (crewList.size() >= 4) {
+			return;
+		}
 		crewList.add(name);
 	}
 	
@@ -86,6 +89,9 @@ public class Crew {
 	
 	public void removeMoney(int amount) {
 		money -= amount;
+		if (money <= 0) {
+			money = 0;
+		}
 	}
 	
 
