@@ -31,6 +31,7 @@ public class DayView {
 	private JButton btnViewShipStatus;
 	private JButton btnSearchPlanet;
 	private JButton btnPersonSleep;
+	private JButton btnRepairShip;
 	private JLabel lblHunger;
 	private JLabel lblEnergy;
 	private JLabel lblHealth;
@@ -379,7 +380,7 @@ public class DayView {
 		btnFly.setBounds(625, 79, 163, 25);
 		frame.getContentPane().add(btnFly);
 		
-		JButton btnRepairShip = new JButton("Repair Ship");
+		btnRepairShip = new JButton("Repair Ship");
 		btnRepairShip.setBounds(12, 113, 163, 25);
 		frame.getContentPane().add(btnRepairShip);
 		
@@ -482,6 +483,9 @@ public class DayView {
 		return btnSearchPlanet;
 	}
 	
+	public JButton getRepairButton() {
+		return btnRepairShip;
+	}
 //	private JLabel lblPersonHealth1,lblPersonHealth2,lblPersonHealth3,lblPersonHealth4;
 //	private JLabel lblPersonHunger1,lblPersonHunger2,lblPersonHunger3,lblPersonHunger4;
 //	private JLabel lblPersonEnergy1,lblPersonEnergy2,lblPersonEnergy3,lblPersonEnergy4;
@@ -514,5 +518,6 @@ public class DayView {
 		}
 		lblAliveCount.setText(Integer.toString(ship.getCrew().getCrewList().size()));
 		lblDayCount.setText(Integer.toString(currentDay));
+		setInventoryList();
 	}
 }

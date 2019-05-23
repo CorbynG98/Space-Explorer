@@ -175,6 +175,6 @@ public class CrewMember {
 	
 	public void sleep() {
 		this.actionsPerformed = 2;
-		this.tiredness = 0;
+		this.tiredness = 100;
 	}
 }

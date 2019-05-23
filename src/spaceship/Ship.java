@@ -57,6 +57,7 @@ public class Ship {
 		}
 		this.health += repairAmount;
 		if (health >= maxHealth) this.health=maxHealth;
+		person.addActionPerformed();
 	}
 	
 	public void ShipToShipFight(int damageAmount) {

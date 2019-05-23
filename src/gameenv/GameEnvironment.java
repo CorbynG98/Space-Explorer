@@ -176,6 +176,13 @@ public class GameEnvironment {
 				searchPlanet();
 			}
 		});
+		day.getRepairButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CrewMember selected = day.getSelectedCrewMember();
+				currentShip.repairShip(selected);
+				day.updateGUI();
+			}
+		});
 	}
 	
 	public void viewShipState() {
@@ -187,6 +194,10 @@ public class GameEnvironment {
 				shipState.getFrame().dispose();
 			}
 		});
+	}
+	
+	public void repairShip() {
+		
 	}
 	
 	public void searchPlanet() {
