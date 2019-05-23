@@ -209,8 +209,11 @@ public class GameEnvironment {
 					return;
 				}
 				else {
-					currentShip.getPilots().add(selectedCrewMember);
-					selectedCrewMember.addActionPerformed();
+					if (currentShip.getPilots().size() < 2 && !currentShip.getPilots().contains(selectedCrewMember)) {
+						currentShip.getPilots().add(selectedCrewMember);
+						selectedCrewMember.addActionPerformed();
+						day.updateGUI();
+					}
 				}
 				
 			}
@@ -279,7 +282,7 @@ public class GameEnvironment {
 		
 		activeCrewMember.addActionPerformed();
 		
-		Object foundItem = currentPlanet.searchPlanet(activeCrewMember, foodItems, medicalItems);
+		Object foundItem = currentPlanet.searchPlanet(activeCrewMember, foodItems, medicalItems, currentShip.getCrew());
 		
 		// Analyze the type of item found and increment the associated variable(s). 
 		if (foundItem != null) {

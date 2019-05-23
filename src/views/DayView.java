@@ -52,6 +52,7 @@ public class DayView {
 	private JLabel lblPersonActions2;
 	private JLabel lblPersonActions3;
 	private JLabel lblPersonActions4;
+	private JLabel lblPilots;
 	/**
 	 * Launch the application.
 	 */
@@ -436,6 +437,11 @@ public class DayView {
 		lblHealth.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHealth.setBounds(361, 507, 66, 15);
 		frame.getContentPane().add(lblHealth);
+		
+		lblPilots = new JLabel("0/2");
+		lblPilots.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPilots.setBounds(580, 82, 49, 24);
+		frame.getContentPane().add(lblPilots);
 		btnConsumeItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (selectedPerson == null) return;
@@ -542,5 +548,6 @@ public class DayView {
 		lblAliveCount.setText(Integer.toString(ship.getCrew().getCrewList().size()));
 		lblDayCount.setText(Integer.toString(currentDay));
 		setInventoryList();
+		lblPilots.setText(ship.getPilots().size() + "/2");
 	}
 }
