@@ -341,12 +341,14 @@ public class GameEnvironment {
 				crewMember.takeDamage(plagueDamage);
 			}
 			
-			if (crewMember.isDead()) {
-				currentShip.getCrew().removeCrewMember(crewMember);
-				EventDialogs crewMemberDied = new EventDialogs(crewMember.getName() + " has died.");
-			}
-			
 		}
+		
+		// Loop through and remove crew member if they are dead.
+//		for (int i = 0; i < currentShip.getCrew().getCrewList().size(); i++) {
+//			if (currentShip.getCrew().getCrewList().get(i).isDead()) {
+//				currentShip.getCrew().removeCrewMember(currentShip.getCrew().getCrewList().get(i));
+//			}
+//		}
 		
 
 		Random eventChance = new Random();
