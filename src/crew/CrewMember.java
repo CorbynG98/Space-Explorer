@@ -17,12 +17,13 @@ public class CrewMember {
 	private boolean isDiseased = false;
 	private boolean isDead = false;
 	private int actionsPerformed = 0;
+	private String imagePath;
 	
 	
 	/* Constructor method for the CrewMember class */
 	
 	
-	public CrewMember(String name, String type, int damage, double healthDegradation, double hungerDegradation, double tirednessDegradation, String classString) {
+	public CrewMember(String name, String type, int damage, double healthDegradation, double hungerDegradation, double tirednessDegradation, String classString, String imagePath) {
 		this.name = name;
 		this.specialization = type;
 		this.damage = damage;
@@ -30,6 +31,7 @@ public class CrewMember {
 		this.hungerDegradation = hungerDegradation;
 		this.tirednessDegradation = tirednessDegradation;
 		this.classString = classString;
+		this.imagePath = imagePath;
 	}
 
 	
@@ -95,6 +97,10 @@ public class CrewMember {
 	
 	public String getClassString() {
 		return classString;
+	}
+	
+	public String getImagePath() {
+		return imagePath;
 	}
 	
 

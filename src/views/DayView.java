@@ -11,9 +11,13 @@ import items.*;
 import spaceship.*;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
@@ -117,14 +121,15 @@ public class DayView {
 		lblSpecialty.setBounds(322, 30, 163, 15);
 		frame.getContentPane().add(lblSpecialty);
 		
-		lblSelectedImage = new JLabel("Image of person");
+		lblSelectedImage = new JLabel("Person Image");
 		lblSelectedImage.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSelectedImage.setBounds(332, 40, 153, 131);
+		lblSelectedImage.setBounds(332, 45, 153, 131);
 		frame.getContentPane().add(lblSelectedImage);
 		
 		if (ship.getCrew().getCrewList().size() >= 1) {
-			JLabel lblPersonImage1 = new JLabel("Image of person");
+			JLabel lblPersonImage1 = new JLabel("");
 			lblPersonImage1.setHorizontalAlignment(SwingConstants.CENTER);
+			lblPersonImage1.setIcon(new ImageIcon(new ImageIcon(SetupView.class.getResource(ship.getCrew().getCrewList().get(0).getImagePath())).getImage().getScaledInstance(155, 135, Image.SCALE_DEFAULT)));
 			lblPersonImage1.setBounds(12, 278, 163, 179);
 			frame.getContentPane().add(lblPersonImage1);
 			
@@ -191,7 +196,8 @@ public class DayView {
 				}
 			});
 			
-			JLabel lblPersonImage2 = new JLabel("Image of person");
+			JLabel lblPersonImage2 = new JLabel("");
+			lblPersonImage2.setIcon(new ImageIcon(new ImageIcon(SetupView.class.getResource(ship.getCrew().getCrewList().get(1).getImagePath())).getImage().getScaledInstance(155, 135, Image.SCALE_DEFAULT)));
 			lblPersonImage2.setHorizontalAlignment(SwingConstants.CENTER);
 			lblPersonImage2.setBounds(187, 278, 163, 179);
 			frame.getContentPane().add(lblPersonImage2);
@@ -249,7 +255,8 @@ public class DayView {
 				}
 			});
 			
-			JLabel lblPersonImage4 = new JLabel("Image of person");
+			JLabel lblPersonImage4 = new JLabel("");
+			lblPersonImage4.setIcon(new ImageIcon(new ImageIcon(SetupView.class.getResource(ship.getCrew().getCrewList().get(3).getImagePath())).getImage().getScaledInstance(155, 135, Image.SCALE_DEFAULT)));
 			lblPersonImage4.setHorizontalAlignment(SwingConstants.CENTER);
 			lblPersonImage4.setBounds(625, 278, 163, 179);
 			frame.getContentPane().add(lblPersonImage4);
@@ -317,7 +324,8 @@ public class DayView {
 				}
 			});
 			
-			JLabel lblPersonImage3 = new JLabel("Image of person");
+			JLabel lblPersonImage3 = new JLabel("");
+			lblPersonImage3.setIcon(new ImageIcon(new ImageIcon(SetupView.class.getResource(ship.getCrew().getCrewList().get(2).getImagePath())).getImage().getScaledInstance(155, 135, Image.SCALE_DEFAULT)));
 			lblPersonImage3.setHorizontalAlignment(SwingConstants.CENTER);
 			lblPersonImage3.setBounds(450, 278, 163, 179);
 			frame.getContentPane().add(lblPersonImage3);
@@ -448,6 +456,8 @@ public class DayView {
 	public void updateSelectedDetails() {
 		lblSpecialty.setText(selectedPerson.getSpecialization());
 		lblCrewMemberName.setText(selectedPerson.getName());
+		lblSelectedImage.setIcon(new ImageIcon(new ImageIcon(SetupView.class.getResource(selectedPerson.getImagePath())).getImage().getScaledInstance(155, 135, Image.SCALE_DEFAULT)));
+		lblSelectedImage.setText("");
 	}
 	
 	public JFrame getFrame() {
