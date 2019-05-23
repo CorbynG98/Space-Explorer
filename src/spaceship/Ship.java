@@ -80,7 +80,7 @@ public class Ship {
 	}
 	
 	public boolean AsteroidField() {
-		int damageAmount = 10;
+		int damageAmount = 30;
 		
 		// Ship will take less damage if being piloted by a Pilot crew member
 		if (currentPilots.get(0).getSpecialization() == "Pilot" || currentPilots.get(1).getSpecialization() == "Pilot" ) {

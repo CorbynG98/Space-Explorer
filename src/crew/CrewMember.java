@@ -79,20 +79,12 @@ public class CrewMember {
 		return isDiseased;
 	}
 	
+	public boolean isDead() {
+		return isDead;
+	}
+	
 	public int getActionsPerformed() {
 		return actionsPerformed;
-	}
-
-	
-	public double[] getCrewMemberStatus() {
-		double statusArray[];
-		statusArray = new double[3];
-		
-		statusArray[0] = health;
-		statusArray[1] = hunger;
-		statusArray[2] = tiredness;
-		
-		return statusArray;
 	}
 	
 	public String getClassString() {
