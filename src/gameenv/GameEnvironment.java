@@ -75,7 +75,9 @@ public class GameEnvironment {
 				
 				currentShip.setName(initialSetup.getShipName().getText());
 				numberOfGameDays = Integer.parseInt((String)initialSetup.getDays().getSelectedItem());
-				partsRequired = (int) (numberOfGameDays * (2/3));
+				System.out.print(numberOfGameDays);
+				partsRequired = numberOfGameDays - 2;
+				System.out.print(partsRequired);
 				
 				initialSetup.getFrame().dispose();
 				
@@ -320,7 +322,9 @@ public class GameEnvironment {
 		
 		currentShip.getPilots().clear();
 		
-		if (daysCompleted > numberOfGameDays) {
+		boolean atLeastTwoCrewAlive = false;
+		
+		if (daysCompleted > numberOfGameDays || transporterPartsFound == partsRequired) {
 			if (transporterPartsFound == partsRequired) {
 				gameWon();
 			} else {
@@ -342,13 +346,18 @@ public class GameEnvironment {
 			}
 			
 		}
+	
+	// Loop through and remove crew member if they are dead.
 		
+<<<<<<< HEAD
 		// Loop through and remove crew member if they are dead.
 		for (int i = 0; i < currentShip.getCrew().getCrewList().size(); i++) {
 			if (currentShip.getCrew().getCrewList().get(i).isDead()) {
 				currentShip.getCrew().removeCrewMember(currentShip.getCrew().getCrewList().get(i));
 			}
 		}
+=======
+>>>>>>> d85e30ecf425f2d809590dac1fcf55e581c07478
 		
 
 		Random eventChance = new Random();
@@ -374,6 +383,23 @@ public class GameEnvironment {
 			}
 		}
 		
+		
+		for (int i = 0; i < currentShip.getCrew().getCrewList().size(); i++) {
+			if (currentShip.getCrew().getCrewList().get(i).isDead()) {
+				EventDialogs crewMemberDied = new EventDialogs(currentShip.getCrew().getCrewList().get(i).getName() + " has died. You must continue the mission without them.");
+				crewMemberDied.setVisible(true);
+				currentShip.getCrew().removeCrewMember(currentShip.getCrew().getCrewList().get(i));
+			}
+		}
+		
+		if (currentShip.getCrew().getCrewList().size() >= 2) {
+			atLeastTwoCrewAlive = true;
+		}
+		
+		if (!atLeastTwoCrewAlive) {
+			gameOver("There are not enough crew members to continue the mission. You have failed.");
+		}
+		
 		day.updateGUI();
 	}
 	
@@ -381,10 +407,9 @@ public class GameEnvironment {
 	 * Advances the game by a day and creates a new planet. May trigger a random event. 
 	 */
 	public void goToNewPlanet() {
-		
-		goToNextDay(true);
-		
 		currentPlanet = new Planet();
+		day.resetPlanetPartsFound();
+		goToNextDay(true);
 	}
 	
 	
@@ -392,11 +417,11 @@ public class GameEnvironment {
 	 * Game over method, creates game over screen and resets variables 
 	 */
 	public void gameOver(String gameOverText) {
-		GameOverView gameOverWindow = new GameOverView(gameOverText);
+		GameOverView gameOverWindow = new GameOverView(gameOverText, day);
 	}
 	
 	public void gameWon() {
-		GameWonView gameWonWindow = new GameWonView();
+		GameWonView gameWonWindow = new GameWonView(day);
 	}
 	
 	public static void main(String[] args) {

@@ -193,7 +193,7 @@ public class RandomEvents {
 		}
 		
 		if (crewSearcher.getHealth() <= 0) {
-			String crewMemberDied = crewSearcher.getName() + " died after encountering an aggressive searching the planet. They died for a good cause.";
+			String crewMemberDied = crewSearcher.getName() + " died after encountering an aggressive alien while searching the planet. They died for a good cause.";
 			battleResult = crewMemberDied;
 		}
 		return battleResult;
