@@ -161,7 +161,9 @@ public class CrewMember {
 	public void resetActionsPerformed() {
 		if (isDead == true) {
 			//Don't reset the actions of a dead guy/gal
+			return;
 		}
+		
 		actionsPerformed = 0;
 	}
 	
