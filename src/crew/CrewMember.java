@@ -134,6 +134,10 @@ public class CrewMember {
 		this.isDiseased = isDiseased;
 	}
 	
+	public void takeDamage(int damageTaken) {
+		this.health -= damageTaken;
+	}
+	
 	public void addActionPerformed() {
 		actionsPerformed += 1;
 	}

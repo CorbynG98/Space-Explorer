@@ -5,6 +5,7 @@ import java.util.*;
 import crew.*;
 import items.*;
 import views.*;
+import gameenv.RandomEvents;
 
 public class Planet {
 	
@@ -25,12 +26,17 @@ public class Planet {
 		return name;
 	}
 	
-	public Object searchPlanet(CrewMember crewSearcher, List<FoodItem> foodItems, List<MedicalItem> medicalItems) {
+	public Object searchPlanet(CrewMember crewSearcher, List<FoodItem> foodItems, List<MedicalItem> medicalItems, Crew currentCrew) {
 		Random searchSelect = new Random();
 		int itemType;
 		
 		Object foundItem = null;
 		
+		// Chance of alien encounter on the planet
+		int alienAppears = searchSelect.nextInt(10);
+		if (alienAppears == 9) {
+			RandomEvents.planetBattle(crewSearcher, currentCrew, this);
+		}
 		// Check if a transporter part has already been found on this planet
 		if (!transporterPartFound) {
 			

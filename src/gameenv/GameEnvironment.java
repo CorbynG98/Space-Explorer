@@ -35,8 +35,9 @@ public class GameEnvironment {
 	
 	
 	
-	/* Initializes the main game objects */
-	
+	/*
+	 *  Initializes the main game objects 
+	 */
 	public GameEnvironment() {
 		// Initialize ship
 		currentShip = new Enterprise();
@@ -49,8 +50,9 @@ public class GameEnvironment {
 	}
 	
 	
-	/* Initializes the title screen when the game is run */ 
-	
+	/* 
+	 * Initializes the title screen when the game is run 
+	 */ 
 	public void mainMenu() {
 		MainMenuView mainView = new MainMenuView(currentShip);
 		mainView.getStartButton().addActionListener(new ActionListener() {
@@ -62,8 +64,9 @@ public class GameEnvironment {
 	}
 	
 	
-	/* Initializes the window to begin creating a ship and crew */
-	
+	/* 
+	 * Creates the crew selection window, which displays the attributes for different crew member classes. Also allows the naming of the crew members. 
+	 */
 	public void setupScreen() {
 		InitialSetupView initialSetup = new InitialSetupView();
 		
@@ -79,7 +82,9 @@ public class GameEnvironment {
 				totalParts = numDays * (2/3);
 				
 				initialSetup.getFrame().dispose();
+				
 				SetupView setupGame = new SetupView(currentShip);
+				
 				setupGame.getStartGame().addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						if (currentShip.getCrew().getCrewList().size() < 2) {
@@ -101,32 +106,33 @@ public class GameEnvironment {
 	}
 	
 	
-	/* Actions when a player enters the shop with a crew member */
-	
+	/*
+	 *  Actions when a player enters the shop with a crew member. Also Generates the items that will be available for purchase in the shop.
+	 */
 	public void visitShop() {		
 		// List of shop items
 		ArrayList<Item> shopItems = new ArrayList<Item>();
 		
-		// Fill shop list with random items
+		// Generate random items for the space station shop
 		while(shopItems.size() < 6) {
-			Random rand = new Random();
-			int randomNum = rand.nextInt(20) + 1;
+			Random selectShopItems = new Random();
+			int itemType = selectShopItems.nextInt(20) + 1;
 			
-			if (randomNum < 15) {
-				FoodItem newItem = foodItems.get(rand.nextInt(foodItems.size()));
+			if (itemType < 15) {
+				FoodItem newItem = foodItems.get(selectShopItems.nextInt(foodItems.size()));
 				if (newItem instanceof MincePieWithKetchup) {
-					randomNum = rand.nextInt(100);
-					if (randomNum < 95) continue;
+					int chanceOfRareItem = selectShopItems.nextInt(100);
+					if (chanceOfRareItem < 95) continue;
 				}
 				if (shopItems.contains(newItem)) continue;
 				shopItems.add(newItem);
 			}
 			
 			else {
-				MedicalItem newItem = medicalItems.get(rand.nextInt(medicalItems.size()));
+				MedicalItem newItem = medicalItems.get(selectShopItems.nextInt(medicalItems.size()));
 				if (newItem instanceof MedKit) {
-					randomNum = rand.nextInt(50);
-					if (randomNum < 45) continue;
+					int chanceOfRareItem = selectShopItems.nextInt(50);
+					if (chanceOfRareItem < 45) continue;
 				}
 				if (shopItems.contains(newItem)) continue;
 				shopItems.add(newItem);
@@ -135,6 +141,7 @@ public class GameEnvironment {
 		
 		SpaceStationView stationView = new SpaceStationView(currentShip, shopItems);
 		
+		// Button to leave the shop window
 		stationView.getLeaveButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				day.setInventoryList();
@@ -144,14 +151,22 @@ public class GameEnvironment {
 		});
 	}	
 	
+	
+	/*
+	 * Action events for the buttons on the main crew view screen
+	 */
 	public void newDay() {
 		day = new DayView(currentShip, daysCompleted);
+		
+		// Go to space station shop
 		day.getStationButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				day.getFrame().setVisible(false);
 				visitShop();
 			}
 		});
+		
+		// Go to next day
 		day.getNextDay().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				goToNextDay();
@@ -159,27 +174,53 @@ public class GameEnvironment {
 				day.updateGUI();
 			}
 		});
+		
+		// View the ship status
 		day.getState().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				day.getFrame().setVisible(false);
 				viewShipState();
 			}
 		});
+		
+		// Search the current planet
 		day.getSearchButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				searchPlanet();
 			}
 		});
+		
+		// Repair the ship
 		day.getRepairButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CrewMember selected = day.getSelectedCrewMember();
-				if (selected == null) return;
-				currentShip.repairShip(selected);
+				CrewMember selectedMember = day.getSelectedCrewMember();
+				if (selectedMember == null) return;
+				currentShip.repairShip(selectedMember);
 				day.updateGUI();
 			}
 		});
+		
+		// Add the currently selected crew member as a pilot
+		day.getPilotButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//TODO Add label in dayView for pilot count
+				CrewMember selectedCrewMember = day.getSelectedCrewMember();
+				if (selectedCrewMember.getActionsPerformed() >= 2) {
+					return;
+				}
+				else {
+					currentShip.getPilots().add(selectedCrewMember);
+					selectedCrewMember.addActionPerformed();
+				}
+				
+			}
+		});
+	
 	}
 	
+	/*
+	 * Creates the Ship Status view window
+	 */
 	public void viewShipState() {
 		ShipStatusView shipState = new ShipStatusView(currentShip);
 		
@@ -191,6 +232,9 @@ public class GameEnvironment {
 		});
 	}
 	
+	/*
+	 * Passes the currently selected crew member to the repairShip method and creates necessary dialogs
+	 */
 	public void repairShip() {
 		CrewMember activeCrewMember = day.getSelectedCrewMember();
 		
@@ -212,6 +256,9 @@ public class GameEnvironment {
 		shipRepair.setVisible(true);
 	}
 	
+	/*
+	 * Passes the currently selected crew member to the searchPlanet method and creates dialogs for any found items.
+	 */
 	public void searchPlanet() {
 		CrewMember activeCrewMember = day.getSelectedCrewMember();
 		
@@ -234,10 +281,13 @@ public class GameEnvironment {
 		
 		Object foundItem = currentPlanet.searchPlanet(activeCrewMember, foodItems, medicalItems);
 		
+		// Analyze the type of item found and increment the associated variable(s). 
 		if (foundItem != null) {
+			
 			if (foundItem instanceof FoodItem) {
 				currentShip.getCrew().addFoodItem((FoodItem) foundItem);
 			}
+			
 			else if (foundItem instanceof MedicalItem) {
 				currentShip.getCrew().addMedicalItem((MedicalItem) foundItem);
 			}
@@ -245,17 +295,18 @@ public class GameEnvironment {
 			else if (foundItem instanceof Integer) {
 				currentShip.getCrew().addMoney((int) foundItem);
 			}
+			
 			else if (foundItem instanceof TransporterPart) {
 				transporterPartsFound += 1;
 			}
-		}
-		else {
-			
 		}
 		
 		day.updateGUI();
 	}
 	
+	/*
+	 * Advances the game by a day, which resets crew actions and iterates their health, tiredness, and hunger levels. Can trigger certain random events.
+	 */
 	public void goToNextDay() {
 		// Goes to the next day on the same planet.
 		daysCompleted += 1;
@@ -273,10 +324,26 @@ public class GameEnvironment {
 		}
 		
 		/* Random events will go here */
+		Random eventChance = new Random();
+		int eventType = eventChance.nextInt(9);
+		
+		if (eventType == 6) {
+			RandomEvents.spacePlague(currentShip.getCrew().getCrewList());
+		}
+		
+		else if (eventType == 7) {
+			RandomEvents.alienPirates(currentShip.getCrew(), currentShip, this);
+		}
+		
+		else if (eventType == 8) {
+			RandomEvents.spaceBattle(currentShip.getCrew(), currentShip);
+		}
 		
 	}
 	
-	// Goes to a new planet, consumes 1 day.
+	/*
+	 * Advances the game by a day and resets variables in the same fashion as the goToNextDay method. Also creates a new planet and may trigger a random event. 
+	 */
 	public void goToNewPlanet() {
 		
 		daysCompleted += 1;
@@ -313,8 +380,9 @@ public class GameEnvironment {
 	}
 	
 	
-	/* Game over method, creates game over screen and resets variables */
-	
+	/* 
+	 * Game over method, creates game over screen and resets variables 
+	 */
 	public void gameOver() {
 		
 	}

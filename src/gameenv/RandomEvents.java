@@ -5,9 +5,11 @@ import java.util.ArrayList;
 
 import spaceship.*;
 import crew.*;
+import planet.*;
 import items.*;
 import views.*;
 import gameenv.*;
+
 
 public class RandomEvents {
 
@@ -74,11 +76,11 @@ public class RandomEvents {
 				FoodItem foodStolen = currentCrew.getFoodInventory().get(itemStolen);
 				currentCrew.getFoodInventory().remove(itemStolen);
 				
-				
 				String alienStoleItem = "Alien pirates boarded the ship and stole one " + foodStolen.toString() + "!";
 				EventDialogs dialog = new EventDialogs(alienStoleItem);
 				dialog.setVisible(true);
 			}
+			
 			else {
 				int sizeOfInventory = currentCrew.getMedicalInventory().size();
 				
@@ -87,7 +89,6 @@ public class RandomEvents {
 				MedicalItem medicalStolen = currentCrew.getMedicalInventory().get(itemStolen);
 				currentCrew.getMedicalInventory().remove(itemStolen);
 				
-				// Generate dialog with the results of the Alien pirate boarding
 				String alienStoleItem = "Alien pirates boarded the ship and stole one " + medicalStolen.toString() + "!";
 				EventDialogs dialog = new EventDialogs(alienStoleItem);
 				dialog.setVisible(true);
@@ -102,6 +103,68 @@ public class RandomEvents {
 			dialog.setVisible(true);
 		}
 		
+	}
+	
+	/*
+	 * Alien battle random event. A number between 1 and 20. If the number is greater than a given crew member's damage then that crew member sustains 
+	 * damage equal to the generated number. If the crew member's damage is higher they sustain no damage. If no crew members sustain damage, the crew gains
+	 * a new MedKit.
+	 */
+	public static void spaceBattle(Crew currentCrew, Ship currentShip) {
+		Random battleChances = new Random();
+		
+		boolean crewMembersHurt = false;
+		String battleResult;
+		
+		for (CrewMember crewMember: currentCrew.getCrewList()) {
+			int alienDamage = battleChances.nextInt(20) + 1;
+			
+			if (alienDamage >= crewMember.getDamage()) {
+				crewMember.takeDamage(alienDamage);
+				crewMembersHurt = true;
+			}
+		}
+		
+		if (crewMembersHurt) {
+			battleResult = "Aliens boarded the ship and attacked the crew! Some crew members were hurt in the battle.";
+			
+		}
+		
+		else {
+			battleResult = "Aliens boarded the ship and attacked the crew! Our brave crew members fought and repelled them without sustaining damage. "
+					+ "The aliens left an item behind in their hasty retreat"; 
+			currentCrew.addMedicalItem(new MedKit());
+		}
+		
+		EventDialogs dialog = new EventDialogs(battleResult);
+		dialog.setVisible(true);
+	}
+	
+	/*
+	 * A battle that may occur when a crew member searches a planet. A number is generate between 1 and 20. If the crew member's damage is less than
+	 * the generated number they sustain damage equal to the number. If the crew member's damage is greater then they may find an extra item on the planet (not a Transporter Part).
+	 */
+	public static void planetBattle(CrewMember crewSearcher, Crew currentCrew, Planet planet) {
+		Random battleChances = new Random();
+		
+		String battleResult;
+		
+		int alienDamage = battleChances.nextInt(20) + 1;
+		
+		if (crewSearcher.getDamage() >= alienDamage) {
+			battleResult = crewSearcher.getName() + " encountered an aggresive alien on the surface of " + planet.getName() + ". The were able to overcome "
+					+ "it and found an extra item it was carrying.";
+			currentCrew.addMedicalItem(new FirstAidKit());
+			crewSearcher.takeDamage(alienDamage);
+		}
+		
+		else {
+			battleResult = crewSearcher.getName() + " encountered an aggresive alien on the surface of " + planet.getName() + ". They were hurt badly in the battle.";
+			crewSearcher.takeDamage(alienDamage);
+		}
+		
+		EventDialogs battleDialog = new EventDialogs(battleResult);
+		battleDialog.setVisible(true);
 	}
 }
 

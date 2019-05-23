@@ -36,6 +36,7 @@ public class DayView {
 	private JButton btnSearchPlanet;
 	private JButton btnPersonSleep;
 	private JButton btnRepairShip;
+	private JButton btnAddCrewAsPilot;
 	private JLabel lblHunger;
 	private JLabel lblEnergy;
 	private JLabel lblHealth;
@@ -406,6 +407,10 @@ public class DayView {
 		btnViewShipStatus.setBounds(12, 150, 163, 25);
 		frame.getContentPane().add(btnViewShipStatus);
 		
+		btnAddCrewAsPilot = new JButton("Enter Cockpit");
+		btnAddCrewAsPilot.setBounds(12, 187, 163, 25);
+		frame.getContentPane().add(btnAddCrewAsPilot);
+		
 		btnPersonSleep = new JButton("Sleep");
 		btnPersonSleep.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -495,6 +500,10 @@ public class DayView {
 	
 	public JButton getRepairButton() {
 		return btnRepairShip;
+	}
+	
+	public JButton getPilotButton() {
+		return btnAddCrewAsPilot;
 	}
 
 	public CrewMember getSelectedCrewMember() {
