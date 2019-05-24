@@ -209,6 +209,10 @@ public class CrewMember {
 	 */
 	public void setHealth(double health) {
 		this.health = health;
+		
+		if (this.health <= 0) {
+			isDead = true;
+		}
 	}
 	
 	/**
