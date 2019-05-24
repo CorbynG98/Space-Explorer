@@ -20,13 +20,49 @@ import crew.*;
 
 public class SpaceStationView {
 
+	/**
+	 * The main frame
+	 */
 	private JFrame frame;
-	private JLabel lblInfoName, lblInfoPrice, lblErrorMessage, lblMoney;
+	/**
+	 * Name of the selected item
+	 */
+	private JLabel lblInfoName;
+	/**
+	 * Price of the selected item
+	 */
+	private JLabel lblInfoPrice;
+	/**
+	 * Error message if required (no money, no selected item, etc.)
+	 */
+	private JLabel lblErrorMessage;
+	/**
+	 * Players remaining money
+	 */
+	private JLabel lblMoney;
+	/**
+	 * Button to leave the shop
+	 */
 	JButton btnLeaveShop;
+	/**
+	 * List of items the shop displays
+	 */
 	private ArrayList<Item> itemList;
+	/**
+	 * The item the player has selected
+	 */
 	private Item selectedItem = null;
+	/**
+	 * If there is a merchant in the crew, to apply discounts
+	 */
 	private boolean merchantInCrew = false;
+	/**
+	 * Current ship instance
+	 */
 	private Ship ship;
+	/**
+	 * The main frame
+	 */
 	private int playerFunds;
 	private JLabel lblHealthGain, lblHungerGain, lblHealthHunger;
 	

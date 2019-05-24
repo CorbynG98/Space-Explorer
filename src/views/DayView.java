@@ -260,7 +260,7 @@ public class DayView {
 			personEnergy1.setBackground(Color.RED);
 			personEnergy1.setForeground(Color.GREEN);
 			
-			lblDiseased1 = new JLabel("you gay");
+			lblDiseased1 = new JLabel("");
 			lblDiseased1.setHorizontalAlignment(SwingConstants.CENTER);
 			lblDiseased1.setBounds(12, 42, 159, 15);
 			panelPerson1.add(lblDiseased1);
@@ -398,7 +398,7 @@ public class DayView {
 			personEnergy3.setBackground(Color.RED);
 			personEnergy3.setForeground(Color.GREEN);
 			
-			lblDiseased3 = new JLabel("you gay");
+			lblDiseased3 = new JLabel("");
 			lblDiseased3.setHorizontalAlignment(SwingConstants.CENTER);
 			lblDiseased3.setBounds(12, 42, 159, 15);
 			panelPerson3.add(lblDiseased3);
@@ -467,7 +467,7 @@ public class DayView {
 			personEnergy4.setBackground(Color.RED);
 			personEnergy4.setForeground(Color.GREEN);
 			
-			lblDiseased4 = new JLabel("you gay");
+			lblDiseased4 = new JLabel("");
 			lblDiseased4.setHorizontalAlignment(SwingConstants.CENTER);
 			lblDiseased4.setBounds(12, 42, 159, 15);
 			panelPerson4.add(lblDiseased4);
@@ -554,6 +554,10 @@ public class DayView {
 
 	public CrewMember getSelectedCrewMember() {
 		return selectedPerson;
+	}
+	
+	public void setDay(int newDay) {
+		currentDay = newDay;
 	}
 	
 	public void updateGUI() {
