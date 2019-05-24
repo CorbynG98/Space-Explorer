@@ -12,13 +12,14 @@ import gameenv.*;
 
 public class GameWonView {
 
+	/**
+	 * Main frame for the view
+	 */
 	private JFrame frame;
-
-
-
 	
 	/**
 	 * Create the application.
+	 * @param currentDayView DayView - The current day view so the window can be closed.
 	 */
 	public GameWonView(DayView currentDayView) {
 		currentDayView.getFrame().dispose();
@@ -30,6 +31,7 @@ public class GameWonView {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @param gameWonText String - String value to show on the window when the game has been won.
 	 */
 	private void initialize(String gameWonText) {
 		frame = new JFrame();

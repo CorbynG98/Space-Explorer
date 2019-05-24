@@ -26,51 +26,138 @@ import javax.swing.JPanel;
 
 public class DayView {
 
+	/**
+	 * Main frame of the game and this view.
+	 */
 	private JFrame frame;
+	/**
+	 * Ship object for the current game instance.
+	 */
 	private Ship ship;
+	/**
+	 * The current day the player is on.
+	 */
 	private int currentDay;
-	private JButton btnSpaceStation, btnNextDay;
+	/**
+	 * The button to enter the space station.
+	 */
+	private JButton btnSpaceStation;
+	/**
+	 * The button to continue to the next day.
+	 */
+	private JButton btnNextDay;
+	/**
+	 * The currently selected crew member.
+	 */
 	private CrewMember selectedPerson;
-	private JLabel lblSelectedImage, lblSpecialty, lblCrewMemberName, lblDayCount, lblAliveCount;
+	/**
+	 * The image of the currently selected crew member.
+	 */
+	private JLabel lblSelectedImage;
+	/**
+	 * The specialty of the currently selected crew member.
+	 */
+	private JLabel lblSpecialty;
+	/**
+	 * The name of the currently selected crew member.
+	 */
+	private JLabel lblCrewMemberName;
+	/**
+	 * Display of the users current day.
+	 */
+	private JLabel lblDayCount;
+	/**
+	 * The amount of crew members still alive.
+	 */
+	private JLabel lblAliveCount;
+	/**
+	 * Drop down list of players inventory.
+	 */
 	private JComboBox comboInventoryItems;
+	/**
+	 * Button to view the ship status.
+	 */
 	private JButton btnViewShipStatus;
+	/**
+	 * Button to search a planet.
+	 */
 	private JButton btnSearchPlanet;
+	/**
+	 * Button to put the person to sleep.
+	 */
 	private JButton btnPersonSleep;
+	/**
+	 * Button to repair the ship.
+	 */
 	private JButton btnRepairShip;
+	/**
+	 * Button to add the selected crew member to the pilot list.
+	 */
 	private JButton btnAddCrewAsPilot;
+	/**
+	 * Button to fly the ship to a new planet.
+	 */
 	private JButton btnFly;
-	private JLabel lblHunger;
-	private JLabel lblEnergy;
-	private JLabel lblHealth;
+	/**
+	 * Health of crew member.
+	 */
 	private JProgressBar personHealth1, personHealth2, personHealth3, personHealth4;
+	/**
+	 * Energy of crew member.
+	 */
 	private JProgressBar personEnergy1, personEnergy2, personEnergy3, personEnergy4;
+	/**
+	 * Hunger of crew member.
+	 */
 	private JProgressBar personHunger1, personHunger2, personHunger3, personHunger4;
-	private JLabel lblPersonImage1, lblPersonImage2, lblPersonImage3,lblPersonImage4;
-	private JLabel lblPersonName1, lblPersonName2, lblPersonName3,lblPersonName4;
-	private JLabel lblPersonType1, lblPersonType2, lblPersonType3,lblPersonType4;
-	private JLabel lblActions;
-	private JLabel lblAction1;
-	private JLabel lblActions2;
-	private JLabel lblActions3;
-	private JLabel lblActions4;
-	private JLabel lblPersonActions1;
-	private JLabel lblPersonActions2;
-	private JLabel lblPersonActions3;
-	private JLabel lblPersonActions4;
+	/**
+	 * Images for crew member.
+	 */
+	private JLabel lblPersonImage1, lblPersonImage2, lblPersonImage3, lblPersonImage4;
+	/**
+	 * Name of crew member.
+	 */
+	private JLabel lblPersonName1, lblPersonName2, lblPersonName3, lblPersonName4;
+	/**
+	 * Specialization of crew member.
+	 */
+	private JLabel lblPersonType1, lblPersonType2, lblPersonType3, lblPersonType4;
+	/**
+	 * Actions performed for crew member.
+	 */
+	private JLabel lblPersonActions1, lblPersonActions2, lblPersonActions3, lblPersonActions4;
+	/**
+	 * Number of pilots selected.
+	 */
 	private JLabel lblPilots;
+	/**
+	 * Number of parts found on the current planet.
+	 */
 	private JLabel lblPartOnPlanetFound;
-	private JLabel lblParts;
+	/**
+	 * Number of total parts found
+	 */
 	private JLabel lblTotalPartsFound;
+	/**
+	 * Disease status of crew member
+	 */
 	private JLabel lblDiseased1, lblDiseased2, lblDiseased3, lblDiseased4;
+	/**
+	 * Panel of crew member
+	 */
 	private JPanel panelPerson1, panelPerson2, panelPerson3, panelPerson4;
+	
 	/**
 	 * Create the application.
+	 * @param ship Ship - Current ship instance for the game.
+	 * @param currentDay int - Current day the player is at.
 	 */
 	public DayView(Ship ship, int currentDay) {
 		this.ship = ship;
 		this.currentDay = currentDay;
 		this.selectedPerson = ship.getCrew().getCrewList().get(0);
 		initialize();
+		updateGUI();
 	}
 
 	/**
@@ -83,7 +170,7 @@ public class DayView {
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
 		
-		JLabel lblCurrentDay = new JLabel("Current Day:");
+		JLabel lblCurrentDay = new JLabel("CuImages for each crew memberrrent Day:");
 		lblCurrentDay.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblCurrentDay.setBounds(12, 12, 130, 15);
 		frame.getContentPane().add(lblCurrentDay);
@@ -168,17 +255,17 @@ public class DayView {
 		
 		frame.getContentPane().add(btnPersonSleep);
 		
-		lblHunger = new JLabel("Hunger");
+		JLabel lblHunger = new JLabel("Hunger");
 		lblHunger.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHunger.setBounds(361, 524, 66, 15);
 		frame.getContentPane().add(lblHunger);
 		
-		lblEnergy = new JLabel("Energy");
+		JLabel lblEnergy = new JLabel("Energy");
 		lblEnergy.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEnergy.setBounds(361, 541, 66, 15);
 		frame.getContentPane().add(lblEnergy);
 		
-		lblHealth = new JLabel("Health");
+		JLabel lblHealth = new JLabel("Health");
 		lblHealth.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHealth.setBounds(361, 507, 66, 15);
 		frame.getContentPane().add(lblHealth);
@@ -193,7 +280,7 @@ public class DayView {
 		lblPartOnPlanetFound.setBounds(580, 38, 49, 24);
 		frame.getContentPane().add(lblPartOnPlanetFound);
 		
-		lblParts = new JLabel("Parts:");
+		JLabel lblParts = new JLabel("Parts:");
 		lblParts.setHorizontalAlignment(SwingConstants.CENTER);
 		lblParts.setBounds(545, 38, 49, 24);
 		frame.getContentPane().add(lblParts);
@@ -219,7 +306,7 @@ public class DayView {
 			btnSelectPerson1.setBounds(5, 17, 163, 25);
 			panelPerson1.add(btnSelectPerson1);
 			
-			lblAction1 = new JLabel("Actions: ");
+			JLabel lblAction1 = new JLabel("Actions: ");
 			lblAction1.setBounds(7, 2, 75, 15);
 			panelPerson1.add(lblAction1);
 			lblAction1.setHorizontalAlignment(SwingConstants.LEFT);
@@ -288,10 +375,10 @@ public class DayView {
 			btnSelectPerson2.setBounds(7, 17, 162, 25);
 			panelPerson2.add(btnSelectPerson2);
 			
-			lblPersonActions2 = new JLabel("Actions: ");
-			lblPersonActions2.setBounds(7, 2, 75, 15);
-			panelPerson2.add(lblPersonActions2);
-			lblPersonActions2.setHorizontalAlignment(SwingConstants.LEFT);
+			JLabel lblActions2 = new JLabel("Actions: ");
+			lblActions2.setBounds(7, 2, 75, 15);
+			panelPerson2.add(lblActions2);
+			lblActions2.setHorizontalAlignment(SwingConstants.LEFT);
 			
 			lblPersonActions2 = new JLabel("2");
 			lblPersonActions2.setBounds(85, 2, 76, 15);
@@ -357,10 +444,10 @@ public class DayView {
 			btnSelectPerson3.setBounds(5, 17, 163, 25);
 			panelPerson3.add(btnSelectPerson3);
 			
-			lblPersonActions3 = new JLabel("Actions: ");
-			lblPersonActions3.setBounds(7, 2, 75, 15);
-			panelPerson3.add(lblPersonActions3);
-			lblPersonActions3.setHorizontalAlignment(SwingConstants.LEFT);
+			JLabel lblActions3 = new JLabel("Actions: ");
+			lblActions3.setBounds(7, 2, 75, 15);
+			panelPerson3.add(lblActions3);
+			lblActions3.setHorizontalAlignment(SwingConstants.LEFT);
 			
 			lblPersonActions3 = new JLabel("2");
 			lblPersonActions3.setBounds(85, 2, 76, 15);
@@ -426,10 +513,10 @@ public class DayView {
 			btnSelectPerson4.setBounds(7, 17, 162, 25);
 			panelPerson4.add(btnSelectPerson4);
 			
-			lblPersonActions4 = new JLabel("Actions: ");
-			lblPersonActions4.setBounds(7, 2, 75, 15);
-			panelPerson4.add(lblPersonActions4);
-			lblPersonActions4.setHorizontalAlignment(SwingConstants.LEFT);
+			JLabel lblActions4 = new JLabel("Actions: ");
+			lblActions4.setBounds(7, 2, 75, 15);
+			panelPerson4.add(lblActions4);
+			lblActions4.setHorizontalAlignment(SwingConstants.LEFT);
 			
 			lblPersonActions4 = new JLabel("2");
 			lblPersonActions4.setBounds(85, 2, 76, 15);
@@ -498,8 +585,9 @@ public class DayView {
 		});
 	}
 	
-	// private JLabel lblSelectedImage, lblSpecialty, lblCrewMemberName;
-	
+	/**
+	 * Update the selected person variables to show the current person.
+	 */
 	public void updateSelectedDetails() {
 		lblSpecialty.setText(selectedPerson.getSpecialization());
 		lblCrewMemberName.setText(selectedPerson.getName());
@@ -507,59 +595,113 @@ public class DayView {
 		lblSelectedImage.setText("");
 	}
 	
+	/**
+	 * Gets the main frame so it can be hidden when new views pop up.
+	 * @return The main frame of the view
+	 */
 	public JFrame getFrame() {
 		return this.frame;
 	}
 	
+	/**
+	 * Get the button to view the ship status.
+	 * @return The button to view the ship status
+	 */
 	public JButton getState() {
 		return btnViewShipStatus;
 	}
 	
+	/**
+	 * Get the button to enter the space station.
+	 * @return The button to enter the space station
+	 */
 	public JButton getStationButton() {
 		return btnSpaceStation;
 	}
 	
+	/**
+	 * Updates the combo box displaying all the inventory items.
+	 */
 	public void setInventoryList() {
 		DefaultComboBoxModel comboModel = new DefaultComboBoxModel(ship.getCrew().fullInventory().toArray(new Item[ship.getCrew().fullInventory().size()]));
 		comboInventoryItems.setModel(comboModel);
 	}
 	
+	/**
+	 * Sets the current day the player is on.
+	 * @param currentDay int - The day the player is on.
+	 */
 	public void setCurrentDay(int currentDay) {
 		this.currentDay = currentDay;
 	}
 	
+	/**
+	 * Gets the button to continue to the next day.
+	 * @return The button to go to the next day
+	 */
 	public JButton getNextDay() {
 		return btnNextDay;
 	}
 	
+	/**
+	 * Gets the button to set the selected person to sleep.
+	 * @return The button to set a persons sleep status
+	 */
 	public JButton getSleep() {
 		return btnPersonSleep;
 	}
 	
+	/**
+	 * Gets the button to search a planet.
+	 * @return The button to search a planet
+	 */
 	public JButton getSearchButton() {
 		return btnSearchPlanet;
 	}
 	
+	/**
+	 * Gets the button to repair the ship.
+	 * @return The button to repair the ship.
+	 */
 	public JButton getRepairButton() {
 		return btnRepairShip;
 	}
 	
+	/**
+	 * Gets the button to add a pilot to the ship.
+	 * @return The button to add a crew to the pilot list 
+	 */
 	public JButton getPilotButton() {
 		return btnAddCrewAsPilot;
 	}
 	
+	/**
+	 * Gets the button to fly the ship to a new location.
+	 * @return The button to fly the player to a new planet
+	 */
 	public JButton getFlyButton() {
 		return btnFly;
 	}
 
+	/**
+	 * Gets the currently selected crew member.
+	 * @return The currently selected crew member
+	 */
 	public CrewMember getSelectedCrewMember() {
 		return selectedPerson;
 	}
 	
+	/**
+	 * Sets the current day to a possibly new value.
+	 * @param newDay int - The day the player is now on
+	 */
 	public void setDay(int newDay) {
 		currentDay = newDay;
 	}
 	
+	/**
+	 * Updates the data in the gui to show health, hunger and energy degredation on a new day.
+	 */
 	public void updateGUI() {
 		if (ship.getCrew().getCrewList().size() >= 1) {
 			personHealth1.setValue((int)(ship.getCrew().getCrewList().get(0).getHealth()));
@@ -627,11 +769,18 @@ public class DayView {
 		lblPilots.setText(ship.getPilots().size() + "/2");
 	}
 	
+	/**
+	 * Sets the number of parts the player has found on a planet.
+	 * @param partsFound int - the number of parts found.
+	 */
 	public void updatePartsFound(int partsFound) {
 		lblPartOnPlanetFound.setText("1/1");
 		lblTotalPartsFound.setText("Parts Found: " + Integer.toString(partsFound));
 	}
 	
+	/**
+	 * Resets the number of parts found on a planet to zero.
+	 */
 	public void resetPlanetPartsFound() {
 		lblPartOnPlanetFound.setText("0/1");
 	}

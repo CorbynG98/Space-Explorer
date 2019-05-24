@@ -17,10 +17,18 @@ import java.awt.event.ActionEvent;
 
 public class MainMenuView {
 
+	/**
+	 * Main frame for this view
+	 */
 	private JFrame frame;
+	/**
+	 * Button to begin the setup process
+	 */
 	private JButton btnStart = new JButton("Enter the void");
+	
 	/**
 	 * Create the application.
+	 * @param currentShip Ship - The current games ship object so actions can be performed
 	 */
 	public MainMenuView(Ship currentShip) {
 		initialize();
@@ -51,10 +59,19 @@ public class MainMenuView {
 		panel.add(btnStart);
 	}
 	
+	/**
+	 * Get the start button so the event listener can be triggered in game env
+	 * @return The button to begin the setup process
+	 */
 	public JButton getStartButton() {
 		return btnStart;
 	}
 	
+	/**
+	 * Gets the frame for the view so the view can be disposed when the next screens
+	 * needs to be displayed.
+	 * @return The main frame of the game
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}

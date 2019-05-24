@@ -13,28 +13,14 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
 
 public class EventDialogs extends JDialog {
-
 	/**
-	 * 
+	 * Main content panel for each dialog created.
 	 */
-	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			EventDialogs dialog = new EventDialogs("check out how much text this label can display");
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
+	 * @param eventResults String - The string that displays to show what happened in the event and what event it was.
 	 */
 	public EventDialogs(String eventResults) {
 		setBounds(100, 100, 325, 198);

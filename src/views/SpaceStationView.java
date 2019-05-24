@@ -18,6 +18,13 @@ import java.awt.event.ActionEvent;
 import items.*;
 import crew.*;
 
+/**
+ * Represents the space station view. Used to create the frame and all components
+ * of the space station so the user can interact with the view. Returns certain components so the 
+ * events can be handled in the game env class.
+ * @author ctg31
+ *
+ */
 public class SpaceStationView {
 
 	/**
@@ -37,7 +44,7 @@ public class SpaceStationView {
 	 */
 	private JLabel lblErrorMessage;
 	/**
-	 * Players remaining money
+	 * Display of players remaining money
 	 */
 	private JLabel lblMoney;
 	/**
@@ -61,11 +68,27 @@ public class SpaceStationView {
 	 */
 	private Ship ship;
 	/**
-	 * The main frame
+	 * Integer value of the players funds, used for calculations
 	 */
 	private int playerFunds;
-	private JLabel lblHealthGain, lblHungerGain, lblHealthHunger;
+	/**
+	 * Health/Hunger gain the item provides
+	 */
+	private JLabel lblHealthHungerGain;
+	/**
+	 * Energy gain the item provides if applicable
+	 */
+	private JLabel lblEnergyGain;
+	/**
+	 * Text of Health or Hunger depending if a medical item or food item is chosen respectively.
+	 */
+	private JLabel lblHealthHunger;
 	
+	/**
+	 * Constructor when the class is created to create the GUI.
+	 * @param ship Ship - The ship current in use in the game.
+	 * @param itemList ArrayList<Item> - The items that the shop displays.
+	 */
 	public SpaceStationView(Ship ship, ArrayList<Item> itemList) {
 		this.itemList = itemList;
 		this.ship = ship;
@@ -100,12 +123,6 @@ public class SpaceStationView {
 		lblWelcomeToThe.setBounds(12, 12, 702, 27);
 		panel.add(lblWelcomeToThe);
 		
-		
-		/*
-		 *  Create shop item buttons
-		 */
-		
-		
 		JButton btnItem1 = new JButton(this.itemList.get(0).getName());
 		btnItem1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -114,7 +131,7 @@ public class SpaceStationView {
 				if(playerFunds < selectedItem.getCost()) {
 					lblErrorMessage.setText("NOT ENOUGH FUNDS");
 				}
-				updateInformation(selectedItem);
+				updateInformation();
 			}
 		});
 		btnItem1.setBounds(12, 70, 149, 66);
@@ -128,7 +145,7 @@ public class SpaceStationView {
 				if(playerFunds < selectedItem.getCost()) {
 					lblErrorMessage.setText("NOT ENOUGH FUNDS");
 				}
-				updateInformation(selectedItem);
+				updateInformation();
 			}
 		});
 		btnItem2.setBounds(173, 70, 149, 66);
@@ -142,7 +159,7 @@ public class SpaceStationView {
 				if(playerFunds < selectedItem.getCost()) {
 					lblErrorMessage.setText("NOT ENOUGH FUNDS");
 				}
-				updateInformation(selectedItem);
+				updateInformation();
 			}
 		});
 		btnItem3.setBounds(12, 148, 149, 66);
@@ -156,7 +173,7 @@ public class SpaceStationView {
 				if(playerFunds < selectedItem.getCost()) {
 					lblErrorMessage.setText("NOT ENOUGH FUNDS");
 				}
-				updateInformation(selectedItem);
+				updateInformation();
 			}
 		});
 		btnItem4.setBounds(173, 148, 149, 66);
@@ -170,7 +187,7 @@ public class SpaceStationView {
 				if(playerFunds < selectedItem.getCost()) {
 					lblErrorMessage.setText("NOT ENOUGH FUNDS");
 				}
-				updateInformation(selectedItem);
+				updateInformation();
 			}
 		});
 		btnItem5.setBounds(12, 226, 149, 66);
@@ -184,7 +201,7 @@ public class SpaceStationView {
 				if(playerFunds < selectedItem.getCost()) {
 					lblErrorMessage.setText("NOT ENOUGH FUNDS");
 				}
-				updateInformation(selectedItem);
+				updateInformation();
 			}
 		});
 		btnItem6.setBounds(173, 226, 149, 66);
@@ -230,13 +247,13 @@ public class SpaceStationView {
 		lblEnergy.setBounds(10, 166, 83, 28);
 		panel_1.add(lblEnergy);
 		
-		lblHealthGain = new JLabel("");
-		lblHealthGain.setBounds(105, 126, 275, 28);
-		panel_1.add(lblHealthGain);
+		lblHealthHungerGain = new JLabel("");
+		lblHealthHungerGain.setBounds(105, 126, 275, 28);
+		panel_1.add(lblHealthHungerGain);
 		
-		lblHungerGain = new JLabel("");
-		lblHungerGain.setBounds(105, 166, 275, 28);
-		panel_1.add(lblHungerGain);
+		lblEnergyGain = new JLabel("");
+		lblEnergyGain.setBounds(105, 166, 275, 28);
+		panel_1.add(lblEnergyGain);
 		
 		JButton btnBuy = new JButton("Purchase");
 		btnBuy.addActionListener(new ActionListener() {
@@ -293,28 +310,40 @@ public class SpaceStationView {
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * Gets the button to leave the shop, so the event can be triggered in the game env class
+	 * @return the button to leave the shop
+	 */
 	public JButton getLeaveButton() {
 		return btnLeaveShop;
 	}
 	
+	/**
+	 * Gets the frame for the view so the view can be disposed when the next screens
+	 * needs to be displayed.
+	 * @return the main frame of the game
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}
 	
-	public void updateInformation(Item SelectedItem) {
+	/**
+	 * Updates the GUI to display information about the selected item in the info box.
+	 */
+	public void updateInformation() {
 		lblInfoName.setText(selectedItem.getName());
 		
 		if (selectedItem instanceof MedicalItem) {
 			MedicalItem item = (MedicalItem)selectedItem;
 			lblHealthHunger.setText("Health: ");
-			lblHealthGain.setText(Integer.toString(item.getHealthValue()));
-			lblHungerGain.setText("None");
+			lblHealthHungerGain.setText(Integer.toString(item.getHealthValue()));
+			lblEnergyGain.setText("None");
 		}
 		else {
 			FoodItem item = (FoodItem)selectedItem;
 			lblHealthHunger.setText("Hunger: ");
-			lblHealthGain.setText(Integer.toString(item.getHungerValue()));
-			lblHungerGain.setText(item.getEnergyValue() != 0 ? Integer.toString(item.getEnergyValue()) : "None");
+			lblHealthHungerGain.setText(Integer.toString(item.getHungerValue()));
+			lblEnergyGain.setText(item.getEnergyValue() != 0 ? Integer.toString(item.getEnergyValue()) : "None");
 		}
 		
 		// Give 30 percent discount if there is a merchant in the crew

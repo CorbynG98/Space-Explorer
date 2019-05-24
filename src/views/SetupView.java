@@ -26,30 +26,26 @@ import javax.swing.JTextPane;
 
 public class SetupView {
 
-	private JFrame frame;
-	private JTextField SoldierName, EngineerName, MedicName,  MerchantName, PilotName, ScientistName;
-	private JButton btnEnterTheVerse;
-	private JTextPane lblError;
-	private Ship currentShip;
-
 	/**
-	 * Launch the application.
+	 * main frame of this view
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SetupView window = new SetupView(new Enterprise());
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	private JFrame frame;
 	/**
-	 * Create the application.
+	 * Button the begin the game
+	 */
+	private JButton btnEnterTheVerse;
+	/**
+	 * Text pane to show any errors
+	 */
+	private JTextPane lblError;
+	/**
+	 * Current Ship instance so crew can be added.
+	 */
+	private Ship currentShip;
+	
+	/**
+	 * Constructor to create the GUI and set the ship variable.
+	 * @param currentShip Ship - The current ship for the game.
 	 */
 	public SetupView(Ship currentShip) {
 		this.currentShip = currentShip;
@@ -57,9 +53,8 @@ public class SetupView {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize and build the GUI.
 	 */
-	@SuppressWarnings("unchecked")
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 765, 800);
@@ -135,7 +130,7 @@ public class SetupView {
 		mainPanel.add(SoldierPanel);
 		SoldierPanel.setLayout(null);
 		
-		SoldierName = new JTextField();
+		JTextField SoldierName = new JTextField();
 		SoldierName.setText("Name");
 		SoldierName.setBounds(0, 10, 220, 26);
 		SoldierPanel.add(SoldierName);
@@ -183,7 +178,7 @@ public class SetupView {
 		EngineerPanel.setBounds(254, 226, 230, 251);
 		mainPanel.add(EngineerPanel);
 		
-		EngineerName = new JTextField();
+		JTextField EngineerName = new JTextField();
 		EngineerName.setText("Name");
 		EngineerName.setColumns(10);
 		EngineerName.setBounds(0, 10, 220, 26);
@@ -231,7 +226,7 @@ public class SetupView {
 		MedicPanel.setBounds(496, 226, 230, 251);
 		mainPanel.add(MedicPanel);
 		
-		MedicName = new JTextField();
+		JTextField MedicName = new JTextField();
 		MedicName.setText("Name");
 		MedicName.setColumns(10);
 		MedicName.setBounds(0, 10, 220, 26);
@@ -279,7 +274,7 @@ public class SetupView {
 		MerchantPanel.setBounds(254, 488, 230, 251);
 		mainPanel.add(MerchantPanel);
 		
-		MerchantName = new JTextField();
+		JTextField MerchantName = new JTextField();
 		MerchantName.setText("Name");
 		MerchantName.setColumns(10);
 		MerchantName.setBounds(0, 10, 220, 26);
@@ -327,7 +322,7 @@ public class SetupView {
 		PilotPanel.setBounds(12, 489, 230, 251);
 		mainPanel.add(PilotPanel);
 		
-		PilotName = new JTextField();
+		JTextField PilotName = new JTextField();
 		PilotName.setText("Name");
 		PilotName.setColumns(10);
 		PilotName.setBounds(0, 10, 220, 26);
@@ -375,7 +370,7 @@ public class SetupView {
 		ScientistPanel.setBounds(496, 488, 230, 251);
 		mainPanel.add(ScientistPanel);
 		
-		ScientistName = new JTextField();
+		JTextField ScientistName = new JTextField();
 		ScientistName.setText("Name");
 		ScientistName.setColumns(10);
 		ScientistName.setBounds(0, 10, 220, 26);
@@ -423,18 +418,36 @@ public class SetupView {
 		mainPanel.add(btnEnterTheVerse);
 	}
 	
+	/**
+	 * Gets the button to start the game so the event can be triggered in game env.
+	 * @return The button the enter the game
+	 */
 	public JButton getStartGame() {
 		return btnEnterTheVerse;
 	}
 	
+	/**
+	 * Gets the frame for the view so the view can be disposed when the next screens
+	 * needs to be displayed.
+	 * @return The main frame of the game
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}
 	
+	/**
+	 * Gets the error text pane so the user is aware of any mistakes or 
+	 * errors that come up on this screen
+	 * @return The label to display any errors that occur
+	 */
 	public JTextPane getError() {
 		return lblError;
 	}
 	
+	/**
+	 * Checks to see if the crew limit has been reached. Returns true if so.
+	 * @return True or False if the ship has max crew.
+	 */
 	private boolean limitReached() {
 		if (currentShip.getCrew().getCrewList().size() == 4) return true;
 		return false;

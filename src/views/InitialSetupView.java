@@ -98,22 +98,42 @@ public class InitialSetupView {
 		frame.getContentPane().add(lblError);
 	}
 	
+	/**
+	 * Get button to confirm ship name and selected days
+	 * @return The button to confirm selected options
+	 */
 	public JButton getConfirm() {
 		return btnConfirm;
 	}
 	
+	/**
+	 * Gets the text field of the ships name
+	 * @return the TextField containing the ships name
+	 */
 	public JTextField getShipName() {
 		return textField;
 	}
 	
+	/**
+	 * Gets the main frame for this view
+	 * @return The main frame of the view
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}
 	
+	/**
+	 * Gets the label to display errors
+	 * @return The JLabel to show the player error messages
+	 */
 	public JLabel getError() {
 		return lblError;
 	}
 	
+	/**
+	 * Gets the combo box with the selected number of days
+	 * @return JComboBox with players chosen amount of days
+	 */
 	public JComboBox getDays() {
 		return comboBox;
 	}

@@ -12,11 +12,15 @@ import gameenv.*;
 
 public class GameOverView {
 
+	/**
+	 * Main frame for the view
+	 */
 	private JFrame frame;
-
 
 	/**
 	 * Create the application.
+	 * @param gameOverText String - The string that is shown on the game over screen
+	 * @param currentDayView DayView - The current day view so the day can be disposed.
 	 */
 	public GameOverView(String gameOverText, DayView currentDayView) {
 		currentDayView.getFrame().dispose();
@@ -25,6 +29,7 @@ public class GameOverView {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @param gameOverText String - The string that is shown on the game over screen
 	 */
 	private void initialize(String gameOverText) {
 		frame = new JFrame();
