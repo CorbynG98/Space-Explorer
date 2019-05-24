@@ -65,7 +65,7 @@ class ShipTests {
 		testShip.addPilot(engineer);
 		testShip.addPilot(pilot);
 		testShip.AsteroidField();
-		assertEquals(50, testShip.getHealth());
+		assertEquals(73, testShip.getHealth());
 	}
 	
 	@Test
