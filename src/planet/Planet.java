@@ -7,25 +7,52 @@ import items.*;
 import views.*;
 import gameenv.RandomEvents;
 
+/*
+ * Represents planets that may exist in a GameEnvironment instance. The name is chosen from an array of name Strings. One Transporter
+ * part may be found per planet.
+ */
 public class Planet {
 	
+	/*
+	 * The name of a Planet object
+	 */
 	private String name;
+	/*
+	 * An array of possible names for Planet objects. When a new Planet object is created it's name is selected from the array.
+	 */
 	private String[] planetNames = {"Tatooine", "Yavin IV", "Charon", "Pluto II", "Wotan", "Alpha-B32", "Terra", "Talara", "Athena", "Jupiter", "Beshan", "Calypso", "Nibiru", "Omicron Delta", "Risa", "Andoria", "Alderaan",
 			"Yavin", "Kashyyyk", "Vendikar", "TRAPPIST-1", "Dagobah", "Hoth", "Janus IV", "Dakara", "Celestis"};
-	
+	/*
+	 * Boolean value for whether a transporter part has been found on a given Planet yet. If true no more parts can be found.
+	 */
 	private boolean transporterPartFound = false;
 	
-	
+	/*
+	 * Creates Planet objects. The name variable is randomly chosen from the planetNames array.
+	 */
 	public Planet() {
 		Random name = new Random();
 		String planetName = planetNames[name.nextInt(26)];
 		this.name = planetName;
 	}
 	
+	/*
+	 * Gets the name of a Planet object.
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/*
+	 * Allows crew members to search a planet. There is an equal chance of finding a FoodItem, MedicalItem, money, nothing, or, if no transporter part has yet been found
+	 * on the current Planet, a transporter part. Scientist class crew members have a higher chance of finding transporter parts.
+	 * @param crewSearcher takes a CrewMember object to conduct the search.
+	 * @param foodItems takes a List of FoodItem objects that may be found on the planet.
+	 * @param medicalItems takes a List of MedicalItem objects that may be found on the planet.
+	 * @param currentCrew takes the current instance of Crew to allow found items to be added to the inventory.
+	 * @return the object found, if any, while searching the planet.
+	 * 
+	 */
 	public Object searchPlanet(CrewMember crewSearcher, List<FoodItem> foodItems, List<MedicalItem> medicalItems, Crew currentCrew) {
 		Random searchSelect = new Random();
 		int itemType;
