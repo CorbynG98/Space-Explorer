@@ -66,7 +66,7 @@ public class RandomEvents {
 		
 		
 		if (!soldierProtectsShip) {
-			int itemTypeStolen = pirateChances.nextInt(2);
+			int itemTypeStolen = pirateChances.nextInt(4);
 			
 			if (itemTypeStolen == 1) {
 				int sizeOfInventory = currentCrew.getFoodInventory().size();
