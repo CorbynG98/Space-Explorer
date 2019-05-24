@@ -178,7 +178,7 @@ public class DayView {
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
 		
-		JLabel lblCurrentDay = new JLabel("CuImages for each crew memberrrent Day:");
+		JLabel lblCurrentDay = new JLabel("Current Day:");
 		lblCurrentDay.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblCurrentDay.setBounds(12, 12, 130, 15);
 		frame.getContentPane().add(lblCurrentDay);

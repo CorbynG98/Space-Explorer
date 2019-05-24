@@ -124,7 +124,7 @@ public class Ship {
 
 	/**
 	 * Repairs the ship but 10, with some bonus if the selected crew member is an engineer.
-	 * @param person CrewMember - The crew member attempting the repair.
+	 * @param crewMember CrewMember - The crew member attempting the repair.
 	 * @return The amount the person repaired the ship by.
 	 */
 	public int repairShip(CrewMember crewMember) {
