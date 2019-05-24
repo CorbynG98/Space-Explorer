@@ -346,18 +346,12 @@ public class GameEnvironment {
 			}
 			
 		}
-	
-	// Loop through and remove crew member if they are dead.
-		
-<<<<<<< HEAD
 		// Loop through and remove crew member if they are dead.
 		for (int i = 0; i < currentShip.getCrew().getCrewList().size(); i++) {
 			if (currentShip.getCrew().getCrewList().get(i).isDead()) {
 				currentShip.getCrew().removeCrewMember(currentShip.getCrew().getCrewList().get(i));
 			}
 		}
-=======
->>>>>>> d85e30ecf425f2d809590dac1fcf55e581c07478
 		
 
 		Random eventChance = new Random();
