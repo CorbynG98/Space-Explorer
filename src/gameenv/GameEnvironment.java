@@ -12,42 +12,75 @@ import spaceship.*;
 import views.*;
 import planet.*;
 
+/**
+ * Represents the game environment and passes controls the flow of objects to and from the required classes in order to create the game windows and functionality
+ * for the game.
+ */
 public class GameEnvironment {
 	
+	/**
+	 * Holds the number of days completed in game.
+	 */
 	private int daysCompleted = 0;
+	/**
+	 * Holds the number of day the game will be played for, selected by the user in the setup screen.
+	 */
 	private int numberOfGameDays;
+	/**
+	 * Holds the current Ship object.
+	 */
 	private Ship currentShip;
+	/**
+	 * Holds the current Planet object. 
+	 */
 	private Planet currentPlanet;
-	private JFrame dayView;
+	/**
+	 * Holds the main game GUI JFrame and DayView object.
+	 */
 	private DayView day;
+	/**
+	 * Holds the baseline hunger degradation for CrewMember instances
+	 */
 	private int hungerDecrease = 15;
+	/**
+	 * Holds the baseline tiredness degradation for CrewMember instances
+	 */
 	private int tirednessDecrease = 15;
+	/**
+	 * Holds the parts required to successfully complete the game. Calculated as 2/3 of the numberOfGameDays.
+	 */
 	private int partsRequired;
+	/**
+	 * Holds the current number of parts found in game.
+	 */
 	private int transporterPartsFound = 0;
-	
+	/**
+	 * Holds a list of FoodItem objects that can be used to generate new items when required.
+	 */
 	private List<FoodItem> foodItems = Arrays.asList(new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup());
+	/**
+	 * Holds a list of MedicalItem objects that can be used to generate new items when required.
+	 */
 	private List<MedicalItem> medicalItems = Arrays.asList(new FirstAidKit(), new MedKit());
 	
-
 	
-	
-	
-	
-	
-	/*
-	 *  Initializes the main game objects 
+	/**
+	 *  Creates a GameEnvironment instance, and creates a Ship object and initial Planet object for the game. 
 	 */
 	public GameEnvironment() {
 		currentShip = new Enterprise();
 		currentPlanet = new Planet();
 	}
 	
+	/**
+	 * Launches the game and creates the game GUI.
+	 */
 	public void newGame() {
 		mainMenu();
 	}
 	
-	/* 
-	 * Initializes the title screen when the game is run erefull
+	/** 
+	 * Initializes the title screen window and the start button, which continues to the setup screen.
 	 */ 
 	public void mainMenu() {
 		MainMenuView mainView = new MainMenuView(currentShip);
@@ -60,8 +93,9 @@ public class GameEnvironment {
 	}
 	
 	
-	/* 
-	 * Creates the crew selection window, which displays the attributes for different crew member classes. Also allows the naming of the crew members. 
+	/**
+	 * Creates the crew selection window, which displays the attributes for different crew member classes. Also allows the naming of the crew members.
+	 * Once selected, the main game view method is called.
 	 */
 	public void setupScreen() {
 		InitialSetupView initialSetup = new InitialSetupView();
@@ -104,7 +138,7 @@ public class GameEnvironment {
 	}
 	
 	
-	/*
+	/**
 	 *  Actions when a player enters the shop with a crew member. Also Generates the items that will be available for purchase in the shop.
 	 */
 	public void visitShop() {		
@@ -150,8 +184,8 @@ public class GameEnvironment {
 	}	
 	
 	
-	/*
-	 * Action events for the buttons on the main crew view screen
+	/**
+	 * Holds the ActionListener instances for the main game window buttons, and calls the necessary methods when a button is clicked.
 	 */
 	public void newDay() {
 		day = new DayView(currentShip, daysCompleted);
@@ -217,6 +251,7 @@ public class GameEnvironment {
 			}
 		});
 		
+		// Fly to a new planet if enough (2) crew members are currently seated as pilots.
 		day.getFlyButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -229,8 +264,8 @@ public class GameEnvironment {
 	
 	}
 	
-	/*
-	 * Creates the Ship Status view window
+	/**
+	 * Creates a new ShipStatusView object and holds the ActionListener for the 'Leave' button that re-enables the main view window.
 	 */
 	public void viewShipState() {
 		ShipStatusView shipState = new ShipStatusView(currentShip);
@@ -243,8 +278,8 @@ public class GameEnvironment {
 		});
 	}
 	
-	/*
-	 * Passes the currently selected crew member to the repairShip method and creates necessary dialogs
+	/**
+	 * Passes the currently selected crew member to the repairShip method and creates necessary dialogs when the crew member repairs the ship.
 	 */
 	public void repairShip() {
 		CrewMember activeCrewMember = day.getSelectedCrewMember();
@@ -267,8 +302,9 @@ public class GameEnvironment {
 		shipRepair.setVisible(true);
 	}
 	
-	/*
-	 * Passes the currently selected crew member to the searchPlanet method and creates dialogs for any found items.
+	/**
+	 * Passes the currently selected crew member to the searchPlanet method and creates dialogs for any found items. Any items found will be added to the
+	 * associated inventory.
 	 */
 	public void searchPlanet() {
 		CrewMember activeCrewMember = day.getSelectedCrewMember();
@@ -313,8 +349,10 @@ public class GameEnvironment {
 		day.updateGUI();
 	}
 	
-	/*
-	 * Advances the game by a day, which resets crew actions and iterates their health, tiredness, and hunger levels. Can trigger certain random events.
+	/**
+	 * Advances the game by a day, which resets crew actions and increments their health, tiredness, and hunger levels based on the associated degradation
+	 * values. Can trigger certain random events.
+	 * @param flyingToNewPlanet takes a boolean value for whether the crew are flying to a new planet. If true, it enables the extra Asteroid Field event.
 	 */
 	public void goToNextDay(boolean flyingToNewPlanet) {
 		// Goes to the next day on the same planet.
@@ -393,8 +431,8 @@ public class GameEnvironment {
 		day.updateGUI();
 	}
 	
-	/*
-	 * Advances the game by a day and creates a new planet. May trigger a random event. 
+	/**
+	 * Advances the game by a day and creates a new planet. May trigger a random event.
 	 */
 	public void goToNewPlanet() {
 		currentPlanet = new Planet();
@@ -403,21 +441,27 @@ public class GameEnvironment {
 	}
 	
 	
-	/* 
-	 * Game over method, creates game over screen and resets variables 
+	/**
+	 * Game over method, called when the game is over if different conditions are met.
+	 * @param gameOverText takes a String which shows the reason for the game over. 
 	 */
 	public void gameOver(String gameOverText) {
 		GameOverView gameOverWindow = new GameOverView(gameOverText, day);
 	}
 	
+	/**
+	 * Game won method, called when the game ends with winning conditions satisfied.
+	 */
 	public void gameWon() {
 		GameWonView gameWonWindow = new GameWonView(day);
 	}
 	
+	/**
+	 * Main method for the GameEnvironment class. Starts the game.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		GameEnvironment game = new GameEnvironment();
 		game.newGame();
 	}
-	
-	
 }
