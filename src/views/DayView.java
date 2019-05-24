@@ -329,7 +329,7 @@ public class DayView {
 			personEnergy2.setBackground(Color.RED);
 			personEnergy2.setForeground(Color.GREEN);
 			
-			lblDiseased2 = new JLabel("you gay");
+			lblDiseased2 = new JLabel("");
 			lblDiseased2.setHorizontalAlignment(SwingConstants.CENTER);
 			lblDiseased2.setBounds(12, 42, 159, 15);
 			panelPerson2.add(lblDiseased2);
@@ -566,6 +566,8 @@ public class DayView {
 			lblPersonName1.setText(ship.getCrew().getCrewList().get(0).getName());
 			lblPersonType1.setText(ship.getCrew().getCrewList().get(0).getSpecialization());
 			
+			lblDiseased1.setText(ship.getCrew().getCrewList().get(0).getDiseaseStatus() ? "Diseased" : "");
+			
 			lblPersonActions1.setText(Integer.toString(2 - ship.getCrew().getCrewList().get(0).getActionsPerformed()));
 		} else {
 			panelPerson1.setVisible(false);
@@ -578,6 +580,8 @@ public class DayView {
 			lblPersonImage2.setIcon(new ImageIcon(new ImageIcon(SetupView.class.getResource(ship.getCrew().getCrewList().get(1).getImagePath())).getImage().getScaledInstance(155, 135, Image.SCALE_DEFAULT)));
 			lblPersonName2.setText(ship.getCrew().getCrewList().get(1).getName());
 			lblPersonType2.setText(ship.getCrew().getCrewList().get(1).getSpecialization());
+			
+			lblDiseased2.setText(ship.getCrew().getCrewList().get(1).getDiseaseStatus() ? "Diseased" : "");
 			
 			lblPersonActions2.setText(Integer.toString(2 - ship.getCrew().getCrewList().get(1).getActionsPerformed()));
 		} else {
@@ -592,6 +596,8 @@ public class DayView {
 			lblPersonName3.setText(ship.getCrew().getCrewList().get(2).getName());
 			lblPersonType3.setText(ship.getCrew().getCrewList().get(2).getSpecialization());
 			
+			lblDiseased3.setText(ship.getCrew().getCrewList().get(2).getDiseaseStatus() ? "Diseased" : "");
+			
 			lblPersonActions3.setText(Integer.toString(2 - ship.getCrew().getCrewList().get(2).getActionsPerformed()));
 		} else {
 			panelPerson3.setVisible(false);
@@ -604,6 +610,8 @@ public class DayView {
 			lblPersonImage4.setIcon(new ImageIcon(new ImageIcon(SetupView.class.getResource(ship.getCrew().getCrewList().get(3).getImagePath())).getImage().getScaledInstance(155, 135, Image.SCALE_DEFAULT)));
 			lblPersonName4.setText(ship.getCrew().getCrewList().get(3).getName());
 			lblPersonType4.setText(ship.getCrew().getCrewList().get(3).getSpecialization());
+			
+			lblDiseased4.setText(ship.getCrew().getCrewList().get(3).getDiseaseStatus() ? "Diseased" : "");
 			
 			lblPersonActions4.setText(Integer.toString(2 - ship.getCrew().getCrewList().get(3).getActionsPerformed()));
 		} else {
