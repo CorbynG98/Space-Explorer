@@ -14,7 +14,7 @@ import gameenv.*;
 public class RandomEvents {
 
 	
-	/* 
+	/**
 	 * Space plague random event. Each crew member has a 1/3 chance of contracting the space plague. Medics are immune to the disease.
 	 * @param crewList takes an arrayList of CrewMember objects 
 	 */
@@ -42,7 +42,7 @@ public class RandomEvents {
 	}
 
 	
-	/*
+	/**
 	 *  Alien pirates random event. If a Soldier class crew member exists in the crew, then there is a 1/3 chance that the event will be prevented. Other wise an item is stolen from 
 	 *  the ship's inventory.
 	 *  @param currentCrew takes a Crew object
@@ -125,7 +125,7 @@ public class RandomEvents {
 		
 	}
 	
-	/*
+	/**
 	 * Alien battle random event. A number between 1 and 20 is generated. If the number is greater than a given crew member's damage then that crew member sustains 
 	 * damage equal to the generated number. If the crew member's damage is higher they sustain no damage, however the ship will sustain 10 damage instead. If no crew members sustain damage, the crew gains
 	 * a new MedKit.
@@ -174,7 +174,7 @@ public class RandomEvents {
 		dialog.setVisible(true);
 	}
 	
-	/*
+	/**
 	 * A battle that may occur when a crew member searches a planet. A number is generate between 1 and 20. If the crew member's damage is greater than
 	 * the generated number they will sustain damage equal to the generated number. If the crew member's damage is greater then they may find an extra 
 	 * item on the planet (not a Transporter Part). If the crew member's damage is less than the generated number the crew member will sustain 20 - 40 damage.

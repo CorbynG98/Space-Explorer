@@ -2,6 +2,7 @@ package spaceship;
 
 import java.util.ArrayList;
 import crew.*;
+import views.*;
 import gameenv.*;
 
 public class Ship {
@@ -61,16 +62,20 @@ public class Ship {
 		return shipGameOverText;
 	}
 
-	public int repairShip(CrewMember person) {
+	public int repairShip(CrewMember crewMember) {
 		int repairAmount = 10;
 		
-		if (person.getSpecialization() == "Engineer") {
+		if (crewMember.getSpecialization() == "Engineer") {
 			repairAmount *= 1.5;
 		}
 		
 		this.health += repairAmount;
 		if (health >= maxHealth) this.health=maxHealth;
-		person.addActionPerformed();
+		crewMember.addActionPerformed();
+		
+		String shipRepairText = crewMember.getName() + " has repaired the ship and added " + Integer.toString(repairAmount) + " points to the ship's shield.";
+		EventDialogs shipRepair = new EventDialogs(shipRepairText);
+		shipRepair.setVisible(true);
 		
 		return repairAmount;
 	}
@@ -88,13 +93,18 @@ public class Ship {
 		
 		damageAmount += (this.health / 4);
 		
+		boolean pilotInCockpit = false;
+		
 		// Ship will take less damage if being piloted by a Pilot crew member
 		for (CrewMember crewMember: currentPilots) {
 			if (crewMember instanceof Pilot) {
-				damageAmount += (this.health / 5);
+				pilotInCockpit = true;
 			}
 		}
-		 
+		
+		if (pilotInCockpit) {
+			damageAmount = damageAmount / 2;
+		}
 		this.health -= damageAmount;
 		
 		if (this.health <= 0) {
