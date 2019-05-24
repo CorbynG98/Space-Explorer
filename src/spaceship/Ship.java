@@ -5,6 +5,14 @@ import crew.*;
 import views.*;
 import gameenv.*;
 
+/**
+ * Represents the Ship class. Ships allow Crew to fly to new planets. Ships have a shield variable that will decrease as the ship takes value
+ * during events throughout the game, and will increase when a CrewMember conducts repairs on the ship. If the ship's health variable falls to 0 during a game
+ * then the game is over as the ship has been destroyed.
+ * @author ctg31
+ * @author mch221
+ *
+ */
 public class Ship {
 	
 	/**
@@ -45,7 +53,7 @@ public class Ship {
 	/**
 	 * Constructor to set the name and custom health value of the ship.
 	 * @param name String - The name of the ship
-	 * @param health int - The custom health value for the ship
+	 * @param health integer - The custom health value for the ship
 	 */
 	public Ship(String name, int health) {
 		super();
@@ -64,7 +72,7 @@ public class Ship {
 	
 	/**
 	 * Removes some health from the ship
-	 * @param damageTaken int - Amount of damage taken.
+	 * @param damageTaken integer - Amount of damage taken.
 	 * @param currentGame GameEnvironment - The game environment so the game can end on ship death.
 	 */
 	public void takeDamage(int damageTaken, GameEnvironment currentGame) {
@@ -127,7 +135,9 @@ public class Ship {
 		}
 		
 		this.health += repairAmount;
+		
 		if (health >= maxHealth) this.health=maxHealth;
+		
 		crewMember.addActionPerformed();
 		
 		String shipRepairText = crewMember.getName() + " has repaired the ship and added " + Integer.toString(repairAmount) + " points to the ship's shield.";
@@ -135,19 +145,6 @@ public class Ship {
 		shipRepair.setVisible(true);
 		
 		return repairAmount;
-	}
-	
-	/**
-	 * Engages the ship in a ship to ship fight, damaging the shield.
-	 * @param damageAmount int - Amount of damage the ship takes
-	 * @param currentGame GameEnvironment - The current game environment to end the game on ship death
-	 */
-	public void ShipToShipFight(int damageAmount, GameEnvironment currentGame) {
-		this.health -= damageAmount;
-		
-		if (health <= 0) {
-			currentGame.gameOver(shipGameOverText);
-		}
 	}
 	
 	/**

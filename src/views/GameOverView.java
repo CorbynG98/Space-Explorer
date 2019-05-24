@@ -8,8 +8,16 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import java.awt.event.*;
+import java.awt.*;
 import gameenv.*;
 
+/**
+ * Contains the GameOverView class which creates Game Over window frame. The text in the window describes the event or conditions that were met
+ * to cause the game to end.
+ * @author ctg31
+ * @author mch221
+ *
+ */
 public class GameOverView {
 
 	/**
@@ -41,6 +49,17 @@ public class GameOverView {
 		JButton btnExit = new JButton("Exit");
 		btnExit.setBounds(12, 235, 114, 25);
 		frame.getContentPane().add(btnExit);
+		
+		frame.addWindowFocusListener(new WindowFocusListener() {
+			
+			public void windowGainedFocus(WindowEvent e) {
+				//do nothing
+			}
+			
+			public void windowLostFocus(WindowEvent e) {
+				frame.dispose();
+			}
+		});
 		
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
