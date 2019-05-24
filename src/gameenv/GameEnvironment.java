@@ -26,7 +26,7 @@ public class GameEnvironment {
 	private int transporterPartsFound = 0;
 	
 	private List<FoodItem> foodItems = Arrays.asList(new ApplePie(), new BigMac(), new EnergyDrink(), new Fries(), new FroCo(), new Milo(), new MincePie(), new MincePieWithKetchup());
-	private List<MedicalItem> medicalItems = Arrays.asList(new FirstAidKit(), new MedKit(), new SpacePlagueCure());
+	private List<MedicalItem> medicalItems = Arrays.asList(new FirstAidKit(), new MedKit());
 	
 
 	
@@ -75,9 +75,7 @@ public class GameEnvironment {
 				
 				currentShip.setName(initialSetup.getShipName().getText());
 				numberOfGameDays = Integer.parseInt((String)initialSetup.getDays().getSelectedItem());
-				System.out.print(numberOfGameDays);
-				partsRequired = numberOfGameDays - 2;
-				System.out.print(partsRequired);
+				partsRequired = (int)(numberOfGameDays * (2.0/3.0));
 				
 				initialSetup.getFrame().dispose();
 				
@@ -319,6 +317,8 @@ public class GameEnvironment {
 	public void goToNextDay(boolean flyingToNewPlanet) {
 		// Goes to the next day on the same planet.
 		daysCompleted += 1;
+		day.setDay(daysCompleted);
+		day.updateGUI();
 		
 		currentShip.getPilots().clear();
 		
