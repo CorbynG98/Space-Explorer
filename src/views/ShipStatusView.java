@@ -22,8 +22,17 @@ import javax.swing.JButton;
  */
 public class ShipStatusView {
 
+	/**
+	 * Main frame of the view
+	 */
 	private JFrame frame;
+	/**
+	 * Button to leave the satus view
+	 */
 	private JButton btnLeave;
+	/**
+	 * Current ship instance to display its health
+	 */
 	private Ship currentShip;
 
 	/**

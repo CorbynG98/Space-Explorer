@@ -10,6 +10,11 @@ import javax.swing.JLabel;
 import java.awt.event.*;
 import gameenv.*;
 
+/**
+ * Represents the game won view. Creates and builds the frames to display the game won and how it was won.
+ * @author ctg31
+ *
+ */
 public class GameWonView {
 
 	/**

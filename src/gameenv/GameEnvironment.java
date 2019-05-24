@@ -342,7 +342,7 @@ public class GameEnvironment {
 			
 			else if (foundItem instanceof TransporterPart) {
 				transporterPartsFound += 1;
-				day.updatePartsFound(transporterPartsFound);
+				day.updatePartsFound(transporterPartsFound, partsRequired);
 			}
 		}
 		

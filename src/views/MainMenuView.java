@@ -15,6 +15,12 @@ import javax.swing.JPanel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Represents the MainMenuView GUI. Creates and builds the GUI components so the user can interact with them.
+ * Returns certain components so the events can be handled in the game env class.
+ * @author ctg31
+ *
+ */
 public class MainMenuView {
 
 	/**
@@ -49,13 +55,13 @@ public class MainMenuView {
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Name of this game");
+		JLabel lblNewLabel = new JLabel("Space Explorer");
 		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 20));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(0, 12, 726, 27);
+		lblNewLabel.setBounds(-12, 109, 726, 27);
 		panel.add(lblNewLabel);
 		
-		btnStart.setBounds(273, 62, 180, 25);
+		btnStart.setBounds(261, 148, 180, 57);
 		panel.add(btnStart);
 	}
 	

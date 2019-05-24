@@ -12,6 +12,11 @@ import java.awt.event.*;
 import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
 
+/**
+ * Represents the EventDialogs class. Creates and builds dialogs for all the random events that occur in the game.
+ * @author ctg31
+ *
+ */
 public class EventDialogs extends JDialog {
 	/**
 	 * Main content panel for each dialog created.

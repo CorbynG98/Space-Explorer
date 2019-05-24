@@ -15,12 +15,33 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
+/**
+ * Represents the initialSetup class. Creates and builds the components required for the initial setup of the game.
+ * Returns the components so the information can be collected and events handled in the game env class
+ * @author ctg31
+ *
+ */
 public class InitialSetupView {
 
+	/**
+	 * Main frame of the view.
+	 */
 	private JFrame frame;
+	/**
+	 * Name of the ship.
+	 */
 	private JTextField textField;
+	/**
+	 * Button to confirm entered data.
+	 */
 	private JButton btnConfirm;
+	/**
+	 * Error label in case any information is invalid.
+	 */
 	private JLabel lblError;
+	/**
+	 * Combo box for the number of days being played.
+	 */
 	private JComboBox comboBox;
 
 	/**

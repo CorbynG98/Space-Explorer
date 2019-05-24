@@ -24,6 +24,13 @@ import javax.swing.JComboBox;
 import javax.swing.JProgressBar;
 import javax.swing.JPanel;
 
+/**
+ * Represents the main view of the game. Creates and builds the frame with all the required buttons and labels
+ * to interact and keep up to date with the game. Most components are returned so the events can be handled in the game env
+ * and the labels changed accordingly.
+ * @author ctg31
+ *
+ */
 public class DayView {
 
 	/**
@@ -158,6 +165,7 @@ public class DayView {
 		this.selectedPerson = ship.getCrew().getCrewList().get(0);
 		initialize();
 		updateGUI();
+		updateSelectedDetails();
 	}
 
 	/**
@@ -773,9 +781,9 @@ public class DayView {
 	 * Sets the number of parts the player has found on a planet.
 	 * @param partsFound int - the number of parts found.
 	 */
-	public void updatePartsFound(int partsFound) {
+	public void updatePartsFound(int partsFound, int totalParts) {
 		lblPartOnPlanetFound.setText("1/1");
-		lblTotalPartsFound.setText("Parts Found: " + Integer.toString(partsFound));
+		lblTotalPartsFound.setText("Parts Found: " + Integer.toString(partsFound) + "/" + Integer.toString(totalParts));
 	}
 	
 	/**

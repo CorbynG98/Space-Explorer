@@ -24,6 +24,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import javax.swing.JTextPane;
 
+/**
+ * Represents the setup view. Create and displays the GUI Components so they user can interact with them.
+ * Returns certain components so events can be handled in the game env class.
+ * @author ctg31
+ *
+ */
 public class SetupView {
 
 	/**

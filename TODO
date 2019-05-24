@@ -1,7 +1,0 @@
-Adding pilots for the ship, and a label in dayview to show how many are currently manning the ship.
-Space battle event --> fight with pirates. Use damage of crew member.
-Images for planets, main menu
-Attach button action for "FLY" button
-Build gameover function and screen --> can start new game
-Javadoc and UNITtests throughout
-Commenting for methods and variables
